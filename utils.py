@@ -9,34 +9,44 @@ import openai
 from openai import OpenAI
 
 
-def askChatGPT(messages, model="gpt-3.5-turbo", temperature = 1, max_tokens=200):
+def askChatGPT(messages, model="deepseek-v4-pro", temperature = 1, max_tokens=10000):
     response = openai.ChatCompletion.create(
             model = model,
             messages = messages,
             temperature = temperature,
             max_tokens = max_tokens,
+            extra_body={
+                     "thinking": {
+                            "type": "disabled"
+                     }
+                },
         )
     addtoken(response.usage.total_tokens)
     answer = response.choices[0].message["content"]
     return answer.strip()
 
 
-def askLLM(clients, messages, tokens_path, model="gpt-3.5-turbo", temperature = 1, max_tokens=2000):
-    # 需要包括GPT系列以及LLaMA系列的模型调用,分开写已备调用接口略有区别
+def askLLM(clients, messages, tokens_path, model="deepseek-v4-pro", temperature = 1, max_tokens=10000):
+    # 需要包括DeepSeek系列以及LLaMA系列的模型调用,分开写已备调用接口略有区别
     
-    if model in ['gpt-4', 'gpt-4-turbo', 'gpt-3.5-turbo', 'gpt-4o-mini', 'gpt-4o']: # GPT系列模型调用           
-        client = clients['gpt']  # gpt系列共用一个client
+    if model in ['gpt-4', 'gpt-4-turbo', 'gpt-3.5-turbo', 'gpt-4o-mini', 'gpt-4o', 'deepseek-v4-pro', 'deepseek-v4-flash']: # DeepSeek系列模型调用           
+        client = clients['gpt']  # deepseek系列共用一个client
         response = client.chat.completions.create(
-                model = 'gpt-4o',
+                model = model,
                 messages = messages,
                 temperature = temperature,
                 max_tokens = max_tokens,
+                extra_body={
+                     "thinking": {
+                            "type": "disabled"
+                     }
+                },
             )
         model ='gpt-4o'
         update_token_usage(model, response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
         answer = response.choices[0].message.content
         
-    elif model in ['llama3-70b', 'llama3-8b']:
+    elif model in ['llama3-70b', 'llama3-8b', 'llama3:8b']:
         client = clients['llama']  # llama系列共用一个client
         response = client.chat.completions.create(
                 model = model, 
@@ -54,39 +64,44 @@ def askLLM(clients, messages, tokens_path, model="gpt-3.5-turbo", temperature = 
 
 
 
-def askLLM_withprob(clients, messages, tokens_path, model="gpt-3.5-turbo", temperature = 1, max_tokens=200):
-    # 需要包括GPT系列以及LLaMA系列的模型调用,调用接口略有区别
+def askLLM_withprob(clients, messages, tokens_path, model="deepseek-v4-pro", temperature = 1, max_tokens=10000):
+    # 需要包括DeepSeek系列以及LLaMA系列的模型调用,调用接口略有区别
     probs = {}
-    if model in ['gpt-4', 'gpt-4-turbo', 'gpt-3.5-turbo', 'gpt-4o-mini']: # GPT系列模型调用           
-        client = clients['gpt']  # gpt系列共用一个client
+    if model in ['gpt-4', 'gpt-4-turbo', 'gpt-3.5-turbo', 'gpt-4o-mini', 'deepseek-v4-pro', 'deepseek-v4-flash']: # DeepSeek系列模型调用           
+        client = clients['gpt']  # deepseek系列共用一个client
         response = client.chat.completions.create(
                 model = model,
-                messages = 'gpt-4o',
+                messages = messages,
                 temperature = temperature,
                 max_tokens = max_tokens,
+                extra_body={
+                     "thinking": {
+                            "type": "disabled"
+                     }
+                },
                 logprobs = True,
             )
         # print(response.usage
         # add token 需要更加细致.
         # addtoken(response.usage.total_tokens)
-        model ='gpt-4o'
+        model = model
         update_token_usage(model, response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
         answer = response.choices[0].message.content
         for item in response.choices[0].logprobs.content:
             # 在这一步就把logprob用e指数返回成prob
             probs[item.token] = math.exp(item.logprob)
         
-    elif model in ['llama3-70b', 'llama3-8b']:
-        client = clients['gpt']  # 这里需要改成llama系列的prompts  # TODO 还没拿到LLaMA的key, 所以先拿gpt-3.5充当.
+    elif model in ['llama3-70b', 'llama3-8b', 'llama3:8b']:
+        client = clients['gpt']  # 这里需要改成llama系列的prompts  # TODO 还没拿到LLaMA的key, 所以先拿deepseek充当.
         response = client.chat.completions.create(
-                model = "gpt-3.5-turbo",  # TODO 还没拿到LLaMA的key, 所以先拿gpt-3.5充当.
+                model = model,  # TODO 还没拿到LLaMA的key, 所以先拿deepseek充当.
                 messages = messages,
                 temperature = temperature,
                 max_tokens = max_tokens,
                 logprobs = True,
             )
         # addtoken(response.usage.total_tokens)
-        update_token_usage("gpt-3.5-turbo", response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
+        update_token_usage("deepseek-v4-pro", response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
         answer = response.choices[0].message.content
         for item in response.choices[0].logprobs.content:
             probs[item.token] = math.exp(item.logprob)
@@ -140,17 +155,17 @@ def addtoken(num):
 
     
 def setOpenAi(keyid = 0):
-    # set your openai key here.
-    if keyid == 0:
-        api_key = ""
-    client = OpenAI(api_key=api_key)
+    # set your deepseek key here.
+    base_url = "https://api.deepseek.com"
+    api_key = os.environ.get("DEEPSEEK_API_KEY") or os.environ.get("OPENAI_API_KEY")
+    client = OpenAI(base_url=base_url, api_key=api_key)
     addtoken(-1)
     return client
 
 def setLocal():
     client = OpenAI(
-        api_key="EMPTY",
-        base_url="your llm deploy url",
+        api_key="ollama",
+        base_url="http://localhost:11434/v1",
     )
     return client
 
@@ -492,4 +507,3 @@ def find_first_valid_key2(lst, dictx):
 if __name__ == '__main__':
     lst = [1,2,3,4,5,6,7,8,9,10]
     print(quantile(lst, 0.2)) 
-

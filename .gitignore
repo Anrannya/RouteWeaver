@@ -1,0 +1,66 @@
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+DoT_env/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Temporary process output
+nohup.out
+*.pid
+*.tmp
+*.bak
+*.swp
+*~
+
+# Ignore ordinary logs by default
+
+# Keep curated experiment logs
+!experiments/**/*.log
+!experiments/**/*.out
+!reports/**/*.log
+
+# IDE / OS
+.vscode/
+.idea/
+.cursor/
+.DS_Store
+
+# Models and checkpoints
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+checkpoints/
+models/
+
+# Archives
+*.tar
+*.tar.gz
+*.zip
+*.7z
+
+# Ignore large datasets
+Task_Datasets/*
+
+# Keep dataset documentation
+!Task_Datasets/README.md
+!Task_Datasets/readme.md
+
+# TmpRes temporary files only
+**/TmpRes/*.tmp
+**/TmpRes/*.bak
+**/TmpRes/*.swp
+
+# Jupyter
+.ipynb_checkpoints/

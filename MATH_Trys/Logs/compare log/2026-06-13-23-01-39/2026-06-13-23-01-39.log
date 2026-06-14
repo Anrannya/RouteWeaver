@@ -1,0 +1,61 @@
+2026-06-13 23:01:39 [INFO] ===== Round 1/1 =====
+2026-06-13 23:01:39 [INFO] ===== no_tool =====
+2026-06-13 23:01:39 [INFO] 
+
+number id: 0
+2026-06-13 23:01:48 [INFO] correct (tool_hit=0)
+2026-06-13 23:01:48 [INFO] 
+
+number id: 1
+2026-06-13 23:01:52 [INFO] correct (tool_hit=0)
+2026-06-13 23:01:52 [INFO] 
+
+number id: 2
+2026-06-13 23:02:02 [INFO] error (tool_hit=0)
+2026-06-13 23:02:02 [INFO] 
+
+number id: 3
+2026-06-13 23:02:10 [INFO] error (tool_hit=0)
+2026-06-13 23:02:10 [INFO] 
+
+number id: 4
+2026-06-13 23:02:16 [INFO] correct (tool_hit=0)
+2026-06-13 23:02:16 [INFO] 5 solving 运行耗时: 0.0h, 0.0min, 37.24361252784729s
+2026-06-13 23:02:16 [INFO] Correct_Q: 3
+2026-06-13 23:02:16 [INFO] False_Q: 2
+2026-06-13 23:02:16 [INFO] Error_Q: 0
+2026-06-13 23:02:16 [INFO] Sum_Q: 5
+2026-06-13 23:02:16 [INFO] Acc: 60.00%
+2026-06-13 23:02:16 [INFO] Avg_time_per_Q: 7.45s
+2026-06-13 23:02:16 [INFO] Total Tokens: 3475; Total Cost: $0.01
+2026-06-13 23:02:16 [INFO] ===== with_tool =====
+2026-06-13 23:02:16 [INFO] 
+
+number id: 0
+2026-06-13 23:02:20 [INFO] correct (tool_hit=1)
+2026-06-13 23:02:20 [INFO] 
+
+number id: 1
+2026-06-13 23:02:24 [INFO] correct (tool_hit=0)
+2026-06-13 23:02:24 [INFO] 
+
+number id: 2
+2026-06-13 23:02:39 [INFO] error (tool_hit=0)
+2026-06-13 23:02:39 [INFO] 
+
+number id: 3
+2026-06-13 23:02:49 [INFO] correct (tool_hit=0)
+2026-06-13 23:02:49 [INFO] 
+
+number id: 4
+2026-06-13 23:02:53 [INFO] correct (tool_hit=0)
+2026-06-13 23:02:53 [INFO] 5 solving 运行耗时: 0.0h, 0.0min, 36.73470067977905s
+2026-06-13 23:02:53 [INFO] Correct_Q: 4
+2026-06-13 23:02:53 [INFO] False_Q: 1
+2026-06-13 23:02:53 [INFO] Error_Q: 0
+2026-06-13 23:02:53 [INFO] Sum_Q: 5
+2026-06-13 23:02:53 [INFO] Acc: 80.00%
+2026-06-13 23:02:53 [INFO] Avg_time_per_Q: 7.35s
+2026-06-13 23:02:53 [INFO] Total Tokens: 3524; Total Cost: $0.01
+2026-06-13 23:02:53 [INFO] Round 1 | no_tool: Acc=3/5, Avg_time=7.45s
+2026-06-13 23:02:53 [INFO] Round 1 | with_tool: Acc=4/5, Avg_time=7.35s

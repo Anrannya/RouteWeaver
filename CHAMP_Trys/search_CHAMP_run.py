@@ -28,7 +28,7 @@ os.environ["http_proxy"] = "http://localhost:7890"
 os.environ["https_proxy"] = "http://localhost:7890"
 openaiClient = setOpenAi(keyid = 3)
 llamaClient = Groq(  # 这个是Groq调用llama的api接口
-    api_key='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'
+    api_key=os.environ["GROQ_API_KEY"]
 )
 clients = {'gpt': openaiClient, 'llama': llamaClient}
 aftername = "LLM_allocation_search-0923"  # 及时更新这个日期,需要增大将本地
