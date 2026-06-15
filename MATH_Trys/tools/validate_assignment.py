@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
 """
 工具分配校验：分配阶段与运行阶段共用，拒绝明显错误的 replace/assist。
-
-不读 gold、不按题号特判；仅依据子任务文本、工具名、参数与 mode。
 """
 import re
+
+from .target_utils import (
+    extract_requested_target,
+    is_expression_target,
+    is_root_derived_target,
+    is_strict_solve_subtask,
+    validate_target_match,
+    wants_all_system_variables,
+)
 
 try:
     import sympy as sp
@@ -17,10 +24,6 @@ try:
 except Exception:
     _SYMPY_OK = False
 
-_SOLVE_KW = (
-    "solve for", "roots of", "values of", "satisfy",
-    "equal to zero", "set equal", "quadratic equation",
-)
 _EQUATION_ASK = ("equation do", "equation from", "what equation", "equation we get")
 _PLURAL_ROOT_KW = ("roots", "all possible values", "solutions of", "sum of the roots")
 _PARAM_LETTERS = set("abckmnpr")
@@ -47,7 +50,6 @@ def _is_pure_numeric(expr_str):
 
 
 def _breaks_symbolic_structure(subtask, expr_str):
-    """expanded form + 多因子乘积结构：不宜 arith replace。"""
     low = subtask.lower()
     if "expanded form" not in low:
         return False
@@ -67,20 +69,25 @@ def validate_assignment(subtask, tool_name, tool_args, mode="replace", all_steps
     low = subtask.lower()
     expr = tool_args.get("expression") or tool_args.get("equation") or ""
 
-    # --- 参数完整性 ---
+    ok, reason = validate_target_match(subtask, tool_name, tool_args, mode)
+    if not ok:
+        return False, reason
+
     if tool_name == "subst":
         if not tool_args.get("expression") or not tool_args.get("subs"):
             return False, "subst 参数不完整"
     elif tool_name == "aggregate":
         return False, "前驱无 verified 结构化数值，aggregate 暂不分配"
     elif tool_name == "solve":
+        if is_root_derived_target(subtask):
+            return False, "求根派生目标，solve 无法直接回答"
         if not tool_args.get("equation", "").strip():
             return False, "solve 缺少 equation"
         if mode == "replace":
             if not tool_args.get("unique"):
                 return False, "solve 多解或目标不明确，禁止 replace"
-            if any(k in low for k in _PLURAL_ROOT_KW):
-                return False, "求根集/和多解目标禁止 solve replace"
+            if any(k in low for k in _PLURAL_ROOT_KW) and "what is" not in low:
+                return False, "求根集目标禁止 solve replace"
     elif tool_name == "complex_arithmetic":
         if not tool_args.get("expression", "").strip():
             return False, "complex_arithmetic 缺少 expression"
@@ -89,19 +96,17 @@ def validate_assignment(subtask, tool_name, tool_args, mode="replace", all_steps
         vars_ = tool_args.get("variables") or []
         if len(eqs) < 2 or len(vars_) < 2:
             return False, "linear_system_solver 方程/变量不完整"
-        if mode == "replace" and tool_args.get("target"):
-            pass  # 目标量已内嵌求解
-        elif mode == "replace" and not tool_args.get("target"):
-            if not any(k in low for k in ("value of", "find ", "solve")):
-                return False, "线性方程组 replace 需明确单变量或 target"
+        if mode == "replace" and not tool_args.get("target") and not wants_all_system_variables(subtask):
+            return False, "linear replace 需 target 或全部变量"
     elif tool_name in ("factor", "expand", "simplify", "arith"):
         if not expr.strip():
             return False, f"{tool_name} 缺少 expression"
 
-    # --- arith replace 规则 ---
     if tool_name == "arith" and mode == "replace":
-        if any(k in low for k in _SOLVE_KW):
-            return False, "解方程类子任务禁止 arith replace"
+        if is_strict_solve_subtask(subtask):
+            return False, "求变量子任务禁止 arith replace"
+        if is_expression_target(subtask) and not _is_pure_numeric(expr):
+            return False, "含变量表达式子任务禁止 arith replace"
         if "equation" in low and any(k in low for k in _EQUATION_ASK):
             return False, "求方程形式子任务禁止 arith replace"
         if "absolute difference" in low or "difference between" in low:
@@ -113,7 +118,6 @@ def validate_assignment(subtask, tool_name, tool_args, mode="replace", all_steps
         if _breaks_symbolic_structure(subtask, expr):
             return False, "会破坏符号结构，禁止 arith replace"
 
-    # --- 未绑定变量：replace ---
     if mode == "replace" and tool_name in ("expand", "factor", "simplify", "arith"):
         syms = _free_symbols(expr)
         subs_keys = {str(k).strip() for k in (tool_args.get("subs") or {}).keys()}

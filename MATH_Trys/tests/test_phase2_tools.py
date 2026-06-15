@@ -37,6 +37,12 @@ def test_solve():
     _must_fail(tool_solve, {"equation": "2*x+", "variable": "x"})
     _must_fail(tool_solve, {"equation": "", "variable": "x"})
 
+    r = _must_fail(tool_solve, {"equation": "x**2+1=0", "variable": "x", "domain": "real"})
+    assert "实数" in r["reason"] or not r["success"]
+
+    r = _must_ok(tool_solve, {"equation": "x**2+1=0", "variable": "x", "domain": "complex"})
+    assert set(r["solutions"]) == {"I", "-I"} or set(r["solutions"]) == {"-I", "I"}
+
 
 def test_complex():
     r = _must_ok(tool_complex_arithmetic, {"expression": "(3-1*I)+(2+4*I)"})

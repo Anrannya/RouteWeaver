@@ -115,30 +115,40 @@ def tool_solve(args):
         if var_name and sym.name != var_name.lower():
             return _fail(f"指定变量 {var_name} 与方程不符")
 
+        domain = (args.get("domain") or "real").lower()
+        if domain not in ("real", "complex"):
+            return _fail("domain 须为 real 或 complex")
+
         sols = sp.solve(f, sym)
         if sols is None or sols == []:
             return _fail("无解")
         if isinstance(sols, dict):
             return _fail("无法以单变量形式解析解")
 
-        # 去重保序
         seen, uniq = set(), []
         for s in sols:
-            k = str(sp.nsimplify(s))
+            s = sp.nsimplify(s)
+            if domain == "real" and s.is_complex and not s.is_real:
+                if sp.im(s) != 0:
+                    continue
+            k = str(s)
             if k not in seen:
                 seen.add(k)
-                uniq.append(sp.nsimplify(s))
+                uniq.append(s)
 
-        if len(uniq) == 0:
+        if domain == "real" and not uniq and sols:
+            return _fail("无实数解")
+        if not uniq:
             return _fail("无解")
 
         sol_strs = [_fmt_num(s) for s in uniq]
         unique = len(sol_strs) == 1
+        extra = {"domain": domain}
         if unique:
             text = f"{sym.name} = {sol_strs[0]}"
-            return _ok(text, text=text, value=sol_strs[0], solutions=sol_strs, unique=True)
+            return _ok(text, text=text, value=sol_strs[0], solutions=sol_strs, unique=True, **extra)
         text = f"{sym.name} = " + ", ".join(sol_strs)
-        return _ok(text, text=text, value=None, solutions=sol_strs, unique=False)
+        return _ok(text, text=text, value=None, solutions=sol_strs, unique=False, **extra)
     except Exception as e:
         return _fail(f"solve 解析失败: {e}")
 

@@ -1,5 +1,16 @@
 [
   {
+    "qid": 68,
+    "step_id": 18,
+    "subtask": "- Therefore, the sum of the fractions is \\(\\frac{1}{16} \\times 120\\).",
+    "original_tool": "arith",
+    "original_mode": "replace",
+    "original_args": {
+      "expression": "((1)/(16)) * 120"
+    },
+    "reason": "replace 目标无法确认，保守拒绝"
+  },
+  {
     "qid": 100,
     "step_id": 2,
     "subtask": "What equation do we get when we set the simplified expression equal to \\(3^6\\)?",

@@ -2142,21 +2142,17 @@
     ],
     "allo_tool": [
       "no_tool",
-      "solve",
+      "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {},
-      {
-        "equation": "a= 5",
-        "variable": "a",
-        "unique": true
-      },
+      {},
       {}
     ],
     "tool_mode": [
       "no_tool",
-      "replace",
+      "no_tool",
       "no_tool"
     ]
   },
@@ -2290,7 +2286,7 @@
       "expand",
       "no_tool",
       "no_tool",
-      "solve",
+      "no_tool",
       "no_tool"
     ],
     "tool_args": [
@@ -2299,18 +2295,14 @@
       },
       {},
       {},
-      {
-        "equation": "(2x+5)(x-3)=14",
-        "variable": "x",
-        "unique": false
-      },
+      {},
       {}
     ],
     "tool_mode": [
       "replace",
       "no_tool",
       "no_tool",
-      "assist",
+      "no_tool",
       "no_tool"
     ]
   },
@@ -3631,29 +3623,19 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "linear_system_solver",
+      "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {
-        "equations": [
-          "x = 4",
-          "3x + 2y = 12"
-        ],
-        "variables": [
-          "x",
-          "y"
-        ],
-        "unique": true
-      },
+      {},
       {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "assist",
+      "no_tool",
       "no_tool"
     ]
   },
@@ -4169,21 +4151,19 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "complex_arithmetic",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {
-        "expression": "(2-2i)(5+5i)"
-      },
+      {},
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "assist",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -5268,20 +5248,18 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "complex_arithmetic",
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
-      "complex_arithmetic",
       "no_tool",
       "complex_arithmetic",
+      "no_tool",
+      "no_tool",
       "complex_arithmetic"
     ],
     "tool_args": [
-      {
-        "expression": "(3-i)(6+2i)"
-      },
+      {},
       {},
       {},
       {},
@@ -5290,22 +5268,20 @@
         "expression": "(3-i)(6+2i)"
       },
       {},
-      {
-        "expression": "(3-i)(6+2i)"
-      },
+      {},
       {
         "expression": "(3-i)(6+2i)"
       }
     ],
     "tool_mode": [
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
       "assist",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool",
-      "assist",
-      "no_tool",
-      "replace",
       "replace"
     ]
   },
@@ -5564,7 +5540,7 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "solve",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -5573,11 +5549,7 @@
     "tool_args": [
       {},
       {},
-      {
-        "equation": "x(x-3)=1",
-        "variable": "x",
-        "unique": false
-      },
+      {},
       {},
       {},
       {},
@@ -5586,7 +5558,7 @@
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "assist",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -5651,21 +5623,26 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "no_tool",
+      "solve",
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {},
+      {
+        "equation": "2x^2 + 13x + 6 = 0",
+        "variable": "x",
+        "domain": "real",
+        "unique": false
+      },
       {},
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "no_tool",
+      "assist",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -6212,7 +6189,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "arith",
+      "no_tool",
       "no_tool",
       "no_tool"
     ],
@@ -6234,9 +6211,7 @@
       {},
       {},
       {},
-      {
-        "expression": "((1)/(16)) * 120"
-      },
+      {},
       {},
       {}
     ],
@@ -6258,7 +6233,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "replace",
+      "no_tool",
       "no_tool",
       "no_tool"
     ]
@@ -6363,27 +6338,24 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "solve",
-      "linear_system_solver",
+      "subst",
+      "subst",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {
-        "equation": "y = 9",
-        "variable": "y",
-        "unique": true
+        "expression": "y**2",
+        "subs": {
+          "y": "9"
+        }
       },
       {
-        "equations": [
-          "x = 3",
-          "y = 9"
-        ],
-        "variables": [
-          "x",
-          "y"
-        ],
-        "unique": true
+        "expression": "3*x*y",
+        "subs": {
+          "x": "3",
+          "y": "9"
+        }
       },
       {},
       {}
@@ -6541,19 +6513,24 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "no_tool",
+      "subst",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {},
+      {
+        "expression": "k",
+        "subs": {
+          "k": "14"
+        }
+      },
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "no_tool",
+      "replace",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -6700,6 +6677,7 @@
       {
         "equation": "2x(x-10)=-50",
         "variable": "x",
+        "domain": "real",
         "unique": true
       },
       {}
@@ -10837,37 +10815,30 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "solve",
-      "linear_system_solver",
-      "linear_system_solver"
+      "subst",
+      "subst",
+      "subst"
     ],
     "tool_args": [
       {
-        "equation": "x = 4",
-        "variable": "x",
-        "unique": true
+        "expression": "2*x",
+        "subs": {
+          "x": "4"
+        }
       },
       {
-        "equations": [
-          "x = 4",
-          "y = 3"
-        ],
-        "variables": [
-          "x",
-          "y"
-        ],
-        "unique": true
+        "expression": "2*x - y",
+        "subs": {
+          "x": "4",
+          "y": "3"
+        }
       },
       {
-        "equations": [
-          "x=4",
-          "y=3"
-        ],
-        "variables": [
-          "x",
-          "y"
-        ],
-        "unique": true
+        "expression": "-2*x + y + 24",
+        "subs": {
+          "x": "4",
+          "y": "3"
+        }
       }
     ],
     "tool_mode": [
@@ -11176,19 +11147,24 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "no_tool",
+      "solve",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {},
+      {
+        "equation": "2x^2-10x+5=0",
+        "variable": "x",
+        "domain": "real",
+        "unique": false
+      },
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "no_tool",
+      "assist",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -11422,6 +11398,7 @@
           "x",
           "y"
         ],
+        "target": "2*x",
         "unique": true
       },
       {
@@ -11433,6 +11410,7 @@
           "x",
           "y"
         ],
+        "target": "x*y",
         "unique": true
       },
       {
@@ -11444,6 +11422,7 @@
           "x",
           "y"
         ],
+        "target": "-x*y + 2*x",
         "unique": true
       }
     ],
@@ -11859,6 +11838,7 @@
       {
         "equation": "(x+1)(x+2) = x+3",
         "variable": "x",
+        "domain": "real",
         "unique": false
       },
       {
@@ -13481,7 +13461,7 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "no_tool",
+      "solve",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -13495,7 +13475,12 @@
       "no_tool"
     ],
     "tool_args": [
-      {},
+      {
+        "equation": "2x^2-7x+2=0",
+        "variable": "x",
+        "domain": "real",
+        "unique": false
+      },
       {},
       {},
       {},
@@ -13509,7 +13494,7 @@
       {}
     ],
     "tool_mode": [
-      "no_tool",
+      "assist",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -13651,20 +13636,30 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "no_tool",
-      "no_tool",
+      "solve",
+      "solve",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {},
-      {},
+      {
+        "equation": "18x^2 + 25x - 3 = 0",
+        "variable": "x",
+        "domain": "real",
+        "unique": false
+      },
+      {
+        "equation": "4x^2 + 8x + 3 = 0",
+        "variable": "x",
+        "domain": "real",
+        "unique": false
+      },
       {},
       {}
     ],
     "tool_mode": [
-      "no_tool",
-      "no_tool",
+      "assist",
+      "assist",
       "no_tool",
       "no_tool"
     ]
@@ -14374,56 +14369,22 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "linear_system_solver",
-      "linear_system_solver",
-      "linear_system_solver",
-      "solve"
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool"
     ],
     "tool_args": [
-      {
-        "equations": [
-          "x=24",
-          "y=15"
-        ],
-        "variables": [
-          "x",
-          "y"
-        ],
-        "unique": true
-      },
-      {
-        "equations": [
-          "x=24",
-          "y=15"
-        ],
-        "variables": [
-          "x",
-          "y"
-        ],
-        "unique": true
-      },
-      {
-        "equations": [
-          "x=24",
-          "y=15"
-        ],
-        "variables": [
-          "x",
-          "y"
-        ],
-        "unique": true
-      },
-      {
-        "equation": "y=3",
-        "variable": "y",
-        "unique": true
-      }
+      {},
+      {},
+      {},
+      {}
     ],
     "tool_mode": [
-      "assist",
-      "assist",
-      "assist",
-      "replace"
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool"
     ]
   },
   "163": {
@@ -14596,7 +14557,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "complex_arithmetic",
+      "no_tool",
       "no_tool"
     ],
     "tool_args": [
@@ -14605,9 +14566,7 @@
       {},
       {},
       {},
-      {
-        "expression": "(5-3i)(-4+3i)"
-      },
+      {},
       {}
     ],
     "tool_mode": [
@@ -14616,7 +14575,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "replace",
+      "no_tool",
       "no_tool"
     ]
   },
@@ -15270,29 +15229,19 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "linear_system_solver",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {
-        "equations": [
-          "y=f(x)",
-          "y=((1)/(4))f(((1)/(2))x)"
-        ],
-        "variables": [
-          "x",
-          "y"
-        ],
-        "unique": true
-      },
+      {},
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "assist",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -15469,7 +15418,7 @@
       "no_tool",
       "no_tool",
       "solve",
-      "solve"
+      "no_tool"
     ],
     "tool_args": [
       {},
@@ -15479,13 +15428,10 @@
       {
         "equation": "x^2-4x-14=3x+16",
         "variable": "x",
+        "domain": "real",
         "unique": false
       },
-      {
-        "equation": "x^2-4x-14=3x+16",
-        "variable": "x",
-        "unique": false
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
@@ -15493,7 +15439,7 @@
       "no_tool",
       "no_tool",
       "assist",
-      "assist"
+      "no_tool"
     ]
   },
   "173": {
@@ -15565,7 +15511,7 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "solve",
+      "subst",
       "no_tool",
       "no_tool"
     ],
@@ -15573,9 +15519,10 @@
       {},
       {},
       {
-        "equation": "x = 6",
-        "variable": "x",
-        "unique": true
+        "expression": "x**3/2 + 36",
+        "subs": {
+          "x": "6"
+        }
       },
       {},
       {}
@@ -15655,23 +15602,33 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
+      "solve",
       "no_tool",
-      "no_tool",
-      "no_tool",
+      "solve",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
+      {
+        "equation": "5x^2 - 20x + 18 = 0",
+        "variable": "x",
+        "domain": "real",
+        "unique": false
+      },
       {},
-      {},
-      {},
+      {
+        "equation": "18+5x^2=20x",
+        "variable": "x",
+        "domain": "real",
+        "unique": false
+      },
       {},
       {}
     ],
     "tool_mode": [
+      "assist",
       "no_tool",
-      "no_tool",
-      "no_tool",
+      "assist",
       "no_tool",
       "no_tool"
     ]
@@ -16055,19 +16012,24 @@
     ],
     "allo_tool": [
       "no_tool",
-      "no_tool",
+      "subst",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {},
-      {},
+      {
+        "expression": "x",
+        "subs": {
+          "x": "-1"
+        }
+      },
       {},
       {}
     ],
     "tool_mode": [
       "no_tool",
-      "no_tool",
+      "replace",
       "no_tool",
       "no_tool"
     ]
@@ -16809,8 +16771,8 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "subst",
-      "subst",
+      "no_tool",
+      "no_tool",
       "no_tool",
       "no_tool"
     ],
@@ -16818,20 +16780,8 @@
       {},
       {},
       {},
-      {
-        "expression": "((1)/(b)) - ((1)/(a))",
-        "subs": {
-          "a": "3",
-          "b": "11"
-        }
-      },
-      {
-        "expression": "a - b",
-        "subs": {
-          "a": "3",
-          "b": "11"
-        }
-      },
+      {},
+      {},
       {},
       {}
     ],
@@ -16839,8 +16789,8 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "replace",
-      "replace",
+      "no_tool",
+      "no_tool",
       "no_tool",
       "no_tool"
     ]
