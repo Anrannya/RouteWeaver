@@ -13,19 +13,25 @@ MATH 工具是「辅助」而非「整题替代」：某子任务若分配了工
 可选参数：
   - --rounds：对比轮数（每轮各跑一遍 no_tool / with_tool）
   - --n：每种模式评测的题目数量（前 n 题），默认 200
+  - --qids：指定题号列表（逗号分隔），启用配对诊断模式
+  - --temperature：LLM 温度，配对诊断默认 0
 
 日志：Logs/compare log/<运行时间戳>/<轮次时间戳>.log（每轮一个文件）
+配对诊断：Logs/phase26_pair_diagnostic/<timestamp>/
 
 可回滚：本文件为新增脚本，不修改原 MATH_dotrun_step2.py。
 运行：cd MATH_Trys && python MATH_dotrun_step2_compare.py --rounds 10 --n 30
+配对诊断：python MATH_dotrun_step2_compare.py --qids 59,70,74,126,131,132,162,170,173,191
 """
 import argparse
 import json
 import logging
 import os
+import random
 import re
 import sys
 import time
+from collections import Counter
 from datetime import datetime
 from tqdm import tqdm
 
@@ -42,6 +48,18 @@ llamaClient = setLocal()
 clients = {'gpt': openaiClient, 'llama': llamaClient}
 N = 200
 LOG_ROOT = os.path.join(BASE, "Logs", "compare log")
+DIAG_ROOT = os.path.join(BASE, "Logs", "phase26_pair_diagnostic")
+DEFAULT_SEED = 42
+
+
+def _git_head():
+    try:
+        import subprocess
+        return subprocess.check_output(
+            ['git', 'rev-parse', 'HEAD'], cwd=BASE, stderr=subprocess.DEVNULL, text=True,
+        ).strip()
+    except Exception:
+        return None
 
 
 def setup_compare_logger(log_file):
@@ -72,6 +90,62 @@ def _resolve_args(args, answerDict):
     return {'operation': args['operation'], 'values': vals}
 
 
+def tool_for_detail(record, number, answerDict, subtask, use_tool):
+    """返回子任务级工具诊断信息。"""
+    idx = number - 1
+    tools = record.get('allo_tool', [])
+    targs = record.get('tool_args', [])
+    modes = record.get('tool_mode', [])
+    base = {
+        'step_id': number,
+        'subtask': subtask,
+        'model': record.get('allo_model', [None])[idx] if idx < len(record.get('allo_model', [])) else None,
+        'tool_name': 'no_tool',
+        'tool_mode': 'no_tool',
+        'tool_args': {},
+        'tool_output': None,
+        'validation_pass': True,
+        'validation_reason': 'ok',
+        'tool_success': False,
+        'fallback': False,
+        'tool_evidence': '未调用',
+    }
+    if not use_tool:
+        return base, None
+    if idx >= len(tools) or not tools[idx] or tools[idx] == 'no_tool':
+        return base, None
+    mode = modes[idx] if idx < len(modes) else 'replace'
+    name = tools[idx]
+    args = targs[idx] if idx < len(targs) else {}
+    base.update({'tool_name': name, 'tool_mode': mode, 'tool_args': args})
+    ok, reason = validate_assignment(
+        subtask, name, args, mode,
+        all_steps=record.get('steps'), step_id=number,
+        int_edges=record.get('int_edges'),
+    )
+    base['validation_pass'] = ok
+    base['validation_reason'] = reason
+    if not ok:
+        base['fallback'] = True
+        base['tool_evidence'] = '回退'
+        return base, None
+    resolved = _resolve_args(args, answerDict)
+    if resolved is None:
+        base['fallback'] = True
+        base['tool_evidence'] = '回退'
+        base['validation_reason'] = '参数解析失败'
+        return base, None
+    res = run_tool(name, resolved)
+    base['tool_success'] = bool(res.get('success'))
+    base['tool_output'] = res.get('result') or res.get('text')
+    if not res.get('success'):
+        base['fallback'] = True
+        base['tool_evidence'] = '回退'
+        return base, None
+    base['tool_evidence'] = mode
+    return base, (mode, base['tool_output'])
+
+
 def tool_for(record, number, answerDict, subtask):
     # 子任务级工具：取下标 number-1 的模式与工具，校验通过后实测，成功返回 (模式, 结果字符串)，否则 None
     tools = record.get('allo_tool', [])
@@ -96,29 +170,37 @@ def tool_for(record, number, answerDict, subtask):
     return None
 
 
-def solve_one(question, gold_answer, record, config, tokens_path, use_tool, question_id=None, logger=None):
-    # 跑完一题：子任务（可选工具注入）-> LLM 汇总 -> LLM 判对错。返回 (是否正确, 工具介入子任务数)
+def solve_one(question, gold_answer, record, config, tokens_path, use_tool, question_id=None,
+              logger=None, temperature=1, return_trace=False):
+    # 跑完一题：子任务（可选工具注入）-> LLM 汇总 -> LLM 判对错。返回 (是否正确, 工具介入子任务数[, trace])
     steps_dict, allo_model = record['steps_dict'], record['allo_model']
     depths, int_edges = {int(k): v for k, v in record['depths'].items()}, record['int_edges']
     answerDict, tool_hit = {}, 0
+    trace = {'subtasks': [], 'DAG_missing': [], 'final_answer': None, 'judge_correct': False}
 
     for depth in sorted(depths.keys()):
         for subtaskid in sorted(depths[depth]):
             number = int(re.findall(r'\d+', subtaskid)[0])
             subtask = steps_dict[str(number)]
             answer_MODEL = allo_model[number - 1]
+            step_t0 = time.time()
 
-            tinfo = tool_for(record, number, answerDict, subtask) if use_tool else None
+            detail, tinfo = tool_for_detail(record, number, answerDict, subtask, use_tool)
             hint = ''
+            subtask_answer = None
             if tinfo is not None:
                 mode, tval = tinfo
                 if mode == 'replace':
                     answerDict[number] = {'subtask': subtask, 'answer': tval}
+                    subtask_answer = tval
                     tool_hit += 1
+                    detail['subtask_answer'] = subtask_answer
+                    detail['elapsed_time'] = time.time() - step_t0
+                    if return_trace:
+                        trace['subtasks'].append(detail)
                     continue
-                else:
-                    hint = f"\nHint: a deterministic math tool computed a reliable intermediate result: {tval}. Use it as a reference, but you decide the final answer to this sub-problem."
-                    tool_hit += 1
+                hint = f"\nHint: a deterministic math tool computed a reliable intermediate result: {tval}. Use it as a reference, but you decide the final answer to this sub-problem."
+                tool_hit += 1
 
             sys_q = f"""There is a math_problem. I need you to solve it and give an answer.
 Here is the problem:\n{question}
@@ -140,8 +222,14 @@ Based on the information above, please provide a concise and clear answer"""
 Based on the information above, please provide a concise and clear answer"""
 
             Q = [{'role': 'system', 'content': sys_q}, {'role': 'user', 'content': query}]
-            result = askLLM(clients, Q, tokens_path=tokens_path, model=answer_MODEL, temperature=1, max_tokens=300)
+            result = askLLM(clients, Q, tokens_path=tokens_path, model=answer_MODEL,
+                            temperature=temperature, max_tokens=300)
             answerDict[number] = {'subtask': subtask, 'answer': result}
+            subtask_answer = result
+            detail['subtask_answer'] = subtask_answer
+            detail['elapsed_time'] = time.time() - step_t0
+            if return_trace:
+                trace['subtasks'].append(detail)
 
     expected_steps = {
         int(re.findall(r"\d+", sid)[0])
@@ -152,6 +240,7 @@ Based on the information above, please provide a concise and clear answer"""
     missing_steps = expected_steps - executed_steps
     if missing_steps:
         msg = f'DAG incomplete, missing steps: {sorted(missing_steps)}'
+        trace['DAG_missing'] = sorted(missing_steps)
         if logger is not None and question_id is not None:
             logger.error('Q%d execution anomaly: %s', question_id, msg)
         raise RuntimeError(msg)
@@ -164,7 +253,8 @@ The answers to the sub-problems are as follows:
 
 Now that all the sub-problems have been solved, so what is the final answer?
 Please give the final answer without any additional explanation or clarification."""}]
-    finalResult = askLLM(clients, Q, tokens_path=tokens_path, model=config['finalSummarize_MODEL'], temperature=1, max_tokens=300)
+    finalResult = askLLM(clients, Q, tokens_path=tokens_path, model=config['finalSummarize_MODEL'],
+                         temperature=temperature, max_tokens=300)
 
     judge = {'role': 'user', 'content': f"""Here is a math problem with a standard answer and a student's solution. Please help me determine if the student's solution is correct.
 Problem: {question}
@@ -176,8 +266,14 @@ Answer: {finalResult}
 If the student's answer is correct, just output True; otherwise, just output False.
 No explanation is required.
 """}
-    ifcorrect = askLLM(clients, [judge], tokens_path=tokens_path, model=config['judgeCorrect_MODEL'], temperature=1, max_tokens=300)
-    return ('True' in ifcorrect), tool_hit
+    ifcorrect = askLLM(clients, [judge], tokens_path=tokens_path, model=config['judgeCorrect_MODEL'],
+                       temperature=temperature, max_tokens=300)
+    ok = 'True' in ifcorrect
+    trace['final_answer'] = finalResult
+    trace['judge_correct'] = ok
+    if return_trace:
+        return ok, tool_hit, trace
+    return ok, tool_hit
 
 
 def run_mode(use_tool, problems, middleRes, config, tokens_path, logger):
@@ -223,12 +319,203 @@ def run_mode(use_tool, problems, middleRes, config, tokens_path, logger):
     return success_Q, avg_t, per_q
 
 
+def _transition(no_ok, yes_ok):
+    if not no_ok and yes_ok:
+        return 'wrong_to_right'
+    if no_ok and not yes_ok:
+        return 'right_to_wrong'
+    if no_ok and yes_ok:
+        return 'right_to_right'
+    return 'wrong_to_wrong'
+
+
+def _diff_summary(no_rec, yes_rec):
+    if no_rec.get('error'):
+        return f"no_tool异常: {no_rec['error']}"
+    if yes_rec.get('error'):
+        return f"with_tool异常: {yes_rec['error']}"
+    nf, yf = no_rec.get('final_answer'), yes_rec.get('final_answer')
+    if nf == yf:
+        return 'final_answer相同'
+    tools = [s for s in yes_rec.get('subtasks', []) if s.get('tool_name') != 'no_tool']
+    if tools and nf != yf:
+        return f"工具介入后final变化: {nf!r} -> {yf!r}"
+    return f"final: no={nf!r}, with={yf!r}"
+
+
+def run_pair_diagnostic(qids, problems, middle_no, middle_yes, config, out_dir, temperature, logger):
+    random.seed(DEFAULT_SEED)
+    os.makedirs(out_dir, exist_ok=True)
+    branch_results = {'no_tool': {}, 'with_tool': {}}
+    stats = Counter()
+    total_time = {'no_tool': 0.0, 'with_tool': 0.0}
+
+    for branch, use_tool, middle in (
+        ('no_tool', False, middle_no),
+        ('with_tool', True, middle_yes),
+    ):
+        tok_path = os.path.join(out_dir, f'tokens_{branch}.json')
+        json.dump({}, open(tok_path, 'w'))
+        config['tokens_path'] = tok_path
+        logger.info('===== branch: %s =====', branch)
+        for qid in tqdm(qids, desc=branch):
+            question = problems[qid]['problem']
+            gold = problems[qid]['solution']
+            rec = {
+                'qid': qid,
+                'branch': branch,
+                'problem': question,
+                'gold_answer': gold,
+                'subtasks': [],
+                'final_answer': None,
+                'judge_correct': False,
+                'DAG_missing': [],
+                'error': None,
+                'elapsed_time': 0.0,
+            }
+            t0 = time.time()
+            try:
+                ok, hit, trace = solve_one(
+                    question, gold, middle[str(qid)], config, tok_path, use_tool,
+                    question_id=qid, logger=logger, temperature=temperature, return_trace=True,
+                )
+                rec['subtasks'] = trace['subtasks']
+                rec['final_answer'] = trace['final_answer']
+                rec['judge_correct'] = trace['judge_correct']
+                rec['tool_hit'] = hit
+                rec['judge_correct_bool'] = ok
+            except RuntimeError as e:
+                rec['error'] = str(e)
+                m = re.search(r'missing steps: (\[[^\]]*\])', str(e))
+                if m:
+                    rec['DAG_missing'] = json.loads(m.group(1).replace("'", '"'))
+                ok = False
+            except Exception as e:
+                rec['error'] = str(e)
+                ok = False
+            rec['elapsed_time'] = time.time() - t0
+            total_time[branch] += rec['elapsed_time']
+            branch_results[branch][qid] = rec
+            if use_tool:
+                for st in rec.get('subtasks', []):
+                    if st.get('tool_name') != 'no_tool':
+                        stats['tool_calls'] += 1
+                        stats[f"mode_{st.get('tool_mode', 'unknown')}"] += 1
+                        if st.get('tool_evidence') == 'replace':
+                            stats['replace'] += 1
+                        elif st.get('tool_evidence') == 'assist':
+                            stats['assist'] += 1
+                        if st.get('tool_success'):
+                            stats['tool_success'] += 1
+                        else:
+                            stats['tool_fail'] += 1
+                        if st.get('fallback'):
+                            stats['fallback'] += 1
+                        if not st.get('validation_pass'):
+                            stats['validation_reject'] += 1
+
+            out_path = os.path.join(out_dir, f'Q{qid}_{branch}.json')
+            json.dump(rec, open(out_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
+            logger.info('Q%d %s correct=%s time=%.1fs', qid, branch, ok, rec['elapsed_time'])
+
+    pairs = []
+    for qid in qids:
+        no_rec = branch_results['no_tool'][qid]
+        yes_rec = branch_results['with_tool'][qid]
+        no_ok = no_rec.get('judge_correct_bool', False) and not no_rec.get('error')
+        yes_ok = yes_rec.get('judge_correct_bool', False) and not yes_rec.get('error')
+        if no_rec.get('DAG_missing') or yes_rec.get('DAG_missing'):
+            stats['DAG_missing_q'] += 1
+        trans = _transition(no_ok, yes_ok) if not (no_rec.get('error') or yes_rec.get('error')) else 'error'
+        if trans != 'error':
+            stats[trans] += 1
+        if no_ok:
+            stats['no_tool_correct'] += 1
+        if yes_ok:
+            stats['with_tool_correct'] += 1
+        tool_outputs = [
+            {'step': s['step_id'], 'tool': s['tool_name'], 'mode': s['tool_mode'],
+             'output': s.get('tool_output'), 'evidence': s.get('tool_evidence'),
+             'answer': s.get('subtask_answer')}
+            for s in yes_rec.get('subtasks', []) if s.get('tool_name') != 'no_tool'
+        ]
+        pairs.append({
+            'qid': qid,
+            'no_tool_correct': no_ok,
+            'with_tool_correct': yes_ok,
+            'transition': trans,
+            'tools_used': [s['tool_name'] for s in yes_rec.get('subtasks', []) if s.get('tool_name') != 'no_tool'],
+            'tool_outputs': tool_outputs,
+            'no_tool_final': no_rec.get('final_answer'),
+            'with_tool_final': yes_rec.get('final_answer'),
+            'difference_summary': _diff_summary(no_rec, yes_rec),
+            'no_tool_error': no_rec.get('error'),
+            'with_tool_error': yes_rec.get('error'),
+        })
+
+    summary = {
+        'qids': qids,
+        'git_head': _git_head(),
+        'temperature': temperature,
+        'seed': DEFAULT_SEED,
+        'rounds': 1,
+        'question_total': len(qids),
+        'no_tool_correct': stats['no_tool_correct'],
+        'with_tool_correct': stats['with_tool_correct'],
+        'wrong_to_right': stats['wrong_to_right'],
+        'right_to_wrong': stats['right_to_wrong'],
+        'right_to_right': stats['right_to_right'],
+        'wrong_to_wrong': stats['wrong_to_wrong'],
+        'net_gain': stats['wrong_to_right'] - stats['right_to_wrong'],
+        'tool_calls': stats['tool_calls'],
+        'replace': stats['replace'],
+        'assist': stats['assist'],
+        'tool_success': stats['tool_success'],
+        'tool_fail': stats['tool_fail'],
+        'fallback': stats['fallback'],
+        'validation_reject': stats['validation_reject'],
+        'DAG_missing': stats['DAG_missing_q'],
+        'no_tool_total_time': total_time['no_tool'],
+        'with_tool_total_time': total_time['with_tool'],
+    }
+    json.dump({'summary': summary, 'pairs': pairs}, open(os.path.join(out_dir, 'pair_results.json'), 'w'),
+              ensure_ascii=False, indent=2)
+
+    md_lines = [
+        '# Phase 26 配对诊断',
+        '',
+        f"题目总数: {summary['question_total']}",
+        f"no_tool正确: {summary['no_tool_correct']}",
+        f"with_tool正确: {summary['with_tool_correct']}",
+        f"wrong_to_right: {summary['wrong_to_right']}",
+        f"right_to_wrong: {summary['right_to_wrong']}",
+        f"right_to_right: {summary['right_to_right']}",
+        f"wrong_to_wrong: {summary['wrong_to_wrong']}",
+        f"net_gain: {summary['net_gain']}",
+        f"DAG_missing: {summary['DAG_missing']}",
+        '',
+        '## 逐题配对',
+        '',
+        '| qid | no_tool | with_tool | transition | tools | diff |',
+        '|-----|---------|-----------|------------|-------|------|',
+    ]
+    for p in pairs:
+        md_lines.append(
+            f"| Q{p['qid']} | {p['no_tool_correct']} | {p['with_tool_correct']} | "
+            f"{p['transition']} | {','.join(p['tools_used']) or '-'} | {p['difference_summary'][:60]} |"
+        )
+    with open(os.path.join(out_dir, 'pair_results.md'), 'w', encoding='utf-8') as f:
+        f.write('\n'.join(md_lines) + '\n')
+    return summary, pairs, branch_results
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--rounds', type=int, default=1, help='对比轮数')
     parser.add_argument('--n', type=int, default=200, help='每种模式评测的题目数量（前 n 题）')
+    parser.add_argument('--qids', type=str, default='', help='指定题号，逗号分隔（启用配对诊断）')
+    parser.add_argument('--temperature', type=float, default=None, help='LLM temperature')
     args = parser.parse_args()
-    N = args.n
 
     file_path = '../Task_Datasets/MATH/all_math_p.json'
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -240,7 +527,30 @@ if __name__ == '__main__':
     with open('TmpRes/step2In_MATH_with_tool.json', 'r') as f:
         middle_with_tool = json.loads(f.read())
 
-    # 覆盖题集合：前 N 题中被分配了任意工具的题（逐题正收益只统计这些题才有意义）
+    if args.qids:
+        qids = [int(x.strip()) for x in args.qids.split(',') if x.strip()]
+        temperature = 0.0 if args.temperature is None else args.temperature
+        run_ts = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        out_dir = os.path.join(DIAG_ROOT, run_ts)
+        log_file = os.path.join(out_dir, 'run.log')
+        logger = setup_compare_logger(log_file)
+        logger.info('Phase26 pair diagnostic qids=%s temperature=%s seed=%s', qids, temperature, DEFAULT_SEED)
+        print(f'配对诊断目录: {out_dir}')
+        print(f'题号: {qids}, temperature={temperature}, seed={DEFAULT_SEED}')
+        summary, pairs, _ = run_pair_diagnostic(
+            qids, problems, middle_no_tool, middle_with_tool, config, out_dir, temperature, logger,
+        )
+        print('\n===== 配对统计 =====')
+        for k in (
+            'question_total', 'no_tool_correct', 'with_tool_correct',
+            'wrong_to_right', 'right_to_wrong', 'right_to_right', 'wrong_to_wrong', 'net_gain',
+            'tool_calls', 'replace', 'assist', 'tool_success', 'tool_fail', 'fallback',
+            'validation_reject', 'DAG_missing', 'no_tool_total_time', 'with_tool_total_time',
+        ):
+            print(f'{k}: {summary[k]}')
+        sys.exit(0)
+
+    N = args.n
     covered = [qid for qid in range(N)
                if any(t != 'no_tool' for t in middle_with_tool[str(qid)].get('allo_tool', []))]
 
