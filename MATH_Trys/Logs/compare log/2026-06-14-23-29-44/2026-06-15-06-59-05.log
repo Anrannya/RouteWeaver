@@ -1,0 +1,1621 @@
+2026-06-15 06:59:05 [INFO] ===== Round 4/4 =====
+2026-06-15 06:59:05 [INFO] ===== with_tool =====
+2026-06-15 06:59:05 [INFO] 
+
+number id: 0
+2026-06-15 06:59:13 [INFO] correct (tool_hit=1)
+2026-06-15 06:59:13 [INFO] 
+
+number id: 1
+2026-06-15 06:59:17 [INFO] correct (tool_hit=3)
+2026-06-15 06:59:17 [INFO] 
+
+number id: 2
+2026-06-15 06:59:39 [INFO] error (tool_hit=0)
+2026-06-15 06:59:39 [INFO] 
+
+number id: 3
+2026-06-15 06:59:49 [INFO] correct (tool_hit=1)
+2026-06-15 06:59:49 [INFO] 
+
+number id: 4
+2026-06-15 06:59:55 [INFO] correct (tool_hit=0)
+2026-06-15 06:59:55 [INFO] 
+
+number id: 5
+2026-06-15 07:00:07 [INFO] correct (tool_hit=0)
+2026-06-15 07:00:07 [INFO] 
+
+number id: 6
+2026-06-15 07:00:27 [INFO] correct (tool_hit=0)
+2026-06-15 07:00:27 [INFO] 
+
+number id: 7
+2026-06-15 07:00:40 [INFO] error (tool_hit=0)
+2026-06-15 07:00:40 [INFO] 
+
+number id: 8
+2026-06-15 07:01:12 [INFO] error (tool_hit=0)
+2026-06-15 07:01:12 [INFO] 
+
+number id: 9
+2026-06-15 07:01:33 [INFO] error (tool_hit=0)
+2026-06-15 07:01:33 [INFO] 
+
+number id: 10
+2026-06-15 07:02:13 [INFO] correct (tool_hit=0)
+2026-06-15 07:02:13 [INFO] 
+
+number id: 11
+2026-06-15 07:02:27 [INFO] error (tool_hit=0)
+2026-06-15 07:02:27 [INFO] 
+
+number id: 12
+2026-06-15 07:02:41 [INFO] error (tool_hit=0)
+2026-06-15 07:02:41 [INFO] 
+
+number id: 13
+2026-06-15 07:02:49 [INFO] correct (tool_hit=1)
+2026-06-15 07:02:49 [INFO] 
+
+number id: 14
+2026-06-15 07:03:35 [INFO] correct (tool_hit=1)
+2026-06-15 07:03:35 [INFO] 
+
+number id: 15
+2026-06-15 07:03:48 [INFO] error (tool_hit=0)
+2026-06-15 07:03:48 [INFO] 
+
+number id: 16
+2026-06-15 07:04:00 [INFO] correct (tool_hit=0)
+2026-06-15 07:04:00 [INFO] 
+
+number id: 17
+2026-06-15 07:04:15 [INFO] correct (tool_hit=0)
+2026-06-15 07:04:15 [INFO] 
+
+number id: 18
+2026-06-15 07:04:34 [INFO] error (tool_hit=0)
+2026-06-15 07:04:34 [INFO] 
+
+number id: 19
+2026-06-15 07:04:42 [INFO] error (tool_hit=0)
+2026-06-15 07:04:42 [INFO] 
+
+number id: 20
+2026-06-15 07:05:10 [INFO] error (tool_hit=0)
+2026-06-15 07:05:10 [INFO] 
+
+number id: 21
+2026-06-15 07:05:25 [INFO] correct (tool_hit=0)
+2026-06-15 07:05:25 [INFO] 
+
+number id: 22
+2026-06-15 07:05:38 [INFO] error (tool_hit=1)
+2026-06-15 07:05:38 [INFO] 
+
+number id: 23
+2026-06-15 07:05:50 [INFO] error (tool_hit=0)
+2026-06-15 07:05:50 [INFO] 
+
+number id: 24
+2026-06-15 07:05:55 [INFO] correct (tool_hit=0)
+2026-06-15 07:05:55 [INFO] 
+
+number id: 25
+2026-06-15 07:06:03 [INFO] correct (tool_hit=0)
+2026-06-15 07:06:03 [INFO] 
+
+number id: 26
+2026-06-15 07:06:13 [INFO] error (tool_hit=1)
+2026-06-15 07:06:13 [INFO] 
+
+number id: 27
+2026-06-15 07:06:34 [INFO] error (tool_hit=0)
+2026-06-15 07:06:34 [INFO] 
+
+number id: 28
+2026-06-15 07:06:49 [INFO] correct (tool_hit=0)
+2026-06-15 07:06:49 [INFO] 
+
+number id: 29
+2026-06-15 07:07:29 [INFO] correct (tool_hit=0)
+2026-06-15 07:07:29 [INFO] 
+
+number id: 30
+2026-06-15 07:07:42 [INFO] correct (tool_hit=0)
+2026-06-15 07:07:42 [INFO] 
+
+number id: 31
+2026-06-15 07:07:56 [INFO] correct (tool_hit=0)
+2026-06-15 07:07:56 [INFO] 
+
+number id: 32
+2026-06-15 07:08:25 [INFO] correct (tool_hit=0)
+2026-06-15 07:08:25 [INFO] 
+
+number id: 33
+2026-06-15 07:08:46 [INFO] error (tool_hit=0)
+2026-06-15 07:08:46 [INFO] 
+
+number id: 34
+2026-06-15 07:09:00 [INFO] error (tool_hit=0)
+2026-06-15 07:09:00 [INFO] 
+
+number id: 35
+2026-06-15 07:09:10 [INFO] error (tool_hit=0)
+2026-06-15 07:09:10 [INFO] 
+
+number id: 36
+2026-06-15 07:09:38 [INFO] correct (tool_hit=1)
+2026-06-15 07:09:38 [INFO] 
+
+number id: 37
+2026-06-15 07:09:59 [INFO] correct (tool_hit=0)
+2026-06-15 07:09:59 [INFO] 
+
+number id: 38
+2026-06-15 07:10:18 [INFO] error (tool_hit=0)
+2026-06-15 07:10:18 [INFO] 
+
+number id: 39
+2026-06-15 07:10:39 [INFO] correct (tool_hit=0)
+2026-06-15 07:10:39 [INFO] 
+
+number id: 40
+2026-06-15 07:10:48 [INFO] error (tool_hit=0)
+2026-06-15 07:10:48 [INFO] 
+
+number id: 41
+2026-06-15 07:10:59 [INFO] correct (tool_hit=0)
+2026-06-15 07:10:59 [INFO] 
+
+number id: 42
+2026-06-15 07:11:06 [INFO] error (tool_hit=0)
+2026-06-15 07:11:06 [INFO] 
+
+number id: 43
+2026-06-15 07:11:32 [INFO] correct (tool_hit=0)
+2026-06-15 07:11:32 [INFO] 
+
+number id: 44
+2026-06-15 07:11:42 [INFO] error (tool_hit=2)
+2026-06-15 07:11:42 [INFO] 
+
+number id: 45
+2026-06-15 07:11:51 [INFO] correct (tool_hit=0)
+2026-06-15 07:11:51 [INFO] 
+
+number id: 46
+2026-06-15 07:12:06 [INFO] error (tool_hit=0)
+2026-06-15 07:12:06 [INFO] 
+
+number id: 47
+2026-06-15 07:12:22 [INFO] error (tool_hit=0)
+2026-06-15 07:12:22 [INFO] 
+
+number id: 48
+2026-06-15 07:12:30 [INFO] correct (tool_hit=0)
+2026-06-15 07:12:30 [INFO] 
+
+number id: 49
+2026-06-15 07:13:21 [INFO] correct (tool_hit=0)
+2026-06-15 07:13:21 [INFO] 
+
+number id: 50
+2026-06-15 07:13:39 [INFO] error (tool_hit=0)
+2026-06-15 07:13:39 [INFO] 
+
+number id: 51
+2026-06-15 07:13:54 [INFO] correct (tool_hit=0)
+2026-06-15 07:13:54 [INFO] 
+
+number id: 52
+2026-06-15 07:14:08 [INFO] error (tool_hit=0)
+2026-06-15 07:14:08 [INFO] 
+
+number id: 53
+2026-06-15 07:14:15 [INFO] error (tool_hit=0)
+2026-06-15 07:14:15 [INFO] 
+
+number id: 54
+2026-06-15 07:14:27 [INFO] error (tool_hit=0)
+2026-06-15 07:14:27 [INFO] 
+
+number id: 55
+2026-06-15 07:14:34 [INFO] correct (tool_hit=0)
+2026-06-15 07:14:34 [INFO] 
+
+number id: 56
+2026-06-15 07:14:43 [INFO] correct (tool_hit=0)
+2026-06-15 07:14:43 [INFO] 
+
+number id: 57
+2026-06-15 07:14:55 [INFO] correct (tool_hit=0)
+2026-06-15 07:14:55 [INFO] 
+
+number id: 58
+2026-06-15 07:15:03 [INFO] correct (tool_hit=0)
+2026-06-15 07:15:03 [INFO] 
+
+number id: 59
+2026-06-15 07:15:22 [INFO] error (tool_hit=1)
+2026-06-15 07:15:22 [INFO] 
+
+number id: 60
+2026-06-15 07:15:33 [INFO] correct (tool_hit=0)
+2026-06-15 07:15:33 [INFO] 
+
+number id: 61
+2026-06-15 07:15:46 [INFO] error (tool_hit=0)
+2026-06-15 07:15:46 [INFO] 
+
+number id: 62
+2026-06-15 07:16:08 [INFO] error (tool_hit=0)
+2026-06-15 07:16:08 [INFO] 
+
+number id: 63
+2026-06-15 07:16:22 [INFO] correct (tool_hit=0)
+2026-06-15 07:16:22 [INFO] 
+
+number id: 64
+2026-06-15 07:16:36 [INFO] correct (tool_hit=0)
+2026-06-15 07:16:36 [INFO] 
+
+number id: 65
+2026-06-15 07:16:48 [INFO] error (tool_hit=0)
+2026-06-15 07:16:48 [INFO] 
+
+number id: 66
+2026-06-15 07:17:11 [INFO] error (tool_hit=0)
+2026-06-15 07:17:11 [INFO] 
+
+number id: 67
+2026-06-15 07:17:33 [INFO] correct (tool_hit=0)
+2026-06-15 07:17:33 [INFO] 
+
+number id: 68
+2026-06-15 07:18:12 [INFO] error (tool_hit=1)
+2026-06-15 07:18:12 [INFO] 
+
+number id: 69
+2026-06-15 07:18:22 [INFO] correct (tool_hit=0)
+2026-06-15 07:18:22 [INFO] 
+
+number id: 70
+2026-06-15 07:18:28 [INFO] correct (tool_hit=2)
+2026-06-15 07:18:28 [INFO] 
+
+number id: 71
+2026-06-15 07:18:50 [INFO] error (tool_hit=0)
+2026-06-15 07:18:50 [INFO] 
+
+number id: 72
+2026-06-15 07:18:59 [INFO] correct (tool_hit=0)
+2026-06-15 07:18:59 [INFO] 
+
+number id: 73
+2026-06-15 07:19:12 [INFO] error (tool_hit=0)
+2026-06-15 07:19:12 [INFO] 
+
+number id: 74
+2026-06-15 07:19:22 [INFO] error (tool_hit=0)
+2026-06-15 07:19:22 [INFO] 
+
+number id: 75
+2026-06-15 07:19:35 [INFO] error (tool_hit=0)
+2026-06-15 07:19:35 [INFO] 
+
+number id: 76
+2026-06-15 07:19:45 [INFO] error (tool_hit=0)
+2026-06-15 07:19:45 [INFO] 
+
+number id: 77
+2026-06-15 07:20:01 [INFO] correct (tool_hit=0)
+2026-06-15 07:20:01 [INFO] 
+
+number id: 78
+2026-06-15 07:20:13 [INFO] error (tool_hit=0)
+2026-06-15 07:20:13 [INFO] 
+
+number id: 79
+2026-06-15 07:20:27 [INFO] correct (tool_hit=0)
+2026-06-15 07:20:27 [INFO] 
+
+number id: 80
+2026-06-15 07:20:41 [INFO] error (tool_hit=0)
+2026-06-15 07:20:41 [INFO] 
+
+number id: 81
+2026-06-15 07:20:52 [INFO] error (tool_hit=0)
+2026-06-15 07:20:52 [INFO] 
+
+number id: 82
+2026-06-15 07:21:16 [INFO] error (tool_hit=0)
+2026-06-15 07:21:16 [INFO] 
+
+number id: 83
+2026-06-15 07:21:24 [INFO] error (tool_hit=0)
+2026-06-15 07:21:24 [INFO] 
+
+number id: 84
+2026-06-15 07:21:35 [INFO] correct (tool_hit=0)
+2026-06-15 07:21:35 [INFO] 
+
+number id: 85
+2026-06-15 07:21:51 [INFO] correct (tool_hit=0)
+2026-06-15 07:21:51 [INFO] 
+
+number id: 86
+2026-06-15 07:21:59 [INFO] correct (tool_hit=0)
+2026-06-15 07:21:59 [INFO] 
+
+number id: 87
+2026-06-15 07:22:04 [INFO] correct (tool_hit=1)
+2026-06-15 07:22:04 [INFO] 
+
+number id: 88
+2026-06-15 07:22:11 [INFO] error (tool_hit=0)
+2026-06-15 07:22:11 [INFO] 
+
+number id: 89
+2026-06-15 07:22:26 [INFO] correct (tool_hit=0)
+2026-06-15 07:22:26 [INFO] 
+
+number id: 90
+2026-06-15 07:22:56 [INFO] error (tool_hit=0)
+2026-06-15 07:22:56 [INFO] 
+
+number id: 91
+2026-06-15 07:23:31 [INFO] correct (tool_hit=0)
+2026-06-15 07:23:31 [INFO] 
+
+number id: 92
+2026-06-15 07:23:42 [INFO] error (tool_hit=0)
+2026-06-15 07:23:42 [INFO] 
+
+number id: 93
+2026-06-15 07:23:57 [INFO] error (tool_hit=0)
+2026-06-15 07:23:57 [INFO] 
+
+number id: 94
+2026-06-15 07:24:06 [INFO] correct (tool_hit=0)
+2026-06-15 07:24:06 [INFO] 
+
+number id: 95
+2026-06-15 07:24:34 [INFO] error (tool_hit=0)
+2026-06-15 07:24:34 [INFO] 
+
+number id: 96
+2026-06-15 07:24:42 [INFO] correct (tool_hit=0)
+2026-06-15 07:24:42 [INFO] 
+
+number id: 97
+2026-06-15 07:24:59 [INFO] error (tool_hit=0)
+2026-06-15 07:24:59 [INFO] 
+
+number id: 98
+2026-06-15 07:25:18 [INFO] correct (tool_hit=0)
+2026-06-15 07:25:18 [INFO] 
+
+number id: 99
+2026-06-15 07:25:32 [INFO] error (tool_hit=0)
+2026-06-15 07:25:32 [INFO] 
+
+number id: 100
+2026-06-15 07:25:40 [INFO] error (tool_hit=2)
+2026-06-15 07:25:40 [INFO] 
+
+number id: 101
+2026-06-15 07:25:52 [INFO] correct (tool_hit=0)
+2026-06-15 07:25:52 [INFO] 
+
+number id: 102
+2026-06-15 07:25:56 [INFO] correct (tool_hit=1)
+2026-06-15 07:25:56 [INFO] 
+
+number id: 103
+2026-06-15 07:26:07 [INFO] error (tool_hit=0)
+2026-06-15 07:26:07 [INFO] 
+
+number id: 104
+2026-06-15 07:26:19 [INFO] error (tool_hit=0)
+2026-06-15 07:26:19 [INFO] 
+
+number id: 105
+2026-06-15 07:26:24 [INFO] correct (tool_hit=0)
+2026-06-15 07:26:24 [INFO] 
+
+number id: 106
+2026-06-15 07:26:39 [INFO] error (tool_hit=0)
+2026-06-15 07:26:39 [INFO] 
+
+number id: 107
+2026-06-15 07:27:04 [INFO] correct (tool_hit=0)
+2026-06-15 07:27:04 [INFO] 
+
+number id: 108
+2026-06-15 07:27:17 [INFO] error (tool_hit=0)
+2026-06-15 07:27:17 [INFO] 
+
+number id: 109
+2026-06-15 07:27:39 [INFO] correct (tool_hit=0)
+2026-06-15 07:27:39 [INFO] 
+
+number id: 110
+2026-06-15 07:27:46 [INFO] correct (tool_hit=0)
+2026-06-15 07:27:46 [INFO] 
+
+number id: 111
+2026-06-15 07:27:59 [INFO] error (tool_hit=0)
+2026-06-15 07:27:59 [INFO] 
+
+number id: 112
+2026-06-15 07:28:08 [INFO] correct (tool_hit=1)
+2026-06-15 07:28:08 [INFO] 
+
+number id: 113
+2026-06-15 07:28:19 [INFO] correct (tool_hit=0)
+2026-06-15 07:28:19 [INFO] 
+
+number id: 114
+2026-06-15 07:28:25 [INFO] correct (tool_hit=1)
+2026-06-15 07:28:25 [INFO] 
+
+number id: 115
+2026-06-15 07:28:45 [INFO] error (tool_hit=1)
+2026-06-15 07:28:45 [INFO] 
+
+number id: 116
+2026-06-15 07:28:54 [INFO] correct (tool_hit=3)
+2026-06-15 07:28:54 [INFO] 
+
+number id: 117
+2026-06-15 07:29:10 [INFO] error (tool_hit=1)
+2026-06-15 07:29:10 [INFO] 
+
+number id: 118
+2026-06-15 07:29:19 [INFO] correct (tool_hit=1)
+2026-06-15 07:29:19 [INFO] 
+
+number id: 119
+2026-06-15 07:29:40 [INFO] correct (tool_hit=0)
+2026-06-15 07:29:40 [INFO] 
+
+number id: 120
+2026-06-15 07:29:48 [INFO] correct (tool_hit=0)
+2026-06-15 07:29:48 [INFO] 
+
+number id: 121
+2026-06-15 07:30:05 [INFO] error (tool_hit=0)
+2026-06-15 07:30:05 [INFO] 
+
+number id: 122
+2026-06-15 07:30:18 [INFO] correct (tool_hit=0)
+2026-06-15 07:30:18 [INFO] 
+
+number id: 123
+2026-06-15 07:30:34 [INFO] error (tool_hit=0)
+2026-06-15 07:30:34 [INFO] 
+
+number id: 124
+2026-06-15 07:30:52 [INFO] error (tool_hit=0)
+2026-06-15 07:30:52 [INFO] 
+
+number id: 125
+2026-06-15 07:31:11 [INFO] error (tool_hit=0)
+2026-06-15 07:31:11 [INFO] 
+
+number id: 126
+2026-06-15 07:31:15 [INFO] correct (tool_hit=2)
+2026-06-15 07:31:15 [INFO] 
+
+number id: 127
+2026-06-15 07:31:31 [INFO] error (tool_hit=0)
+2026-06-15 07:31:31 [INFO] 
+
+number id: 128
+2026-06-15 07:31:40 [INFO] error (tool_hit=0)
+2026-06-15 07:31:40 [INFO] 
+
+number id: 129
+2026-06-15 07:31:59 [INFO] error (tool_hit=0)
+2026-06-15 07:31:59 [INFO] 
+
+number id: 130
+2026-06-15 07:32:11 [INFO] error (tool_hit=1)
+2026-06-15 07:32:11 [INFO] 
+
+number id: 131
+2026-06-15 07:32:20 [INFO] error (tool_hit=1)
+2026-06-15 07:32:20 [INFO] 
+
+number id: 132
+2026-06-15 07:32:31 [INFO] correct (tool_hit=0)
+2026-06-15 07:32:31 [INFO] 
+
+number id: 133
+2026-06-15 07:32:37 [INFO] correct (tool_hit=0)
+2026-06-15 07:32:37 [INFO] 
+
+number id: 134
+2026-06-15 07:32:52 [INFO] error (tool_hit=0)
+2026-06-15 07:32:52 [INFO] 
+
+number id: 135
+2026-06-15 07:32:59 [INFO] error (tool_hit=0)
+2026-06-15 07:32:59 [INFO] 
+
+number id: 136
+2026-06-15 07:33:17 [INFO] error (tool_hit=0)
+2026-06-15 07:33:17 [INFO] 
+
+number id: 137
+2026-06-15 07:33:37 [INFO] correct (tool_hit=1)
+2026-06-15 07:33:37 [INFO] 
+
+number id: 138
+2026-06-15 07:35:24 [INFO] error (tool_hit=0)
+2026-06-15 07:35:24 [INFO] 
+
+number id: 139
+2026-06-15 07:35:54 [INFO] error (tool_hit=0)
+2026-06-15 07:35:54 [INFO] 
+
+number id: 140
+2026-06-15 07:36:11 [INFO] correct (tool_hit=1)
+2026-06-15 07:36:11 [INFO] 
+
+number id: 141
+2026-06-15 07:36:38 [INFO] error (tool_hit=0)
+2026-06-15 07:36:38 [INFO] 
+
+number id: 142
+2026-06-15 07:36:52 [INFO] error (tool_hit=0)
+2026-06-15 07:36:52 [INFO] 
+
+number id: 143
+2026-06-15 07:37:09 [INFO] correct (tool_hit=0)
+2026-06-15 07:37:09 [INFO] 
+
+number id: 144
+2026-06-15 07:37:27 [INFO] error (tool_hit=1)
+2026-06-15 07:37:27 [INFO] 
+
+number id: 145
+2026-06-15 07:37:34 [INFO] correct (tool_hit=0)
+2026-06-15 07:37:34 [INFO] 
+
+number id: 146
+2026-06-15 07:37:43 [INFO] correct (tool_hit=0)
+2026-06-15 07:37:43 [INFO] 
+
+number id: 147
+2026-06-15 07:39:04 [INFO] error (tool_hit=2)
+2026-06-15 07:39:04 [INFO] 
+
+number id: 148
+2026-06-15 07:39:09 [INFO] correct (tool_hit=0)
+2026-06-15 07:39:09 [INFO] 
+
+number id: 149
+2026-06-15 07:39:15 [INFO] correct (tool_hit=1)
+2026-06-15 07:39:15 [INFO] 
+
+number id: 150
+2026-06-15 07:39:53 [INFO] error (tool_hit=0)
+2026-06-15 07:39:53 [INFO] 
+
+number id: 151
+2026-06-15 07:40:09 [INFO] error (tool_hit=0)
+2026-06-15 07:40:09 [INFO] 
+
+number id: 152
+2026-06-15 07:40:20 [INFO] error (tool_hit=0)
+2026-06-15 07:40:20 [INFO] 
+
+number id: 153
+2026-06-15 07:40:38 [INFO] error (tool_hit=0)
+2026-06-15 07:40:38 [INFO] 
+
+number id: 154
+2026-06-15 07:40:46 [INFO] correct (tool_hit=0)
+2026-06-15 07:40:46 [INFO] 
+
+number id: 155
+2026-06-15 07:41:07 [INFO] error (tool_hit=0)
+2026-06-15 07:41:07 [INFO] 
+
+number id: 156
+2026-06-15 07:41:25 [INFO] error (tool_hit=0)
+2026-06-15 07:41:25 [INFO] 
+
+number id: 157
+2026-06-15 07:41:40 [INFO] correct (tool_hit=0)
+2026-06-15 07:41:40 [INFO] 
+
+number id: 158
+2026-06-15 07:42:00 [INFO] correct (tool_hit=0)
+2026-06-15 07:42:00 [INFO] 
+
+number id: 159
+2026-06-15 07:42:09 [INFO] correct (tool_hit=0)
+2026-06-15 07:42:09 [INFO] 
+
+number id: 160
+2026-06-15 07:42:22 [INFO] correct (tool_hit=0)
+2026-06-15 07:42:22 [INFO] 
+
+number id: 161
+2026-06-15 07:42:36 [INFO] error (tool_hit=0)
+2026-06-15 07:42:36 [INFO] 
+
+number id: 162
+2026-06-15 07:42:46 [INFO] error (tool_hit=0)
+2026-06-15 07:42:46 [INFO] 
+
+number id: 163
+2026-06-15 07:43:02 [INFO] error (tool_hit=0)
+2026-06-15 07:43:02 [INFO] 
+
+number id: 164
+2026-06-15 07:43:20 [INFO] error (tool_hit=0)
+2026-06-15 07:43:20 [INFO] 
+
+number id: 165
+2026-06-15 07:44:50 [INFO] error (tool_hit=1)
+2026-06-15 07:44:50 [INFO] 
+
+number id: 166
+2026-06-15 07:45:05 [INFO] correct (tool_hit=0)
+2026-06-15 07:45:05 [INFO] 
+
+number id: 167
+2026-06-15 07:45:14 [INFO] correct (tool_hit=0)
+2026-06-15 07:45:14 [INFO] 
+
+number id: 168
+2026-06-15 07:45:30 [INFO] error (tool_hit=0)
+2026-06-15 07:45:30 [INFO] 
+
+number id: 169
+2026-06-15 07:45:40 [INFO] error (tool_hit=0)
+2026-06-15 07:45:40 [INFO] 
+
+number id: 170
+2026-06-15 07:45:50 [INFO] error (tool_hit=0)
+2026-06-15 07:45:50 [INFO] 
+
+number id: 171
+2026-06-15 07:46:06 [INFO] error (tool_hit=0)
+2026-06-15 07:46:06 [INFO] 
+
+number id: 172
+2026-06-15 07:46:29 [INFO] error (tool_hit=0)
+2026-06-15 07:46:29 [INFO] 
+
+number id: 173
+2026-06-15 07:46:40 [INFO] correct (tool_hit=1)
+2026-06-15 07:46:40 [INFO] 
+
+number id: 174
+2026-06-15 07:46:53 [INFO] correct (tool_hit=0)
+2026-06-15 07:46:53 [INFO] 
+
+number id: 175
+2026-06-15 07:46:59 [INFO] error (tool_hit=0)
+2026-06-15 07:46:59 [INFO] 
+
+number id: 176
+2026-06-15 07:47:14 [INFO] correct (tool_hit=1)
+2026-06-15 07:47:14 [INFO] 
+
+number id: 177
+2026-06-15 07:47:32 [INFO] error (tool_hit=0)
+2026-06-15 07:47:32 [INFO] 
+
+number id: 178
+2026-06-15 07:47:47 [INFO] error (tool_hit=1)
+2026-06-15 07:47:47 [INFO] 
+
+number id: 179
+2026-06-15 07:47:54 [INFO] correct (tool_hit=0)
+2026-06-15 07:47:54 [INFO] 
+
+number id: 180
+2026-06-15 07:49:14 [INFO] error (tool_hit=0)
+2026-06-15 07:49:14 [INFO] 
+
+number id: 181
+2026-06-15 07:49:21 [INFO] correct (tool_hit=0)
+2026-06-15 07:49:21 [INFO] 
+
+number id: 182
+2026-06-15 07:49:35 [INFO] correct (tool_hit=0)
+2026-06-15 07:49:35 [INFO] 
+
+number id: 183
+2026-06-15 07:49:53 [INFO] correct (tool_hit=0)
+2026-06-15 07:49:53 [INFO] 
+
+number id: 184
+2026-06-15 07:50:26 [INFO] error (tool_hit=0)
+2026-06-15 07:50:26 [INFO] 
+
+number id: 185
+2026-06-15 07:50:38 [INFO] error (tool_hit=2)
+2026-06-15 07:50:38 [INFO] 
+
+number id: 186
+2026-06-15 07:50:52 [INFO] correct (tool_hit=0)
+2026-06-15 07:50:52 [INFO] 
+
+number id: 187
+2026-06-15 07:51:10 [INFO] correct (tool_hit=0)
+2026-06-15 07:51:10 [INFO] 
+
+number id: 188
+2026-06-15 07:51:20 [INFO] correct (tool_hit=0)
+2026-06-15 07:51:20 [INFO] 
+
+number id: 189
+2026-06-15 07:51:46 [INFO] error (tool_hit=0)
+2026-06-15 07:51:46 [INFO] 
+
+number id: 190
+2026-06-15 07:52:08 [INFO] error (tool_hit=1)
+2026-06-15 07:52:08 [INFO] 
+
+number id: 191
+2026-06-15 07:52:14 [INFO] error (tool_hit=2)
+2026-06-15 07:52:14 [INFO] 
+
+number id: 192
+2026-06-15 07:52:20 [INFO] correct (tool_hit=0)
+2026-06-15 07:52:20 [INFO] 
+
+number id: 193
+2026-06-15 07:52:31 [INFO] correct (tool_hit=0)
+2026-06-15 07:52:31 [INFO] 
+
+number id: 194
+2026-06-15 07:52:46 [INFO] error (tool_hit=0)
+2026-06-15 07:52:46 [INFO] 
+
+number id: 195
+2026-06-15 07:53:16 [INFO] correct (tool_hit=0)
+2026-06-15 07:53:16 [INFO] 
+
+number id: 196
+2026-06-15 07:53:35 [INFO] error (tool_hit=0)
+2026-06-15 07:53:35 [INFO] 
+
+number id: 197
+2026-06-15 07:53:44 [INFO] correct (tool_hit=0)
+2026-06-15 07:53:44 [INFO] 
+
+number id: 198
+2026-06-15 07:53:58 [INFO] correct (tool_hit=0)
+2026-06-15 07:53:58 [INFO] 
+
+number id: 199
+2026-06-15 07:54:04 [INFO] correct (tool_hit=0)
+2026-06-15 07:54:04 [INFO] 200 solving 运行耗时: 0.0h, 54.0min, 59.040663719177246s
+2026-06-15 07:54:04 [INFO] Correct_Q: 97
+2026-06-15 07:54:04 [INFO] False_Q: 103
+2026-06-15 07:54:04 [INFO] Error_Q: 0
+2026-06-15 07:54:04 [INFO] Sum_Q: 200
+2026-06-15 07:54:04 [INFO] Acc: 48.50%
+2026-06-15 07:54:04 [INFO] Avg_time_per_Q: 16.50s
+2026-06-15 07:54:04 [INFO] Total Tokens: 328852; Total Cost: $0.94
+2026-06-15 07:54:04 [INFO] ===== no_tool =====
+2026-06-15 07:54:04 [INFO] 
+
+number id: 0
+2026-06-15 07:54:14 [INFO] correct (tool_hit=0)
+2026-06-15 07:54:14 [INFO] 
+
+number id: 1
+2026-06-15 07:54:20 [INFO] correct (tool_hit=0)
+2026-06-15 07:54:20 [INFO] 
+
+number id: 2
+2026-06-15 07:54:38 [INFO] correct (tool_hit=0)
+2026-06-15 07:54:38 [INFO] 
+
+number id: 3
+2026-06-15 07:54:49 [INFO] correct (tool_hit=0)
+2026-06-15 07:54:49 [INFO] 
+
+number id: 4
+2026-06-15 07:54:57 [INFO] correct (tool_hit=0)
+2026-06-15 07:54:57 [INFO] 
+
+number id: 5
+2026-06-15 07:55:08 [INFO] correct (tool_hit=0)
+2026-06-15 07:55:08 [INFO] 
+
+number id: 6
+2026-06-15 07:55:19 [INFO] correct (tool_hit=0)
+2026-06-15 07:55:19 [INFO] 
+
+number id: 7
+2026-06-15 07:55:29 [INFO] error (tool_hit=0)
+2026-06-15 07:55:29 [INFO] 
+
+number id: 8
+2026-06-15 07:55:56 [INFO] correct (tool_hit=0)
+2026-06-15 07:55:56 [INFO] 
+
+number id: 9
+2026-06-15 07:56:11 [INFO] error (tool_hit=0)
+2026-06-15 07:56:11 [INFO] 
+
+number id: 10
+2026-06-15 07:56:34 [INFO] error (tool_hit=0)
+2026-06-15 07:56:34 [INFO] 
+
+number id: 11
+2026-06-15 07:56:49 [INFO] error (tool_hit=0)
+2026-06-15 07:56:49 [INFO] 
+
+number id: 12
+2026-06-15 07:57:01 [INFO] correct (tool_hit=0)
+2026-06-15 07:57:01 [INFO] 
+
+number id: 13
+2026-06-15 07:57:10 [INFO] correct (tool_hit=0)
+2026-06-15 07:57:10 [INFO] 
+
+number id: 14
+2026-06-15 07:57:48 [INFO] correct (tool_hit=0)
+2026-06-15 07:57:48 [INFO] 
+
+number id: 15
+2026-06-15 07:58:03 [INFO] error (tool_hit=0)
+2026-06-15 07:58:03 [INFO] 
+
+number id: 16
+2026-06-15 07:58:12 [INFO] correct (tool_hit=0)
+2026-06-15 07:58:12 [INFO] 
+
+number id: 17
+2026-06-15 07:58:33 [INFO] correct (tool_hit=0)
+2026-06-15 07:58:33 [INFO] 
+
+number id: 18
+2026-06-15 07:58:51 [INFO] correct (tool_hit=0)
+2026-06-15 07:58:51 [INFO] 
+
+number id: 19
+2026-06-15 07:58:59 [INFO] error (tool_hit=0)
+2026-06-15 07:58:59 [INFO] 
+
+number id: 20
+2026-06-15 07:59:28 [INFO] error (tool_hit=0)
+2026-06-15 07:59:28 [INFO] 
+
+number id: 21
+2026-06-15 07:59:43 [INFO] correct (tool_hit=0)
+2026-06-15 07:59:43 [INFO] 
+
+number id: 22
+2026-06-15 07:59:53 [INFO] correct (tool_hit=0)
+2026-06-15 07:59:53 [INFO] 
+
+number id: 23
+2026-06-15 08:00:08 [INFO] error (tool_hit=0)
+2026-06-15 08:00:08 [INFO] 
+
+number id: 24
+2026-06-15 08:00:16 [INFO] correct (tool_hit=0)
+2026-06-15 08:00:16 [INFO] 
+
+number id: 25
+2026-06-15 08:00:25 [INFO] correct (tool_hit=0)
+2026-06-15 08:00:25 [INFO] 
+
+number id: 26
+2026-06-15 08:00:45 [INFO] error (tool_hit=0)
+2026-06-15 08:00:45 [INFO] 
+
+number id: 27
+2026-06-15 08:01:09 [INFO] error (tool_hit=0)
+2026-06-15 08:01:09 [INFO] 
+
+number id: 28
+2026-06-15 08:01:23 [INFO] correct (tool_hit=0)
+2026-06-15 08:01:23 [INFO] 
+
+number id: 29
+2026-06-15 08:01:47 [INFO] error (tool_hit=0)
+2026-06-15 08:01:47 [INFO] 
+
+number id: 30
+2026-06-15 08:02:06 [INFO] correct (tool_hit=0)
+2026-06-15 08:02:06 [INFO] 
+
+number id: 31
+2026-06-15 08:02:21 [INFO] correct (tool_hit=0)
+2026-06-15 08:02:21 [INFO] 
+
+number id: 32
+2026-06-15 08:02:39 [INFO] error (tool_hit=0)
+2026-06-15 08:02:39 [INFO] 
+
+number id: 33
+2026-06-15 08:03:01 [INFO] error (tool_hit=0)
+2026-06-15 08:03:01 [INFO] 
+
+number id: 34
+2026-06-15 08:03:17 [INFO] error (tool_hit=0)
+2026-06-15 08:03:17 [INFO] 
+
+number id: 35
+2026-06-15 08:03:31 [INFO] correct (tool_hit=0)
+2026-06-15 08:03:31 [INFO] 
+
+number id: 36
+2026-06-15 08:04:02 [INFO] correct (tool_hit=0)
+2026-06-15 08:04:02 [INFO] 
+
+number id: 37
+2026-06-15 08:04:29 [INFO] error (tool_hit=0)
+2026-06-15 08:04:29 [INFO] 
+
+number id: 38
+2026-06-15 08:04:46 [INFO] error (tool_hit=0)
+2026-06-15 08:04:46 [INFO] 
+
+number id: 39
+2026-06-15 08:05:07 [INFO] correct (tool_hit=0)
+2026-06-15 08:05:07 [INFO] 
+
+number id: 40
+2026-06-15 08:05:19 [INFO] correct (tool_hit=0)
+2026-06-15 08:05:19 [INFO] 
+
+number id: 41
+2026-06-15 08:05:33 [INFO] correct (tool_hit=0)
+2026-06-15 08:05:33 [INFO] 
+
+number id: 42
+2026-06-15 08:05:40 [INFO] correct (tool_hit=0)
+2026-06-15 08:05:40 [INFO] 
+
+number id: 43
+2026-06-15 08:06:20 [INFO] error (tool_hit=0)
+2026-06-15 08:06:20 [INFO] 
+
+number id: 44
+2026-06-15 08:06:34 [INFO] error (tool_hit=0)
+2026-06-15 08:06:34 [INFO] 
+
+number id: 45
+2026-06-15 08:06:45 [INFO] error (tool_hit=0)
+2026-06-15 08:06:45 [INFO] 
+
+number id: 46
+2026-06-15 08:07:06 [INFO] error (tool_hit=0)
+2026-06-15 08:07:06 [INFO] 
+
+number id: 47
+2026-06-15 08:07:16 [INFO] correct (tool_hit=0)
+2026-06-15 08:07:16 [INFO] 
+
+number id: 48
+2026-06-15 08:07:29 [INFO] correct (tool_hit=0)
+2026-06-15 08:07:29 [INFO] 
+
+number id: 49
+2026-06-15 08:08:30 [INFO] correct (tool_hit=0)
+2026-06-15 08:08:30 [INFO] 
+
+number id: 50
+2026-06-15 08:08:45 [INFO] error (tool_hit=0)
+2026-06-15 08:08:45 [INFO] 
+
+number id: 51
+2026-06-15 08:08:56 [INFO] correct (tool_hit=0)
+2026-06-15 08:08:56 [INFO] 
+
+number id: 52
+2026-06-15 08:09:11 [INFO] error (tool_hit=0)
+2026-06-15 08:09:11 [INFO] 
+
+number id: 53
+2026-06-15 08:09:16 [INFO] error (tool_hit=0)
+2026-06-15 08:09:16 [INFO] 
+
+number id: 54
+2026-06-15 08:09:33 [INFO] error (tool_hit=0)
+2026-06-15 08:09:33 [INFO] 
+
+number id: 55
+2026-06-15 08:09:41 [INFO] correct (tool_hit=0)
+2026-06-15 08:09:41 [INFO] 
+
+number id: 56
+2026-06-15 08:09:49 [INFO] correct (tool_hit=0)
+2026-06-15 08:09:49 [INFO] 
+
+number id: 57
+2026-06-15 08:10:02 [INFO] correct (tool_hit=0)
+2026-06-15 08:10:02 [INFO] 
+
+number id: 58
+2026-06-15 08:10:09 [INFO] correct (tool_hit=0)
+2026-06-15 08:10:09 [INFO] 
+
+number id: 59
+2026-06-15 08:10:34 [INFO] correct (tool_hit=0)
+2026-06-15 08:10:34 [INFO] 
+
+number id: 60
+2026-06-15 08:10:44 [INFO] correct (tool_hit=0)
+2026-06-15 08:10:44 [INFO] 
+
+number id: 61
+2026-06-15 08:11:00 [INFO] error (tool_hit=0)
+2026-06-15 08:11:00 [INFO] 
+
+number id: 62
+2026-06-15 08:11:31 [INFO] error (tool_hit=0)
+2026-06-15 08:11:31 [INFO] 
+
+number id: 63
+2026-06-15 08:11:50 [INFO] correct (tool_hit=0)
+2026-06-15 08:11:50 [INFO] 
+
+number id: 64
+2026-06-15 08:11:58 [INFO] error (tool_hit=0)
+2026-06-15 08:11:58 [INFO] 
+
+number id: 65
+2026-06-15 08:12:07 [INFO] correct (tool_hit=0)
+2026-06-15 08:12:07 [INFO] 
+
+number id: 66
+2026-06-15 08:12:38 [INFO] error (tool_hit=0)
+2026-06-15 08:12:38 [INFO] 
+
+number id: 67
+2026-06-15 08:13:00 [INFO] correct (tool_hit=0)
+2026-06-15 08:13:00 [INFO] 
+
+number id: 68
+2026-06-15 08:13:40 [INFO] correct (tool_hit=0)
+2026-06-15 08:13:40 [INFO] 
+
+number id: 69
+2026-06-15 08:13:49 [INFO] error (tool_hit=0)
+2026-06-15 08:13:49 [INFO] 
+
+number id: 70
+2026-06-15 08:14:00 [INFO] error (tool_hit=0)
+2026-06-15 08:14:00 [INFO] 
+
+number id: 71
+2026-06-15 08:14:16 [INFO] error (tool_hit=0)
+2026-06-15 08:14:16 [INFO] 
+
+number id: 72
+2026-06-15 08:14:27 [INFO] correct (tool_hit=0)
+2026-06-15 08:14:27 [INFO] 
+
+number id: 73
+2026-06-15 08:14:44 [INFO] error (tool_hit=0)
+2026-06-15 08:14:44 [INFO] 
+
+number id: 74
+2026-06-15 08:14:56 [INFO] error (tool_hit=0)
+2026-06-15 08:14:56 [INFO] 
+
+number id: 75
+2026-06-15 08:15:08 [INFO] error (tool_hit=0)
+2026-06-15 08:15:08 [INFO] 
+
+number id: 76
+2026-06-15 08:15:20 [INFO] correct (tool_hit=0)
+2026-06-15 08:15:20 [INFO] 
+
+number id: 77
+2026-06-15 08:15:32 [INFO] error (tool_hit=0)
+2026-06-15 08:15:32 [INFO] 
+
+number id: 78
+2026-06-15 08:15:43 [INFO] error (tool_hit=0)
+2026-06-15 08:15:43 [INFO] 
+
+number id: 79
+2026-06-15 08:15:58 [INFO] error (tool_hit=0)
+2026-06-15 08:15:58 [INFO] 
+
+number id: 80
+2026-06-15 08:16:11 [INFO] error (tool_hit=0)
+2026-06-15 08:16:11 [INFO] 
+
+number id: 81
+2026-06-15 08:16:23 [INFO] correct (tool_hit=0)
+2026-06-15 08:16:23 [INFO] 
+
+number id: 82
+2026-06-15 08:16:41 [INFO] error (tool_hit=0)
+2026-06-15 08:16:41 [INFO] 
+
+number id: 83
+2026-06-15 08:16:47 [INFO] error (tool_hit=0)
+2026-06-15 08:16:47 [INFO] 
+
+number id: 84
+2026-06-15 08:16:54 [INFO] correct (tool_hit=0)
+2026-06-15 08:16:54 [INFO] 
+
+number id: 85
+2026-06-15 08:17:07 [INFO] error (tool_hit=0)
+2026-06-15 08:17:07 [INFO] 
+
+number id: 86
+2026-06-15 08:17:14 [INFO] correct (tool_hit=0)
+2026-06-15 08:17:14 [INFO] 
+
+number id: 87
+2026-06-15 08:17:23 [INFO] correct (tool_hit=0)
+2026-06-15 08:17:23 [INFO] 
+
+number id: 88
+2026-06-15 08:17:33 [INFO] correct (tool_hit=0)
+2026-06-15 08:17:33 [INFO] 
+
+number id: 89
+2026-06-15 08:17:47 [INFO] correct (tool_hit=0)
+2026-06-15 08:17:47 [INFO] 
+
+number id: 90
+2026-06-15 08:18:14 [INFO] correct (tool_hit=0)
+2026-06-15 08:18:14 [INFO] 
+
+number id: 91
+2026-06-15 08:18:48 [INFO] error (tool_hit=0)
+2026-06-15 08:18:48 [INFO] 
+
+number id: 92
+2026-06-15 08:19:00 [INFO] correct (tool_hit=0)
+2026-06-15 08:19:00 [INFO] 
+
+number id: 93
+2026-06-15 08:19:19 [INFO] error (tool_hit=0)
+2026-06-15 08:19:19 [INFO] 
+
+number id: 94
+2026-06-15 08:19:31 [INFO] correct (tool_hit=0)
+2026-06-15 08:19:31 [INFO] 
+
+number id: 95
+2026-06-15 08:19:54 [INFO] error (tool_hit=0)
+2026-06-15 08:19:54 [INFO] 
+
+number id: 96
+2026-06-15 08:20:04 [INFO] error (tool_hit=0)
+2026-06-15 08:20:04 [INFO] 
+
+number id: 97
+2026-06-15 08:20:19 [INFO] error (tool_hit=0)
+2026-06-15 08:20:19 [INFO] 
+
+number id: 98
+2026-06-15 08:20:39 [INFO] error (tool_hit=0)
+2026-06-15 08:20:39 [INFO] 
+
+number id: 99
+2026-06-15 08:20:53 [INFO] correct (tool_hit=0)
+2026-06-15 08:20:53 [INFO] 
+
+number id: 100
+2026-06-15 08:21:04 [INFO] correct (tool_hit=0)
+2026-06-15 08:21:04 [INFO] 
+
+number id: 101
+2026-06-15 08:21:12 [INFO] correct (tool_hit=0)
+2026-06-15 08:21:12 [INFO] 
+
+number id: 102
+2026-06-15 08:21:17 [INFO] correct (tool_hit=0)
+2026-06-15 08:21:17 [INFO] 
+
+number id: 103
+2026-06-15 08:21:30 [INFO] error (tool_hit=0)
+2026-06-15 08:21:30 [INFO] 
+
+number id: 104
+2026-06-15 08:21:47 [INFO] correct (tool_hit=0)
+2026-06-15 08:21:47 [INFO] 
+
+number id: 105
+2026-06-15 08:21:53 [INFO] error (tool_hit=0)
+2026-06-15 08:21:53 [INFO] 
+
+number id: 106
+2026-06-15 08:22:10 [INFO] error (tool_hit=0)
+2026-06-15 08:22:10 [INFO] 
+
+number id: 107
+2026-06-15 08:22:34 [INFO] correct (tool_hit=0)
+2026-06-15 08:22:34 [INFO] 
+
+number id: 108
+2026-06-15 08:22:44 [INFO] correct (tool_hit=0)
+2026-06-15 08:22:44 [INFO] 
+
+number id: 109
+2026-06-15 08:23:07 [INFO] error (tool_hit=0)
+2026-06-15 08:23:07 [INFO] 
+
+number id: 110
+2026-06-15 08:23:16 [INFO] correct (tool_hit=0)
+2026-06-15 08:23:16 [INFO] 
+
+number id: 111
+2026-06-15 08:23:31 [INFO] error (tool_hit=0)
+2026-06-15 08:23:31 [INFO] 
+
+number id: 112
+2026-06-15 08:23:39 [INFO] correct (tool_hit=0)
+2026-06-15 08:23:39 [INFO] 
+
+number id: 113
+2026-06-15 08:23:49 [INFO] correct (tool_hit=0)
+2026-06-15 08:23:49 [INFO] 
+
+number id: 114
+2026-06-15 08:23:55 [INFO] correct (tool_hit=0)
+2026-06-15 08:23:55 [INFO] 
+
+number id: 115
+2026-06-15 08:24:13 [INFO] error (tool_hit=0)
+2026-06-15 08:24:13 [INFO] 
+
+number id: 116
+2026-06-15 08:24:28 [INFO] error (tool_hit=0)
+2026-06-15 08:24:28 [INFO] 
+
+number id: 117
+2026-06-15 08:24:53 [INFO] error (tool_hit=0)
+2026-06-15 08:24:53 [INFO] 
+
+number id: 118
+2026-06-15 08:24:59 [INFO] correct (tool_hit=0)
+2026-06-15 08:24:59 [INFO] 
+
+number id: 119
+2026-06-15 08:25:25 [INFO] correct (tool_hit=0)
+2026-06-15 08:25:25 [INFO] 
+
+number id: 120
+2026-06-15 08:25:35 [INFO] correct (tool_hit=0)
+2026-06-15 08:25:35 [INFO] 
+
+number id: 121
+2026-06-15 08:25:53 [INFO] error (tool_hit=0)
+2026-06-15 08:25:53 [INFO] 
+
+number id: 122
+2026-06-15 08:26:07 [INFO] error (tool_hit=0)
+2026-06-15 08:26:07 [INFO] 
+
+number id: 123
+2026-06-15 08:26:23 [INFO] error (tool_hit=0)
+2026-06-15 08:26:23 [INFO] 
+
+number id: 124
+2026-06-15 08:26:43 [INFO] correct (tool_hit=0)
+2026-06-15 08:26:43 [INFO] 
+
+number id: 125
+2026-06-15 08:27:04 [INFO] error (tool_hit=0)
+2026-06-15 08:27:04 [INFO] 
+
+number id: 126
+2026-06-15 08:27:10 [INFO] error (tool_hit=0)
+2026-06-15 08:27:10 [INFO] 
+
+number id: 127
+2026-06-15 08:27:32 [INFO] correct (tool_hit=0)
+2026-06-15 08:27:32 [INFO] 
+
+number id: 128
+2026-06-15 08:27:38 [INFO] error (tool_hit=0)
+2026-06-15 08:27:38 [INFO] 
+
+number id: 129
+2026-06-15 08:27:58 [INFO] error (tool_hit=0)
+2026-06-15 08:27:58 [INFO] 
+
+number id: 130
+2026-06-15 08:28:07 [INFO] error (tool_hit=0)
+2026-06-15 08:28:07 [INFO] 
+
+number id: 131
+2026-06-15 08:28:18 [INFO] error (tool_hit=0)
+2026-06-15 08:28:18 [INFO] 
+
+number id: 132
+2026-06-15 08:28:28 [INFO] correct (tool_hit=0)
+2026-06-15 08:28:28 [INFO] 
+
+number id: 133
+2026-06-15 08:28:36 [INFO] error (tool_hit=0)
+2026-06-15 08:28:36 [INFO] 
+
+number id: 134
+2026-06-15 08:28:50 [INFO] error (tool_hit=0)
+2026-06-15 08:28:50 [INFO] 
+
+number id: 135
+2026-06-15 08:29:00 [INFO] error (tool_hit=0)
+2026-06-15 08:29:00 [INFO] 
+
+number id: 136
+2026-06-15 08:29:26 [INFO] error (tool_hit=0)
+2026-06-15 08:29:26 [INFO] 
+
+number id: 137
+2026-06-15 08:29:50 [INFO] error (tool_hit=0)
+2026-06-15 08:29:50 [INFO] 
+
+number id: 138
+2026-06-15 08:30:54 [INFO] error (tool_hit=0)
+2026-06-15 08:30:54 [INFO] 
+
+number id: 139
+2026-06-15 08:31:12 [INFO] error (tool_hit=0)
+2026-06-15 08:31:12 [INFO] 
+
+number id: 140
+2026-06-15 08:31:27 [INFO] correct (tool_hit=0)
+2026-06-15 08:31:27 [INFO] 
+
+number id: 141
+2026-06-15 08:31:46 [INFO] error (tool_hit=0)
+2026-06-15 08:31:46 [INFO] 
+
+number id: 142
+2026-06-15 08:31:59 [INFO] error (tool_hit=0)
+2026-06-15 08:31:59 [INFO] 
+
+number id: 143
+2026-06-15 08:32:22 [INFO] correct (tool_hit=0)
+2026-06-15 08:32:22 [INFO] 
+
+number id: 144
+2026-06-15 08:32:35 [INFO] error (tool_hit=0)
+2026-06-15 08:32:35 [INFO] 
+
+number id: 145
+2026-06-15 08:32:41 [INFO] correct (tool_hit=0)
+2026-06-15 08:32:41 [INFO] 
+
+number id: 146
+2026-06-15 08:32:50 [INFO] correct (tool_hit=0)
+2026-06-15 08:32:50 [INFO] 
+
+number id: 147
+2026-06-15 08:33:51 [INFO] error (tool_hit=0)
+2026-06-15 08:33:51 [INFO] 
+
+number id: 148
+2026-06-15 08:33:56 [INFO] correct (tool_hit=0)
+2026-06-15 08:33:56 [INFO] 
+
+number id: 149
+2026-06-15 08:34:00 [INFO] correct (tool_hit=0)
+2026-06-15 08:34:00 [INFO] 
+
+number id: 150
+2026-06-15 08:34:38 [INFO] error (tool_hit=0)
+2026-06-15 08:34:38 [INFO] 
+
+number id: 151
+2026-06-15 08:34:58 [INFO] error (tool_hit=0)
+2026-06-15 08:34:58 [INFO] 
+
+number id: 152
+2026-06-15 08:35:08 [INFO] error (tool_hit=0)
+2026-06-15 08:35:08 [INFO] 
+
+number id: 153
+2026-06-15 08:35:22 [INFO] error (tool_hit=0)
+2026-06-15 08:35:22 [INFO] 
+
+number id: 154
+2026-06-15 08:35:29 [INFO] correct (tool_hit=0)
+2026-06-15 08:35:29 [INFO] 
+
+number id: 155
+2026-06-15 08:35:51 [INFO] correct (tool_hit=0)
+2026-06-15 08:35:51 [INFO] 
+
+number id: 156
+2026-06-15 08:36:10 [INFO] error (tool_hit=0)
+2026-06-15 08:36:10 [INFO] 
+
+number id: 157
+2026-06-15 08:36:21 [INFO] error (tool_hit=0)
+2026-06-15 08:36:21 [INFO] 
+
+number id: 158
+2026-06-15 08:36:41 [INFO] correct (tool_hit=0)
+2026-06-15 08:36:41 [INFO] 
+
+number id: 159
+2026-06-15 08:36:50 [INFO] correct (tool_hit=0)
+2026-06-15 08:36:50 [INFO] 
+
+number id: 160
+2026-06-15 08:37:00 [INFO] correct (tool_hit=0)
+2026-06-15 08:37:00 [INFO] 
+
+number id: 161
+2026-06-15 08:37:16 [INFO] error (tool_hit=0)
+2026-06-15 08:37:16 [INFO] 
+
+number id: 162
+2026-06-15 08:37:25 [INFO] error (tool_hit=0)
+2026-06-15 08:37:25 [INFO] 
+
+number id: 163
+2026-06-15 08:37:40 [INFO] error (tool_hit=0)
+2026-06-15 08:37:40 [INFO] 
+
+number id: 164
+2026-06-15 08:38:03 [INFO] error (tool_hit=0)
+2026-06-15 08:38:03 [INFO] 
+
+number id: 165
+2026-06-15 08:39:09 [INFO] correct (tool_hit=0)
+2026-06-15 08:39:09 [INFO] 
+
+number id: 166
+2026-06-15 08:39:27 [INFO] error (tool_hit=0)
+2026-06-15 08:39:27 [INFO] 
+
+number id: 167
+2026-06-15 08:39:37 [INFO] correct (tool_hit=0)
+2026-06-15 08:39:37 [INFO] 
+
+number id: 168
+2026-06-15 08:39:55 [INFO] error (tool_hit=0)
+2026-06-15 08:39:55 [INFO] 
+
+number id: 169
+2026-06-15 08:40:11 [INFO] error (tool_hit=0)
+2026-06-15 08:40:11 [INFO] 
+
+number id: 170
+2026-06-15 08:40:25 [INFO] error (tool_hit=0)
+2026-06-15 08:40:25 [INFO] 
+
+number id: 171
+2026-06-15 08:40:36 [INFO] error (tool_hit=0)
+2026-06-15 08:40:36 [INFO] 
+
+number id: 172
+2026-06-15 08:40:56 [INFO] error (tool_hit=0)
+2026-06-15 08:40:56 [INFO] 
+
+number id: 173
+2026-06-15 08:41:08 [INFO] correct (tool_hit=0)
+2026-06-15 08:41:08 [INFO] 
+
+number id: 174
+2026-06-15 08:41:22 [INFO] correct (tool_hit=0)
+2026-06-15 08:41:22 [INFO] 
+
+number id: 175
+2026-06-15 08:41:29 [INFO] correct (tool_hit=0)
+2026-06-15 08:41:29 [INFO] 
+
+number id: 176
+2026-06-15 08:41:47 [INFO] correct (tool_hit=0)
+2026-06-15 08:41:47 [INFO] 
+
+number id: 177
+2026-06-15 08:42:04 [INFO] correct (tool_hit=0)
+2026-06-15 08:42:04 [INFO] 
+
+number id: 178
+2026-06-15 08:42:28 [INFO] error (tool_hit=0)
+2026-06-15 08:42:28 [INFO] 
+
+number id: 179
+2026-06-15 08:42:36 [INFO] correct (tool_hit=0)
+2026-06-15 08:42:36 [INFO] 
+
+number id: 180
+2026-06-15 08:43:45 [INFO] correct (tool_hit=0)
+2026-06-15 08:43:45 [INFO] 
+
+number id: 181
+2026-06-15 08:43:54 [INFO] correct (tool_hit=0)
+2026-06-15 08:43:54 [INFO] 
+
+number id: 182
+2026-06-15 08:44:08 [INFO] correct (tool_hit=0)
+2026-06-15 08:44:08 [INFO] 
+
+number id: 183
+2026-06-15 08:44:23 [INFO] error (tool_hit=0)
+2026-06-15 08:44:23 [INFO] 
+
+number id: 184
+2026-06-15 08:44:58 [INFO] error (tool_hit=0)
+2026-06-15 08:44:58 [INFO] 
+
+number id: 185
+2026-06-15 08:45:20 [INFO] error (tool_hit=0)
+2026-06-15 08:45:20 [INFO] 
+
+number id: 186
+2026-06-15 08:45:38 [INFO] error (tool_hit=0)
+2026-06-15 08:45:38 [INFO] 
+
+number id: 187
+2026-06-15 08:45:51 [INFO] correct (tool_hit=0)
+2026-06-15 08:45:51 [INFO] 
+
+number id: 188
+2026-06-15 08:46:01 [INFO] correct (tool_hit=0)
+2026-06-15 08:46:01 [INFO] 
+
+number id: 189
+2026-06-15 08:46:18 [INFO] correct (tool_hit=0)
+2026-06-15 08:46:18 [INFO] 
+
+number id: 190
+2026-06-15 08:46:44 [INFO] error (tool_hit=0)
+2026-06-15 08:46:44 [INFO] 
+
+number id: 191
+2026-06-15 08:46:56 [INFO] error (tool_hit=0)
+2026-06-15 08:46:56 [INFO] 
+
+number id: 192
+2026-06-15 08:47:03 [INFO] correct (tool_hit=0)
+2026-06-15 08:47:03 [INFO] 
+
+number id: 193
+2026-06-15 08:47:14 [INFO] correct (tool_hit=0)
+2026-06-15 08:47:14 [INFO] 
+
+number id: 194
+2026-06-15 08:47:35 [INFO] correct (tool_hit=0)
+2026-06-15 08:47:35 [INFO] 
+
+number id: 195
+2026-06-15 08:47:58 [INFO] correct (tool_hit=0)
+2026-06-15 08:47:58 [INFO] 
+
+number id: 196
+2026-06-15 08:48:21 [INFO] error (tool_hit=0)
+2026-06-15 08:48:21 [INFO] 
+
+number id: 197
+2026-06-15 08:48:33 [INFO] correct (tool_hit=0)
+2026-06-15 08:48:33 [INFO] 
+
+number id: 198
+2026-06-15 08:48:44 [INFO] correct (tool_hit=0)
+2026-06-15 08:48:44 [INFO] 
+
+number id: 199
+2026-06-15 08:48:49 [INFO] correct (tool_hit=0)
+2026-06-15 08:48:49 [INFO] 200 solving 运行耗时: 0.0h, 54.0min, 45.11168694496155s
+2026-06-15 08:48:49 [INFO] Correct_Q: 101
+2026-06-15 08:48:49 [INFO] False_Q: 99
+2026-06-15 08:48:49 [INFO] Error_Q: 0
+2026-06-15 08:48:49 [INFO] Sum_Q: 200
+2026-06-15 08:48:49 [INFO] Acc: 50.50%
+2026-06-15 08:48:49 [INFO] Avg_time_per_Q: 16.43s
+2026-06-15 08:48:49 [INFO] Total Tokens: 326814; Total Cost: $0.94
+2026-06-15 08:48:49 [INFO] Round 4 | no_tool: Acc=101/200, Avg_time=16.43s
+2026-06-15 08:48:49 [INFO] Round 4 | with_tool: Acc=97/200, Avg_time=16.50s
