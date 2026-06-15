@@ -35,7 +35,7 @@ from utils import *
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE)
-from tools import run_tool, extract_number
+from tools import run_tool, extract_number, validate_assignment
 
 openaiClient = setOpenAi(keyid=0)
 llamaClient = setLocal()
@@ -72,24 +72,31 @@ def _resolve_args(args, answerDict):
     return {'operation': args['operation'], 'values': vals}
 
 
-def tool_for(record, number, answerDict):
-    # 子任务级工具：取下标 number-1 的模式与工具，实测成功返回 (模式, 结果字符串)，否则 None
+def tool_for(record, number, answerDict, subtask):
+    # 子任务级工具：取下标 number-1 的模式与工具，校验通过后实测，成功返回 (模式, 结果字符串)，否则 None
     tools = record.get('allo_tool', [])
     targs = record.get('tool_args', [])
     modes = record.get('tool_mode', [])
     idx = number - 1
     if 0 <= idx < len(tools) and tools[idx] and tools[idx] != 'no_tool':
+        mode = modes[idx] if idx < len(modes) else 'replace'
+        ok, reason = validate_assignment(
+            subtask, tools[idx], targs[idx], mode,
+            all_steps=record.get('steps'), step_id=number,
+            int_edges=record.get('int_edges'),
+        )
+        if not ok:
+            return None
         args = _resolve_args(targs[idx], answerDict)
         if args is None:
             return None
         res = run_tool(tools[idx], args)
         if res['success']:
-            mode = modes[idx] if idx < len(modes) else 'replace'
             return mode, res['result']
     return None
 
 
-def solve_one(question, gold_answer, record, config, tokens_path, use_tool):
+def solve_one(question, gold_answer, record, config, tokens_path, use_tool, question_id=None, logger=None):
     # 跑完一题：子任务（可选工具注入）-> LLM 汇总 -> LLM 判对错。返回 (是否正确, 工具介入子任务数)
     steps_dict, allo_model = record['steps_dict'], record['allo_model']
     depths, int_edges = {int(k): v for k, v in record['depths'].items()}, record['int_edges']
@@ -101,7 +108,7 @@ def solve_one(question, gold_answer, record, config, tokens_path, use_tool):
             subtask = steps_dict[str(number)]
             answer_MODEL = allo_model[number - 1]
 
-            tinfo = tool_for(record, number, answerDict) if use_tool else None
+            tinfo = tool_for(record, number, answerDict, subtask) if use_tool else None
             hint = ''
             if tinfo is not None:
                 mode, tval = tinfo
@@ -135,6 +142,19 @@ Based on the information above, please provide a concise and clear answer"""
             Q = [{'role': 'system', 'content': sys_q}, {'role': 'user', 'content': query}]
             result = askLLM(clients, Q, tokens_path=tokens_path, model=answer_MODEL, temperature=1, max_tokens=300)
             answerDict[number] = {'subtask': subtask, 'answer': result}
+
+    expected_steps = {
+        int(re.findall(r"\d+", sid)[0])
+        for layer in depths.values()
+        for sid in layer
+    }
+    executed_steps = set(answerDict.keys())
+    missing_steps = expected_steps - executed_steps
+    if missing_steps:
+        msg = f'DAG incomplete, missing steps: {sorted(missing_steps)}'
+        if logger is not None and question_id is not None:
+            logger.error('Q%d execution anomaly: %s', question_id, msg)
+        raise RuntimeError(msg)
 
     Q = [{'role': 'user', 'content': f"""There is a math problem and the answers to all its sub-problems. Please give the final answer to the problem.
 Problem:\n{question}
@@ -171,7 +191,8 @@ def run_mode(use_tool, problems, middleRes, config, tokens_path, logger):
         t0 = time.time()
         logger.info('\n\nnumber id: %d', qid)
         try:
-            ok, hit = solve_one(question, gold_answer, middleRes[str(qid)], config, tokens_path, use_tool)
+            ok, hit = solve_one(question, gold_answer, middleRes[str(qid)], config, tokens_path, use_tool,
+                                question_id=qid, logger=logger)
             per_q[qid] = ok
             if ok:
                 success_Q += 1

@@ -294,28 +294,21 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {},
       {},
       {},
       {},
-      {
-        "operation": "sum",
-        "from_steps": [
-          2,
-          3,
-          4
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
-      "assist"
+      "no_tool"
     ]
   },
   "4": {
@@ -1385,7 +1378,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "aggregate",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -1399,13 +1392,7 @@
       {},
       {},
       {},
-      {
-        "operation": "product",
-        "from_steps": [
-          5,
-          7
-        ]
-      },
+      {},
       {},
       {},
       {}
@@ -1419,7 +1406,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "assist",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -3917,16 +3904,14 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "arith",
+      "no_tool",
       "arith",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {
-        "expression": "(1+(1)/(6))"
-      },
+      {},
       {
         "expression": "((42)/(3))"
       },
@@ -3935,7 +3920,7 @@
       {}
     ],
     "tool_mode": [
-      "replace",
+      "no_tool",
       "replace",
       "no_tool",
       "no_tool",
@@ -8639,21 +8624,19 @@
     ],
     "allo_tool": [
       "simplify",
-      "arith",
+      "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {
         "expression": "(3^k)^6"
       },
-      {
-        "expression": "3^6"
-      },
+      {},
       {}
     ],
     "tool_mode": [
       "assist",
-      "replace",
+      "no_tool",
       "no_tool"
     ]
   },
@@ -9811,27 +9794,21 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "aggregate",
+      "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {},
       {},
       {},
-      {
-        "operation": "sum",
-        "from_steps": [
-          2,
-          3
-        ]
-      },
+      {},
       {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
-      "assist",
+      "no_tool",
       "no_tool"
     ]
   },
@@ -9916,7 +9893,7 @@
       "no_tool",
       "arith",
       "no_tool",
-      "arith",
+      "no_tool",
       "aggregate",
       "no_tool"
     ],
@@ -9926,9 +9903,7 @@
         "expression": "((22)/(7))"
       },
       {},
-      {
-        "expression": "((22)/(7))"
-      },
+      {},
       {
         "operation": "sum",
         "from_steps": [
@@ -9942,7 +9917,7 @@
       "no_tool",
       "replace",
       "no_tool",
-      "replace",
+      "no_tool",
       "assist",
       "no_tool"
     ]
@@ -10036,7 +10011,7 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "arith",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -10045,9 +10020,7 @@
       "no_tool"
     ],
     "tool_args": [
-      {
-        "expression": "(1001001)(1010101) + (989899)(1001001) - (1001)(989899) - (1010101)(1001)"
-      },
+      {},
       {},
       {},
       {},
@@ -10056,7 +10029,7 @@
       {}
     ],
     "tool_mode": [
-      "replace",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -15848,23 +15821,21 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "expand",
+      "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {
-        "expression": "a(x+b)^2+c"
-      },
+      {},
       {},
       {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "replace",
+      "no_tool",
       "no_tool",
       "no_tool"
     ]
@@ -17205,21 +17176,19 @@
     "allo_tool": [
       "no_tool",
       "simplify",
-      "arith"
+      "no_tool"
     ],
     "tool_args": [
       {},
       {
         "expression": "(19 - 7x)^2"
       },
-      {
-        "expression": "49x^2 + 14x(19 - 7x) + (19 - 7x)^2"
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
       "assist",
-      "replace"
+      "no_tool"
     ]
   },
   "192": {

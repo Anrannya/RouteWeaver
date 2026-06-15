@@ -30,7 +30,7 @@ from utils import *
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE)
-from tools import run_tool, extract_number   # 本地确定性工具统一入口 + 运行时取值辅助
+from tools import run_tool, extract_number, validate_assignment   # 本地确定性工具统一入口 + 运行时取值辅助
 
 openaiClient = setOpenAi(keyid=0)
 llamaClient = setLocal()
@@ -55,19 +55,26 @@ def _resolve_args(args, answerDict):
     return {'operation': args['operation'], 'values': vals}
 
 
-def tool_for(record, number, answerDict):
-    # 子任务级工具：取该子任务（下标 number-1）的模式与工具，实测成功返回 (模式, 结果字符串)，否则 None。
+def tool_for(record, number, answerDict, subtask):
+    # 子任务级工具：取该子任务（下标 number-1）的模式与工具，校验通过后实测，成功返回 (模式, 结果字符串)，否则 None。
     tools = record.get('allo_tool', [])
     targs = record.get('tool_args', [])
     modes = record.get('tool_mode', [])
     idx = number - 1
     if 0 <= idx < len(tools) and tools[idx] and tools[idx] != 'no_tool':
+        mode = modes[idx] if idx < len(modes) else 'replace'
+        ok, reason = validate_assignment(
+            subtask, tools[idx], targs[idx], mode,
+            all_steps=record.get('steps'), step_id=number,
+            int_edges=record.get('int_edges'),
+        )
+        if not ok:
+            return None
         args = _resolve_args(targs[idx], answerDict)
         if args is None:
             return None
         res = run_tool(tools[idx], args)
         if res['success']:
-            mode = modes[idx] if idx < len(modes) else 'replace'
             return mode, res['result']
     return None
 
@@ -117,18 +124,16 @@ if __name__ == '__main__':
             steps, steps_dict, allo_model = record['steps'], record['steps_dict'], record['allo_model']
             depths, int_edges = record['depths'], record['int_edges']
             depths = {int(k): v for k, v in depths.items()}
-            MAXHeight = max(depths.keys())
             answerDict = {}
 
-            for i in range(MAXHeight):
-                for subtaskid in depths[i]:
-                    number = re.findall(r'\d+', subtaskid)
-                    number = int(number[0]) if number else None
+            for depth in sorted(depths.keys()):
+                for subtaskid in sorted(depths[depth]):
+                    number = int(re.findall(r'\d+', subtaskid)[0])
                     subtask = steps_dict[str(number)]
                     answer_MODEL = allo_model[number - 1]
 
                     # ===== 工具分支：按模式分流（aggregate 的值在此从 answerDict 的前驱取）=====
-                    tinfo = tool_for(record, number, answerDict) if USE_TOOL else None
+                    tinfo = tool_for(record, number, answerDict, subtask) if USE_TOOL else None
                     hint = ''
                     if tinfo is not None:
                         mode, tval = tinfo
@@ -171,6 +176,18 @@ Based on the information above, please provide a concise and clear answer"""
                          {'role': 'user', 'content': query}]
                     result = askLLM(clients, Q, tokens_path=tokens_path, model=answer_MODEL, temperature=1, max_tokens=300)
                     answerDict[number] = {'subtask': subtask, 'answer': result}
+
+            expected_steps = {
+                int(re.findall(r"\d+", sid)[0])
+                for layer in depths.values()
+                for sid in layer
+            }
+            executed_steps = set(answerDict.keys())
+            missing_steps = expected_steps - executed_steps
+            if missing_steps:
+                msg = f'DAG incomplete, missing steps: {sorted(missing_steps)}'
+                logger.error('Q%d execution anomaly: %s', question_id, msg)
+                raise RuntimeError(msg)
 
             # ===== 所有子任务完成后，汇总最终答案（始终由 LLM 完成）=====
             Q = [{'role': 'user', 'content': f"""There is a math problem and the answers to all its sub-problems. Please give the final answer to the problem.

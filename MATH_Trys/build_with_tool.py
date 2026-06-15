@@ -29,6 +29,7 @@ import sys
 BASE = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE)
 from tools import run_tool
+from tools.validate_assignment import validate_assignment
 
 IN_PATH = os.path.join(BASE, "TmpRes/step2In_MATH_last.json")
 OUT_PATH = os.path.join(BASE, "TmpRes/step2In_MATH_with_tool.json")
@@ -79,7 +80,20 @@ def _preds(step_id, int_edges):
     return sorted({int(a) for a, b in int_edges if int(b) == int(step_id)})
 
 
-def assign(subtask, step_id=None, int_edges=None):
+def _apply(subtask, step_id, int_edges, all_steps, mode, name, args):
+    """sympy 实测 + validate_assignment；不通过则降级 no_tool。"""
+    if name == "no_tool":
+        return mode, name, args
+    ok, _reason = validate_assignment(
+        subtask, name, args, mode,
+        all_steps=all_steps, step_id=step_id, int_edges=int_edges,
+    )
+    if not ok:
+        return "no_tool", "no_tool", {}
+    return mode, name, args
+
+
+def assign(subtask, step_id=None, int_edges=None, all_steps=None):
     # 规则分配核心：返回 (模式, 工具名, 参数dict)。模式 ∈ {"no_tool","replace","assist"}：
     #   replace=工具结果就是该子任务确切答案（覆盖、跳过该步 LLM）；
     #   assist =工具结果只是可靠的支撑量（作提示，LLM 仍自己作答）。
@@ -93,16 +107,17 @@ def assign(subtask, step_id=None, int_edges=None):
     #    因其注入了子任务并未要求的变换、易误导；故砍掉 assist 分支，只保留“求因式形式”这一对题场景。
     if (("factored form" in low) or ("factor the" in low)) \
             and expr and run_tool("factor", {"expression": expr})["success"]:
-        return "replace", "factor", {"expression": expr}
+        return _apply(subtask, step_id, int_edges, all_steps, "replace", "factor", {"expression": expr})
 
     # 2) 展开：问“expand / expanded form”，展开式即所求 → replace（否则作提示）。
     if ("expand" in low or "expanded" in low) and expr and run_tool("expand", {"expression": expr})["success"]:
         direct = ("expanded form" in low) or ("expand the" in low)
-        return ("replace" if direct else "assist"), "expand", {"expression": expr}
+        mode = "replace" if direct else "assist"
+        return _apply(subtask, step_id, int_edges, all_steps, mode, "expand", {"expression": expr})
 
     # 3) 代数化简（仅符号化简，纯数值留给 arith）→ 作提示 assist。
     if ("simplify" in low or "simplified form" in low) and expr and run_tool("simplify", {"expression": expr})["success"]:
-        return "assist", "simplify", {"expression": expr}
+        return _apply(subtask, step_id, int_edges, all_steps, "assist", "simplify", {"expression": expr})
 
     # 4) “X% of Y” / “(分数) of Y”：把“…的几分之几/百分之几”补全为乘积（修复仅抽到分数、漏掉 of N 的偏差）。
     mof = re.search(r"(\d+(?:\.\d+)?)\s*(%)?\s+of\s+(\d+(?:\.\d+)?)", low)
@@ -110,12 +125,12 @@ def assign(subtask, step_id=None, int_edges=None):
         a, pct, b = mof.groups()
         e = f"{a}/100*{b}" if pct else f"{a}*{b}"
         if run_tool("arith", {"expression": e})["success"]:
-            return "replace", "arith", {"expression": e}
+            return _apply(subtask, step_id, int_edges, all_steps, "replace", "arith", {"expression": e})
     mfrac = re.search(r"\bof\s+(\d+(?:\.\d+)?)", low)
     if mfrac and expr and "/" in expr:
         e = f"({expr})*{mfrac.group(1)}"
         if run_tool("arith", {"expression": e})["success"]:
-            return "replace", "arith", {"expression": e}
+            return _apply(subtask, step_id, int_edges, all_steps, "replace", "arith", {"expression": e})
 
     # 5) 代入求值：子任务显式给出 var=val。带 = 的片段是赋值，唯一不带 = 的是目标表达式。
     if any(k in low for k in _SUBST_KW) and len(ps) >= 2:
@@ -133,14 +148,14 @@ def assign(subtask, step_id=None, int_edges=None):
             if ok:
                 args = {"expression": tgt[0], "subs": subs}
                 if run_tool("subst", args)["success"]:
-                    return "replace", "subst", args
+                    return _apply(subtask, step_id, int_edges, all_steps, "replace", "subst", args)
 
     # 6) 纯数值计算：整段公式化简为确定数值且含运算符 → replace。
     #    安全护栏：若子任务出现 "of <数字>"（如 "1/3 of 36"）却没被上面的乘积规则吃掉，
     #    说明抽取不完整，宁可不配工具，避免注入“半个式子”的错误中间值。
     if expr and any(c in expr for c in "+-*/^") and not re.search(r"\bof\s+\d", low) \
             and run_tool("arith", {"expression": expr})["success"]:
-        return "replace", "arith", {"expression": expr}
+        return _apply(subtask, step_id, int_edges, all_steps, "replace", "arith", {"expression": expr})
 
     # 7) 解方程：含 =、排除概念题与代入、且恰含 1 个未知数；根集合作提示 → assist。
     if any(k in low for k in _SOLVE_KW) and not any(c in low for c in _CONCEPT) \
@@ -148,7 +163,7 @@ def assign(subtask, step_id=None, int_edges=None):
             and "=" in expr:
         args = {"equation": expr}
         if run_tool("solve", args)["success"]:
-            return "assist", "solve", args
+            return _apply(subtask, step_id, int_edges, all_steps, "assist", "solve", args)
 
     # 8) 运行时依赖聚合（assist）：子任务要对“前序子任务结果”做 和/积/正差。
     #    分配阶段只记录前驱步号（from_steps），数值在运行阶段才从前驱答案取 → 不泄漏后续/ gold。
@@ -164,7 +179,8 @@ def assign(subtask, step_id=None, int_edges=None):
             op = None
         if op and (op != "positive_difference" or len(preds) == 2):
             fs = preds[:2] if op == "positive_difference" else preds
-            return "assist", "aggregate", {"operation": op, "from_steps": fs}
+            args = {"operation": op, "from_steps": fs}
+            return _apply(subtask, step_id, int_edges, all_steps, "assist", "aggregate", args)
 
     return "no_tool", "no_tool", {}
 
@@ -175,9 +191,10 @@ def main():
     mode_stat = {}
     for q in data.values():
         tools, targs, modes = [], [], []
+        steps = q["steps"]
         int_edges = q.get("int_edges", [])
-        for i, s in enumerate(q["steps"], start=1):   # i 为 1 基步号，与 int_edges 对齐
-            mode, name, args = assign(s, i, int_edges)
+        for i, s in enumerate(steps, start=1):   # i 为 1 基步号，与 int_edges 对齐
+            mode, name, args = assign(s, i, int_edges, all_steps=steps)
             tools.append(name)
             targs.append(args)
             modes.append(mode)                # 每个子任务的使用模式：no_tool/replace/assist
