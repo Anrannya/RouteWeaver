@@ -95,8 +95,8 @@ def solve_one(question, gold_answer, record, config, tokens_path, use_tool):
     depths, int_edges = {int(k): v for k, v in record['depths'].items()}, record['int_edges']
     answerDict, tool_hit = {}, 0
 
-    for i in range(max(depths.keys())):
-        for subtaskid in depths[i]:
+    for depth in sorted(depths.keys()):
+        for subtaskid in sorted(depths[depth]):
             number = int(re.findall(r'\d+', subtaskid)[0])
             subtask = steps_dict[str(number)]
             answer_MODEL = allo_model[number - 1]
