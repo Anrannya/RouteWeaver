@@ -2142,17 +2142,21 @@
     ],
     "allo_tool": [
       "no_tool",
-      "no_tool",
+      "solve",
       "no_tool"
     ],
     "tool_args": [
       {},
-      {},
+      {
+        "equation": "a= 5",
+        "variable": "a",
+        "unique": true
+      },
       {}
     ],
     "tool_mode": [
       "no_tool",
-      "no_tool",
+      "replace",
       "no_tool"
     ]
   },
@@ -2286,7 +2290,7 @@
       "expand",
       "no_tool",
       "no_tool",
-      "no_tool",
+      "solve",
       "no_tool"
     ],
     "tool_args": [
@@ -2295,14 +2299,18 @@
       },
       {},
       {},
-      {},
+      {
+        "equation": "(2x+5)(x-3)=14",
+        "variable": "x",
+        "unique": false
+      },
       {}
     ],
     "tool_mode": [
       "replace",
       "no_tool",
       "no_tool",
-      "no_tool",
+      "assist",
       "no_tool"
     ]
   },
@@ -3623,19 +3631,29 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "linear_system_solver",
       "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {},
+      {
+        "equations": [
+          "x = 4",
+          "3x + 2y = 12"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      },
       {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "assist",
       "no_tool"
     ]
   },
@@ -3892,14 +3910,16 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "no_tool",
+      "arith",
       "arith",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {},
+      {
+        "expression": "(1+(1)/(6))"
+      },
       {
         "expression": "((42)/(3))"
       },
@@ -3908,7 +3928,7 @@
       {}
     ],
     "tool_mode": [
-      "no_tool",
+      "replace",
       "replace",
       "no_tool",
       "no_tool",
@@ -4149,19 +4169,21 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "no_tool",
+      "complex_arithmetic",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {},
+      {
+        "expression": "(2-2i)(5+5i)"
+      },
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "no_tool",
+      "assist",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -5246,39 +5268,45 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "no_tool",
-      "arith",
-      "no_tool",
+      "complex_arithmetic",
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
+      "complex_arithmetic",
       "no_tool",
-      "no_tool"
+      "complex_arithmetic",
+      "complex_arithmetic"
     ],
     "tool_args": [
-      {},
       {
-        "expression": "3 * 6"
+        "expression": "(3-i)(6+2i)"
       },
       {},
       {},
       {},
       {},
+      {
+        "expression": "(3-i)(6+2i)"
+      },
       {},
-      {},
-      {}
+      {
+        "expression": "(3-i)(6+2i)"
+      },
+      {
+        "expression": "(3-i)(6+2i)"
+      }
     ],
     "tool_mode": [
+      "assist",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "assist",
       "no_tool",
       "replace",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "60": {
@@ -5536,7 +5564,7 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "solve",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -5545,7 +5573,11 @@
     "tool_args": [
       {},
       {},
-      {},
+      {
+        "equation": "x(x-3)=1",
+        "variable": "x",
+        "unique": false
+      },
       {},
       {},
       {},
@@ -5554,7 +5586,7 @@
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "assist",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -6331,24 +6363,27 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "subst",
-      "subst",
+      "solve",
+      "linear_system_solver",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {
-        "expression": "y^2",
-        "subs": {
-          "y": "9"
-        }
+        "equation": "y = 9",
+        "variable": "y",
+        "unique": true
       },
       {
-        "expression": "3xy",
-        "subs": {
-          "x": "3",
-          "y": "9"
-        }
+        "equations": [
+          "x = 3",
+          "y = 9"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
       },
       {},
       {}
@@ -6656,19 +6691,23 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "solve",
       "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {},
+      {
+        "equation": "2x(x-10)=-50",
+        "variable": "x",
+        "unique": true
+      },
       {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "assist",
       "no_tool"
     ]
   },
@@ -10051,19 +10090,52 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver"
     ],
     "tool_args": [
-      {},
-      {},
-      {}
+      {
+        "equations": [
+          "x + y = 7",
+          "x - y = 9"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "target": "x",
+        "unique": true
+      },
+      {
+        "equations": [
+          "x + y = 7",
+          "x - y = 9"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "target": "y",
+        "unique": true
+      },
+      {
+        "equations": [
+          "x + y = 7",
+          "x - y = 9"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "target": "x*y",
+        "unique": true
+      }
     ],
     "tool_mode": [
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace",
+      "replace",
+      "replace"
     ]
   },
   "119": {
@@ -10765,30 +10837,43 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "subst",
-      "subst",
-      "no_tool"
+      "solve",
+      "linear_system_solver",
+      "linear_system_solver"
     ],
     "tool_args": [
       {
-        "expression": "2x",
-        "subs": {
-          "x": "4"
-        }
+        "equation": "x = 4",
+        "variable": "x",
+        "unique": true
       },
       {
-        "expression": "2x - y",
-        "subs": {
-          "x": "4",
-          "y": "3"
-        }
+        "equations": [
+          "x = 4",
+          "y = 3"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
       },
-      {}
+      {
+        "equations": [
+          "x=4",
+          "y=3"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      }
     ],
     "tool_mode": [
       "replace",
       "replace",
-      "no_tool"
+      "replace"
     ]
   },
   "127": {
@@ -11091,21 +11176,19 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "solve",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {
-        "equation": "2x^2-10x+5=0"
-      },
+      {},
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "assist",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -11169,22 +11252,65 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver"
     ],
     "tool_args": [
-      {},
-      {},
-      {},
-      {}
+      {
+        "equations": [
+          "2x - 3y = 8",
+          "4x + 3y = -2"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      },
+      {
+        "equations": [
+          "2x - 3y = 8",
+          "4x + 3y = -2"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "target": "x",
+        "unique": true
+      },
+      {
+        "equations": [
+          "2x - 3y = 8",
+          "4x + 3y = -2"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "target": "y",
+        "unique": true
+      },
+      {
+        "equations": [
+          "2x - 3y = 8",
+          "4x + 3y = -2"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "target": "x*y",
+        "unique": true
+      }
     ],
     "tool_mode": [
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "assist",
+      "replace",
+      "replace",
+      "replace"
     ]
   },
   "132": {
@@ -11256,25 +11382,77 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver"
     ],
     "tool_args": [
-      {},
-      {},
-      {},
-      {},
-      {}
+      {
+        "equations": [
+          "x+y=12",
+          "x-y=8"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "target": "x",
+        "unique": true
+      },
+      {
+        "equations": [
+          "x+y=12",
+          "x-y=8"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "target": "y",
+        "unique": true
+      },
+      {
+        "equations": [
+          "x+y=12",
+          "x-y=8"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      },
+      {
+        "equations": [
+          "x+y=12",
+          "x-y=8"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      },
+      {
+        "equations": [
+          "x+y=12",
+          "x-y=8"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      }
     ],
     "tool_mode": [
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace",
+      "replace",
+      "replace",
+      "replace",
+      "replace"
     ]
   },
   "133": {
@@ -11669,7 +11847,7 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "no_tool",
+      "solve",
       "expand",
       "no_tool",
       "no_tool",
@@ -11678,7 +11856,11 @@
       "no_tool"
     ],
     "tool_args": [
-      {},
+      {
+        "equation": "(x+1)(x+2) = x+3",
+        "variable": "x",
+        "unique": false
+      },
       {
         "expression": "(x+1)(x+2)"
       },
@@ -11689,7 +11871,7 @@
       {}
     ],
     "tool_mode": [
-      "no_tool",
+      "assist",
       "replace",
       "no_tool",
       "no_tool",
@@ -14192,22 +14374,56 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver",
+      "solve"
     ],
     "tool_args": [
-      {},
-      {},
-      {},
-      {}
+      {
+        "equations": [
+          "x=24",
+          "y=15"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      },
+      {
+        "equations": [
+          "x=24",
+          "y=15"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      },
+      {
+        "equations": [
+          "x=24",
+          "y=15"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      },
+      {
+        "equation": "y=3",
+        "variable": "y",
+        "unique": true
+      }
     ],
     "tool_mode": [
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "assist",
+      "assist",
+      "assist",
+      "replace"
     ]
   },
   "163": {
@@ -14380,7 +14596,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
+      "complex_arithmetic",
       "no_tool"
     ],
     "tool_args": [
@@ -14389,7 +14605,9 @@
       {},
       {},
       {},
-      {},
+      {
+        "expression": "(5-3i)(-4+3i)"
+      },
       {}
     ],
     "tool_mode": [
@@ -14398,7 +14616,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
+      "replace",
       "no_tool"
     ]
   },
@@ -15052,19 +15270,29 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "no_tool",
+      "linear_system_solver",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {},
+      {
+        "equations": [
+          "y=f(x)",
+          "y=((1)/(4))f(((1)/(2))x)"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "unique": true
+      },
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "no_tool",
+      "assist",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -15240,24 +15468,32 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "solve",
+      "solve"
     ],
     "tool_args": [
       {},
       {},
       {},
       {},
-      {},
-      {}
+      {
+        "equation": "x^2-4x-14=3x+16",
+        "variable": "x",
+        "unique": false
+      },
+      {
+        "equation": "x^2-4x-14=3x+16",
+        "variable": "x",
+        "unique": false
+      }
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "assist",
+      "assist"
     ]
   },
   "173": {
@@ -15329,7 +15565,7 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "subst",
+      "solve",
       "no_tool",
       "no_tool"
     ],
@@ -15337,10 +15573,9 @@
       {},
       {},
       {
-        "expression": "((x^3 + 72)/(2))",
-        "subs": {
-          "x": "6"
-        }
+        "equation": "x = 6",
+        "variable": "x",
+        "unique": true
       },
       {},
       {}
@@ -17099,19 +17334,21 @@
     "allo_tool": [
       "no_tool",
       "simplify",
-      "no_tool"
+      "arith"
     ],
     "tool_args": [
       {},
       {
         "expression": "(19 - 7x)^2"
       },
-      {}
+      {
+        "expression": "49x^2 + 14x(19 - 7x) + (19 - 7x)^2"
+      }
     ],
     "tool_mode": [
       "no_tool",
       "assist",
-      "no_tool"
+      "replace"
     ]
   },
   "192": {

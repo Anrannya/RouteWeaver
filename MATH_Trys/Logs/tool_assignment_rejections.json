@@ -1,77 +1,5 @@
 [
   {
-    "qid": 1,
-    "step_id": 3,
-    "subtask": "What is the positive difference between the result from step 1 and the result from step 2?",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "positive_difference",
-      "from_steps": [
-        1,
-        2
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 3,
-    "step_id": 5,
-    "subtask": "What is the sum of the simplified results from steps 2, 3, and 4?",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "sum",
-      "from_steps": [
-        2,
-        3,
-        4
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 13,
-    "step_id": 4,
-    "subtask": "What is the sum of the x and y coordinates of the midpoint?\"",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "sum",
-      "from_steps": [
-        2,
-        3
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 14,
-    "step_id": 9,
-    "subtask": "\"What is the product of the lengths of diagonals \\(AC\\) and \\(BD\\)?\"",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "product",
-      "from_steps": [
-        5,
-        7
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 44,
-    "step_id": 1,
-    "subtask": "What is the improper fraction form of \\( 1\\frac{1}{6} \\)?",
-    "original_tool": "arith",
-    "original_mode": "replace",
-    "original_args": {
-      "expression": "(1+(1)/(6))"
-    },
-    "reason": "复杂多项式不宜 arith replace"
-  },
-  {
     "qid": 100,
     "step_id": 2,
     "subtask": "What equation do we get when we set the simplified expression equal to \\(3^6\\)?",
@@ -81,51 +9,6 @@
       "expression": "3^6"
     },
     "reason": "求方程形式子任务禁止 arith replace"
-  },
-  {
-    "qid": 112,
-    "step_id": 5,
-    "subtask": "What is the sum of the results from step 2 and step 4, \\((b-c)^2 + a(b+c)\\)?",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "sum",
-      "from_steps": [
-        2,
-        4
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 114,
-    "step_id": 3,
-    "subtask": "What is the sum of the values found in steps 1 and 2?\"",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "sum",
-      "from_steps": [
-        1,
-        2
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 115,
-    "step_id": 4,
-    "subtask": "\"What equation can be formed using the sum of their ages exactly three years ago?\"",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "sum",
-      "from_steps": [
-        2,
-        3
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
   },
   {
     "qid": 116,
@@ -139,21 +22,6 @@
     "reason": "绝对差子任务禁止 arith replace"
   },
   {
-    "qid": 116,
-    "step_id": 5,
-    "subtask": "Add the two absolute differences calculated in the previous steps.",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "sum",
-      "from_steps": [
-        3,
-        4
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
     "qid": 117,
     "step_id": 1,
     "subtask": "What is the expanded form of the expression \\((1001001)(1010101) + (989899)(1001001) - (1001)(989899) - (1010101)(1001)\\)?",
@@ -162,99 +30,7 @@
     "original_args": {
       "expression": "(1001001)(1010101) + (989899)(1001001) - (1001)(989899) - (1010101)(1001)"
     },
-    "reason": "expanded form 子任务禁止 arith replace"
-  },
-  {
-    "qid": 118,
-    "step_id": 3,
-    "subtask": "\"What is the product of \\( x \\) and \\( y \\) once you know both values?\"",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "product",
-      "from_steps": [
-        1,
-        2
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 131,
-    "step_id": 4,
-    "subtask": "What is the product of the values of \\(x\\) and \\(y\\) once they are found?",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "product",
-      "from_steps": [
-        2,
-        3
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 140,
-    "step_id": 6,
-    "subtask": "\"What is the sum of the sixth and seventh terms?\"",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "sum",
-      "from_steps": [
-        4,
-        5
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 149,
-    "step_id": 3,
-    "subtask": "What is the difference between the results from step 1 and step 2?\".",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "positive_difference",
-      "from_steps": [
-        1,
-        2
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
-  },
-  {
-    "qid": 165,
-    "step_id": 20,
-    "subtask": "What is the sum of all these values from steps 1 to 19?",
-    "original_tool": "aggregate",
-    "original_mode": "assist",
-    "original_args": {
-      "operation": "sum",
-      "from_steps": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19
-      ]
-    },
-    "reason": "前驱无 verified 结构化数值，aggregate 暂不分配"
+    "reason": "会破坏符号结构，禁止 arith replace"
   },
   {
     "qid": 178,
@@ -266,16 +42,5 @@
       "expression": "a(x+b)^2+c"
     },
     "reason": "表达式含未绑定变量: ['a', 'b', 'c']"
-  },
-  {
-    "qid": 191,
-    "step_id": 3,
-    "subtask": "What is the simplified form of the entire expression \\(49x^2 + 14x(19 - 7x) + (19 - 7x)^2\\) after combining like terms?",
-    "original_tool": "arith",
-    "original_mode": "replace",
-    "original_args": {
-      "expression": "49x^2 + 14x(19 - 7x) + (19 - 7x)^2"
-    },
-    "reason": "复杂多项式不宜 arith replace"
   }
 ]
