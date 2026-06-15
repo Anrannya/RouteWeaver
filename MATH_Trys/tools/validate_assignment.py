@@ -81,12 +81,8 @@ def validate_assignment(subtask, tool_name, tool_args, mode="replace", all_steps
         if not tool_args.get("expression") or not tool_args.get("subs"):
             return False, "subst 参数不完整"
     elif tool_name == "aggregate":
-        if not tool_args.get("operation") or not tool_args.get("from_steps"):
-            return False, "aggregate 缺少 operation/from_steps"
-        for sid in tool_args["from_steps"]:
-            pst = _pred_subtask(sid, all_steps)
-            if pst and not _likely_numeric_answer_subtask(pst):
-                return False, f"aggregate 前驱 Step{sid} 非数值型子任务"
+        # 前驱尚无 verified 结构化数值，运行期仍依赖 extract_number 抽 LLM 自由文本 → 本阶段一律禁用
+        return False, "前驱无 verified 结构化数值，aggregate 暂不分配"
     elif tool_name == "solve":
         if not tool_args.get("equation", "").strip():
             return False, "solve 缺少 equation"

@@ -106,7 +106,7 @@
     "allo_tool": [
       "arith",
       "arith",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {
@@ -115,18 +115,12 @@
       {
         "expression": "130/100*20"
       },
-      {
-        "operation": "positive_difference",
-        "from_steps": [
-          1,
-          2
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "replace",
       "replace",
-      "assist"
+      "no_tool"
     ]
   },
   "2": {
@@ -1232,25 +1226,19 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {},
       {},
       {},
-      {
-        "operation": "sum",
-        "from_steps": [
-          2,
-          3
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
-      "assist"
+      "no_tool"
     ]
   },
   "14": {
@@ -9565,27 +9553,21 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {},
       {},
       {},
       {},
-      {
-        "operation": "sum",
-        "from_steps": [
-          2,
-          4
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
-      "assist"
+      "no_tool"
     ]
   },
   "113": {
@@ -9707,23 +9689,17 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {
-        "operation": "sum",
-        "from_steps": [
-          1,
-          2
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "assist"
+      "no_tool"
     ]
   },
   "115": {
@@ -9894,7 +9870,7 @@
       "arith",
       "no_tool",
       "no_tool",
-      "aggregate",
+      "no_tool",
       "no_tool"
     ],
     "tool_args": [
@@ -9904,13 +9880,7 @@
       },
       {},
       {},
-      {
-        "operation": "sum",
-        "from_steps": [
-          3,
-          4
-        ]
-      },
+      {},
       {}
     ],
     "tool_mode": [
@@ -9918,7 +9888,7 @@
       "replace",
       "no_tool",
       "no_tool",
-      "assist",
+      "no_tool",
       "no_tool"
     ]
   },
@@ -10083,23 +10053,17 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {
-        "operation": "product",
-        "from_steps": [
-          1,
-          2
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "assist"
+      "no_tool"
     ]
   },
   "119": {
@@ -11208,25 +11172,19 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {},
       {},
       {},
-      {
-        "operation": "product",
-        "from_steps": [
-          2,
-          3
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
-      "assist"
+      "no_tool"
     ]
   },
   "132": {
@@ -12165,7 +12123,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {},
@@ -12173,13 +12131,7 @@
       {},
       {},
       {},
-      {
-        "operation": "sum",
-        "from_steps": [
-          4,
-          5
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
@@ -12187,7 +12139,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "assist"
+      "no_tool"
     ]
   },
   "141": {
@@ -13118,23 +13070,17 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {
-        "operation": "positive_difference",
-        "from_steps": [
-          1,
-          2
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "assist"
+      "no_tool"
     ]
   },
   "150": {
@@ -14671,7 +14617,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "aggregate"
+      "no_tool"
     ],
     "tool_args": [
       {},
@@ -14693,30 +14639,7 @@
       {},
       {},
       {},
-      {
-        "operation": "sum",
-        "from_steps": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          16,
-          17,
-          18,
-          19
-        ]
-      }
+      {}
     ],
     "tool_mode": [
       "no_tool",
@@ -14738,7 +14661,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "assist"
+      "no_tool"
     ]
   },
   "166": {
