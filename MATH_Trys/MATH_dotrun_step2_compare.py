@@ -49,7 +49,19 @@ clients = {'gpt': openaiClient, 'llama': llamaClient}
 N = 200
 LOG_ROOT = os.path.join(BASE, "Logs", "compare log")
 DIAG_ROOT = os.path.join(BASE, "Logs", "phase26_pair_diagnostic")
+from compare_judge import normalize_final_answer, stable_hash as _stable_hash
+
 DEFAULT_SEED = 42
+
+
+def _assignment_file_hash():
+    path = os.path.join(BASE, 'TmpRes/step2In_MATH_with_tool.json')
+    try:
+        import hashlib
+        with open(path, 'rb') as f:
+            return hashlib.sha256(f.read()).hexdigest()
+    except OSError:
+        return None
 
 
 def _git_head():
@@ -176,7 +188,10 @@ def solve_one(question, gold_answer, record, config, tokens_path, use_tool, ques
     steps_dict, allo_model = record['steps_dict'], record['allo_model']
     depths, int_edges = {int(k): v for k, v in record['depths'].items()}, record['int_edges']
     answerDict, tool_hit = {}, 0
-    trace = {'subtasks': [], 'DAG_missing': [], 'final_answer': None, 'judge_correct': False}
+    trace = {
+        'subtasks': [], 'DAG_missing': [], 'final_answer': None, 'judge_correct': False,
+        'judge_raw_output': None, 'judge_reused': False,
+    }
 
     for depth in sorted(depths.keys()):
         for subtaskid in sorted(depths[depth]):
@@ -195,6 +210,8 @@ def solve_one(question, gold_answer, record, config, tokens_path, use_tool, ques
                     subtask_answer = tval
                     tool_hit += 1
                     detail['subtask_answer'] = subtask_answer
+                    detail['model_name'] = answer_MODEL
+                    detail['temperature'] = temperature
                     detail['elapsed_time'] = time.time() - step_t0
                     if return_trace:
                         trace['subtasks'].append(detail)
@@ -222,6 +239,14 @@ Based on the information above, please provide a concise and clear answer"""
 Based on the information above, please provide a concise and clear answer"""
 
             Q = [{'role': 'system', 'content': sys_q}, {'role': 'user', 'content': query}]
+            prompt_payload = {
+                'model': answer_MODEL, 'temperature': temperature,
+                'system': sys_q, 'user': query,
+            }
+            detail['model_name'] = answer_MODEL
+            detail['temperature'] = temperature
+            detail['prompt_hash'] = _stable_hash(prompt_payload)
+            detail['messages_hash'] = _stable_hash(Q)
             result = askLLM(clients, Q, tokens_path=tokens_path, model=answer_MODEL,
                             temperature=temperature, max_tokens=300)
             answerDict[number] = {'subtask': subtask, 'answer': result}
@@ -245,15 +270,22 @@ Based on the information above, please provide a concise and clear answer"""
             logger.error('Q%d execution anomaly: %s', question_id, msg)
         raise RuntimeError(msg)
 
-    Q = [{'role': 'user', 'content': f"""There is a math problem and the answers to all its sub-problems. Please give the final answer to the problem.
+    final_user = f"""There is a math problem and the answers to all its sub-problems. Please give the final answer to the problem.
 Problem:\n{question}
 
 The answers to the sub-problems are as follows:
 """ + "".join(f"\nSub-problem-Id: {k}; Sub-problem: {v['subtask']}; Answer: {v['answer']}." for k, v in answerDict.items()) + """
 
 Now that all the sub-problems have been solved, so what is the final answer?
-Please give the final answer without any additional explanation or clarification."""}]
-    finalResult = askLLM(clients, Q, tokens_path=tokens_path, model=config['finalSummarize_MODEL'],
+Please give the final answer without any additional explanation or clarification."""
+    Q = [{'role': 'user', 'content': final_user}]
+    final_model = config['finalSummarize_MODEL']
+    final_payload = {'model': final_model, 'temperature': temperature, 'user': final_user}
+    trace['final_model_name'] = final_model
+    trace['final_temperature'] = temperature
+    trace['final_prompt_hash'] = _stable_hash(final_payload)
+    trace['final_messages_hash'] = _stable_hash(Q)
+    finalResult = askLLM(clients, Q, tokens_path=tokens_path, model=final_model,
                          temperature=temperature, max_tokens=300)
 
     judge = {'role': 'user', 'content': f"""Here is a math problem with a standard answer and a student's solution. Please help me determine if the student's solution is correct.
@@ -271,6 +303,8 @@ No explanation is required.
     ok = 'True' in ifcorrect
     trace['final_answer'] = finalResult
     trace['judge_correct'] = ok
+    trace['judge_raw_output'] = ifcorrect
+    trace['judge_reused'] = False
     if return_trace:
         return ok, tool_hit, trace
     return ok, tool_hit
@@ -343,123 +377,219 @@ def _diff_summary(no_rec, yes_rec):
     return f"final: no={nf!r}, with={yf!r}"
 
 
-def run_pair_diagnostic(qids, problems, middle_no, middle_yes, config, out_dir, temperature, logger):
-    random.seed(DEFAULT_SEED)
+def _qid_has_tool(middle, qid):
+    return any(t != 'no_tool' for t in middle[str(qid)].get('allo_tool', []))
+
+
+def _compare_branch_hashes(no_rec, yes_rec):
+    """比较无工具题两分支逐步 hash。"""
+    no_by = {s['step_id']: s for s in no_rec.get('subtasks', [])}
+    yes_by = {s['step_id']: s for s in yes_rec.get('subtasks', [])}
+    same_ph = diff_ph = same_mh = diff_mh = 0
+    diffs = []
+    for sid in sorted(set(no_by) | set(yes_by)):
+        ns, ys = no_by.get(sid), yes_by.get(sid)
+        if not ns or not ys:
+            continue
+        if ns.get('prompt_hash') and ys.get('prompt_hash'):
+            if ns['prompt_hash'] == ys['prompt_hash']:
+                same_ph += 1
+            else:
+                diff_ph += 1
+                diffs.append({'step_id': sid, 'field': 'prompt_hash',
+                              'no_tool': ns['prompt_hash'], 'with_tool': ys['prompt_hash']})
+        if ns.get('messages_hash') and ys.get('messages_hash'):
+            if ns['messages_hash'] == ys['messages_hash']:
+                same_mh += 1
+            else:
+                diff_mh += 1
+                diffs.append({'step_id': sid, 'field': 'messages_hash',
+                              'no_tool': ns['messages_hash'], 'with_tool': ys['messages_hash']})
+    fp_n, fp_y = no_rec.get('final_prompt_hash'), yes_rec.get('final_prompt_hash')
+    fm_n, fm_y = no_rec.get('final_messages_hash'), yes_rec.get('final_messages_hash')
+    if fp_n and fp_y:
+        if fp_n == fp_y:
+            same_ph += 1
+        else:
+            diff_ph += 1
+            diffs.append({'step_id': 'final', 'field': 'final_prompt_hash',
+                            'no_tool': fp_n, 'with_tool': fp_y})
+    if fm_n and fm_y:
+        if fm_n == fm_y:
+            same_mh += 1
+        else:
+            diff_mh += 1
+            diffs.append({'step_id': 'final', 'field': 'final_messages_hash',
+                            'no_tool': fm_n, 'with_tool': fm_y})
+    return same_ph, diff_ph, same_mh, diff_mh, diffs
+
+
+def _branch_order_for_round(round_num, middle_no, middle_yes, order_mode='auto'):
+    if order_mode == 'A':
+        return [('no_tool', False, middle_no), ('with_tool', True, middle_yes)]
+    if order_mode == 'B':
+        return [('with_tool', True, middle_yes), ('no_tool', False, middle_no)]
+    return (
+        [('no_tool', False, middle_no), ('with_tool', True, middle_yes)]
+        if round_num % 2 == 1
+        else [('with_tool', True, middle_yes), ('no_tool', False, middle_no)]
+    )
+
+
+def run_pair_diagnostic(qids, problems, middle_no, middle_yes, config, out_dir, temperature, logger,
+                        num_runs=1, seed=DEFAULT_SEED, order_mode='auto'):
+    random.seed(seed)
     os.makedirs(out_dir, exist_ok=True)
     branch_results = {'no_tool': {}, 'with_tool': {}}
     stats = Counter()
     total_time = {'no_tool': 0.0, 'with_tool': 0.0}
+    hash_stats = Counter()
 
-    for branch, use_tool, middle in (
-        ('no_tool', False, middle_no),
-        ('with_tool', True, middle_yes),
-    ):
-        tok_path = os.path.join(out_dir, f'tokens_{branch}.json')
-        json.dump({}, open(tok_path, 'w'))
-        config['tokens_path'] = tok_path
-        logger.info('===== branch: %s =====', branch)
-        for qid in tqdm(qids, desc=branch):
+    for round_num in range(1, num_runs + 1):
+        branch_order = _branch_order_for_round(round_num, middle_no, middle_yes, order_mode=order_mode)
+        logger.info('===== round %d/%d ABBA order: %s =====',
+                    round_num, num_runs, ' -> '.join(b[0] for b in branch_order))
+
+        for qid in tqdm(qids, desc=f'round{round_num}'):
             question = problems[qid]['problem']
             gold = problems[qid]['solution']
-            rec = {
-                'qid': qid,
-                'branch': branch,
-                'problem': question,
-                'gold_answer': gold,
-                'subtasks': [],
-                'final_answer': None,
-                'judge_correct': False,
-                'DAG_missing': [],
-                'error': None,
-                'elapsed_time': 0.0,
-            }
-            t0 = time.time()
-            try:
-                ok, hit, trace = solve_one(
-                    question, gold, middle[str(qid)], config, tok_path, use_tool,
-                    question_id=qid, logger=logger, temperature=temperature, return_trace=True,
-                )
-                rec['subtasks'] = trace['subtasks']
-                rec['final_answer'] = trace['final_answer']
-                rec['judge_correct'] = trace['judge_correct']
-                rec['tool_hit'] = hit
-                rec['judge_correct_bool'] = ok
-            except RuntimeError as e:
-                rec['error'] = str(e)
-                m = re.search(r'missing steps: (\[[^\]]*\])', str(e))
-                if m:
-                    rec['DAG_missing'] = json.loads(m.group(1).replace("'", '"'))
-                ok = False
-            except Exception as e:
-                rec['error'] = str(e)
-                ok = False
-            rec['elapsed_time'] = time.time() - t0
-            total_time[branch] += rec['elapsed_time']
-            branch_results[branch][qid] = rec
-            if use_tool:
-                for st in rec.get('subtasks', []):
-                    if st.get('tool_name') != 'no_tool':
-                        stats['tool_calls'] += 1
-                        stats[f"mode_{st.get('tool_mode', 'unknown')}"] += 1
-                        if st.get('tool_evidence') == 'replace':
-                            stats['replace'] += 1
-                        elif st.get('tool_evidence') == 'assist':
-                            stats['assist'] += 1
-                        if st.get('tool_success'):
-                            stats['tool_success'] += 1
-                        else:
-                            stats['tool_fail'] += 1
-                        if st.get('fallback'):
-                            stats['fallback'] += 1
-                        if not st.get('validation_pass'):
-                            stats['validation_reject'] += 1
+            for branch, use_tool, middle in branch_order:
+                tok_path = os.path.join(out_dir, f'tokens_{branch}_r{round_num}.json')
+                if not os.path.exists(tok_path):
+                    json.dump({}, open(tok_path, 'w'))
+                config['tokens_path'] = tok_path
+                rec = {
+                    'qid': qid,
+                    'branch': branch,
+                    'round': round_num,
+                    'problem': question,
+                    'gold_answer': gold,
+                    'subtasks': [],
+                    'final_answer': None,
+                    'judge_correct': False,
+                    'judge_raw_output': None,
+                    'judge_reused': False,
+                    'DAG_missing': [],
+                    'error': None,
+                    'elapsed_time': 0.0,
+                }
+                t0 = time.time()
+                try:
+                    ok, hit, trace = solve_one(
+                        question, gold, middle[str(qid)], config, tok_path, use_tool,
+                        question_id=qid, logger=logger, temperature=temperature, return_trace=True,
+                    )
+                    rec['subtasks'] = trace['subtasks']
+                    rec['final_answer'] = trace['final_answer']
+                    rec['judge_correct'] = trace['judge_correct']
+                    rec['judge_raw_output'] = trace.get('judge_raw_output')
+                    rec['judge_reused'] = trace.get('judge_reused', False)
+                    rec['final_model_name'] = trace.get('final_model_name')
+                    rec['final_temperature'] = trace.get('final_temperature')
+                    rec['final_prompt_hash'] = trace.get('final_prompt_hash')
+                    rec['final_messages_hash'] = trace.get('final_messages_hash')
+                    rec['tool_hit'] = hit
+                    rec['judge_correct_bool'] = ok
+                except RuntimeError as e:
+                    rec['error'] = str(e)
+                    m = re.search(r'missing steps: (\[[^\]]*\])', str(e))
+                    if m:
+                        rec['DAG_missing'] = json.loads(m.group(1).replace("'", '"'))
+                    ok = False
+                except Exception as e:
+                    rec['error'] = str(e)
+                    ok = False
+                rec['elapsed_time'] = time.time() - t0
+                total_time[branch] += rec['elapsed_time']
+                branch_results[branch][(round_num, qid)] = rec
+                if use_tool:
+                    for st in rec.get('subtasks', []):
+                        if st.get('tool_name') != 'no_tool':
+                            stats['tool_calls'] += 1
+                            stats[f"mode_{st.get('tool_mode', 'unknown')}"] += 1
+                            if st.get('tool_evidence') == 'replace':
+                                stats['replace'] += 1
+                            elif st.get('tool_evidence') == 'assist':
+                                stats['assist'] += 1
+                            if st.get('tool_success'):
+                                stats['tool_success'] += 1
+                            else:
+                                stats['tool_fail'] += 1
+                            if st.get('fallback'):
+                                stats['fallback'] += 1
+                            if not st.get('validation_pass'):
+                                stats['validation_reject'] += 1
 
-            out_path = os.path.join(out_dir, f'Q{qid}_{branch}.json')
-            json.dump(rec, open(out_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
-            logger.info('Q%d %s correct=%s time=%.1fs', qid, branch, ok, rec['elapsed_time'])
+                suffix = f'_r{round_num}' if num_runs > 1 else ''
+                out_path = os.path.join(out_dir, f'Q{qid}_{branch}{suffix}.json')
+                json.dump(rec, open(out_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
+                logger.info('Q%d %s r%d correct=%s time=%.1fs', qid, branch, round_num, ok, rec['elapsed_time'])
 
     pairs = []
-    for qid in qids:
-        no_rec = branch_results['no_tool'][qid]
-        yes_rec = branch_results['with_tool'][qid]
-        no_ok = no_rec.get('judge_correct_bool', False) and not no_rec.get('error')
-        yes_ok = yes_rec.get('judge_correct_bool', False) and not yes_rec.get('error')
-        if no_rec.get('DAG_missing') or yes_rec.get('DAG_missing'):
-            stats['DAG_missing_q'] += 1
-        trans = _transition(no_ok, yes_ok) if not (no_rec.get('error') or yes_rec.get('error')) else 'error'
-        if trans != 'error':
-            stats[trans] += 1
-        if no_ok:
-            stats['no_tool_correct'] += 1
-        if yes_ok:
-            stats['with_tool_correct'] += 1
-        tool_outputs = [
-            {'step': s['step_id'], 'tool': s['tool_name'], 'mode': s['tool_mode'],
-             'output': s.get('tool_output'), 'evidence': s.get('tool_evidence'),
-             'answer': s.get('subtask_answer')}
-            for s in yes_rec.get('subtasks', []) if s.get('tool_name') != 'no_tool'
-        ]
-        pairs.append({
-            'qid': qid,
-            'no_tool_correct': no_ok,
-            'with_tool_correct': yes_ok,
-            'transition': trans,
-            'tools_used': [s['tool_name'] for s in yes_rec.get('subtasks', []) if s.get('tool_name') != 'no_tool'],
-            'tool_outputs': tool_outputs,
-            'no_tool_final': no_rec.get('final_answer'),
-            'with_tool_final': yes_rec.get('final_answer'),
-            'difference_summary': _diff_summary(no_rec, yes_rec),
-            'no_tool_error': no_rec.get('error'),
-            'with_tool_error': yes_rec.get('error'),
-        })
+    for round_num in range(1, num_runs + 1):
+        for qid in qids:
+            no_rec = branch_results['no_tool'][(round_num, qid)]
+            yes_rec = branch_results['with_tool'][(round_num, qid)]
+            no_ok = no_rec.get('judge_correct_bool', False) and not no_rec.get('error')
+            yes_ok = yes_rec.get('judge_correct_bool', False) and not yes_rec.get('error')
+            if no_rec.get('DAG_missing') or yes_rec.get('DAG_missing'):
+                stats['DAG_missing_q'] += 1
+            trans = _transition(no_ok, yes_ok) if not (no_rec.get('error') or yes_rec.get('error')) else 'error'
+            if trans != 'error':
+                stats[trans] += 1
+            if no_ok:
+                stats['no_tool_correct'] += 1
+            if yes_ok:
+                stats['with_tool_correct'] += 1
+
+            nf, yf = no_rec.get('final_answer'), yes_rec.get('final_answer')
+            if normalize_final_answer(nf) == normalize_final_answer(yf) and nf is not None:
+                stats['same_final_count'] += 1
+                if no_ok != yes_ok:
+                    stats['same_final_different_judge_count'] += 1
+            tool_outputs = [
+                {'step': s['step_id'], 'tool': s['tool_name'], 'mode': s['tool_mode'],
+                 'output': s.get('tool_output'), 'evidence': s.get('tool_evidence'),
+                 'answer': s.get('subtask_answer')}
+                for s in yes_rec.get('subtasks', []) if s.get('tool_name') != 'no_tool'
+            ]
+            pair_entry = {
+                'qid': qid,
+                'round': round_num,
+                'no_tool_correct': no_ok,
+                'with_tool_correct': yes_ok,
+                'transition': trans,
+                'tools_used': [s['tool_name'] for s in yes_rec.get('subtasks', []) if s.get('tool_name') != 'no_tool'],
+                'tool_outputs': tool_outputs,
+                'no_tool_final': nf,
+                'with_tool_final': yf,
+                'no_tool_judge_reused': no_rec.get('judge_reused', False),
+                'with_tool_judge_reused': yes_rec.get('judge_reused', False),
+                'difference_summary': _diff_summary(no_rec, yes_rec),
+                'no_tool_error': no_rec.get('error'),
+                'with_tool_error': yes_rec.get('error'),
+            }
+            if not _qid_has_tool(middle_yes, qid):
+                sp, dp, sm, dm, diffs = _compare_branch_hashes(no_rec, yes_rec)
+                hash_stats['same_prompt_hash_count'] += sp
+                hash_stats['different_prompt_hash_count'] += dp
+                hash_stats['same_messages_hash_count'] += sm
+                hash_stats['different_messages_hash_count'] += dm
+                pair_entry['hash_diffs'] = diffs
+            pairs.append(pair_entry)
 
     summary = {
         'qids': qids,
         'git_head': _git_head(),
+        'assignment_file': 'TmpRes/step2In_MATH_with_tool.json',
+        'assignment_file_hash': _assignment_file_hash(),
+        'judge_protocol': 'independent_per_branch',
+        'judge_reuse_enabled': False,
         'temperature': temperature,
-        'seed': DEFAULT_SEED,
-        'rounds': 1,
-        'question_total': len(qids),
+        'seed': seed,
+        'order_mode': order_mode,
+        'rounds': num_runs,
+        'question_total': len(qids) * num_runs,
         'no_tool_correct': stats['no_tool_correct'],
         'with_tool_correct': stats['with_tool_correct'],
         'wrong_to_right': stats['wrong_to_right'],
@@ -475,6 +605,13 @@ def run_pair_diagnostic(qids, problems, middle_no, middle_yes, config, out_dir, 
         'fallback': stats['fallback'],
         'validation_reject': stats['validation_reject'],
         'DAG_missing': stats['DAG_missing_q'],
+        'same_final_count': stats['same_final_count'],
+        'same_final_different_judge_count': stats['same_final_different_judge_count'],
+        'judge_reuse_count': stats['judge_reuse_count'],
+        'same_prompt_hash_count': hash_stats['same_prompt_hash_count'],
+        'different_prompt_hash_count': hash_stats['different_prompt_hash_count'],
+        'same_messages_hash_count': hash_stats['same_messages_hash_count'],
+        'different_messages_hash_count': hash_stats['different_messages_hash_count'],
         'no_tool_total_time': total_time['no_tool'],
         'with_tool_total_time': total_time['with_tool'],
     }
@@ -514,7 +651,11 @@ if __name__ == '__main__':
     parser.add_argument('--rounds', type=int, default=1, help='对比轮数')
     parser.add_argument('--n', type=int, default=200, help='每种模式评测的题目数量（前 n 题）')
     parser.add_argument('--qids', type=str, default='', help='指定题号，逗号分隔（启用配对诊断）')
+    parser.add_argument('--runs', type=int, default=1, help='配对诊断轮数(ABBA)，仅 --qids 模式')
     parser.add_argument('--temperature', type=float, default=None, help='LLM temperature')
+    parser.add_argument('--seed', type=int, default=DEFAULT_SEED, help='随机种子，默认 42')
+    parser.add_argument('--order', choices=['auto', 'A', 'B'], default='auto',
+                        help='配对诊断分支顺序：A=no_tool->with_tool，B=with_tool->no_tool，auto=按轮次ABBA')
     args = parser.parse_args()
 
     file_path = '../Task_Datasets/MATH/all_math_p.json'
@@ -534,18 +675,23 @@ if __name__ == '__main__':
         out_dir = os.path.join(DIAG_ROOT, run_ts)
         log_file = os.path.join(out_dir, 'run.log')
         logger = setup_compare_logger(log_file)
-        logger.info('Phase26 pair diagnostic qids=%s temperature=%s seed=%s', qids, temperature, DEFAULT_SEED)
+        logger.info('Phase26 pair diagnostic qids=%s temperature=%s seed=%s runs=%s order=%s',
+                    qids, temperature, args.seed, args.runs, args.order)
         print(f'配对诊断目录: {out_dir}')
-        print(f'题号: {qids}, temperature={temperature}, seed={DEFAULT_SEED}')
+        print(f'题号: {qids}, temperature={temperature}, seed={args.seed}, runs={args.runs}, order={args.order}')
         summary, pairs, _ = run_pair_diagnostic(
             qids, problems, middle_no_tool, middle_with_tool, config, out_dir, temperature, logger,
+            num_runs=args.runs, seed=args.seed, order_mode=args.order,
         )
         print('\n===== 配对统计 =====')
         for k in (
             'question_total', 'no_tool_correct', 'with_tool_correct',
             'wrong_to_right', 'right_to_wrong', 'right_to_right', 'wrong_to_wrong', 'net_gain',
             'tool_calls', 'replace', 'assist', 'tool_success', 'tool_fail', 'fallback',
-            'validation_reject', 'DAG_missing', 'no_tool_total_time', 'with_tool_total_time',
+            'validation_reject', 'DAG_missing', 'same_final_count', 'same_final_different_judge_count',
+            'judge_reuse_count', 'same_prompt_hash_count', 'different_prompt_hash_count',
+            'same_messages_hash_count', 'different_messages_hash_count',
+            'no_tool_total_time', 'with_tool_total_time',
         ):
             print(f'{k}: {summary[k]}')
         sys.exit(0)

@@ -1,0 +1,258 @@
+{
+  "source_validation_qids": "TmpRes/phase27_qids.json",
+  "source_assignment": "TmpRes/step2In_MATH_with_tool.json",
+  "git_head": "e23d2714f67e54b0e2a1aef50956be1d57eb0d68",
+  "active_tool_qids": [
+    0,
+    1,
+    22,
+    36,
+    44,
+    63,
+    87,
+    100,
+    102,
+    116,
+    118,
+    130,
+    137,
+    144,
+    147,
+    151,
+    153,
+    172,
+    174,
+    176,
+    190
+  ],
+  "question_count": 21,
+  "tool_slot_count": 29,
+  "replace_count": 16,
+  "assist_count": 13,
+  "tool_type_counts": {
+    "factor": 3,
+    "arith": 8,
+    "simplify": 3,
+    "solve": 9,
+    "linear_system_solver": 3,
+    "expand": 3
+  },
+  "per_question_slots": {
+    "0": [
+      {
+        "step": 1,
+        "subtask": "\"What is the factored form of the denominator \\( x^2 + x - 6 \\)?\"",
+        "tool": "factor",
+        "mode": "replace"
+      }
+    ],
+    "1": [
+      {
+        "step": 1,
+        "subtask": "What is 120% of 30?",
+        "tool": "arith",
+        "mode": "replace"
+      },
+      {
+        "step": 2,
+        "subtask": "What is 130% of 20?",
+        "tool": "arith",
+        "mode": "replace"
+      }
+    ],
+    "22": [
+      {
+        "step": 1,
+        "subtask": "What is the simplified form of the expression \\(17^6 - 17^5\\)?",
+        "tool": "arith",
+        "mode": "replace"
+      }
+    ],
+    "36": [
+      {
+        "step": 3,
+        "subtask": "How do we simplify or transform \\( x^4 + 4x^2 \\) to better understand or solve these inequalities?",
+        "tool": "simplify",
+        "mode": "assist"
+      }
+    ],
+    "44": [
+      {
+        "step": 1,
+        "subtask": "What is the improper fraction form of \\( 1\\frac{1}{6} \\)?",
+        "tool": "arith",
+        "mode": "replace"
+      },
+      {
+        "step": 2,
+        "subtask": "What is the simplified form of \\(\\frac{42}{3}\\)?",
+        "tool": "arith",
+        "mode": "replace"
+      }
+    ],
+    "63": [
+      {
+        "step": 1,
+        "subtask": "What are the solutions of the quadratic equation \\(2x^2 + 13x + 6 = 0\\)?",
+        "tool": "solve",
+        "mode": "assist"
+      }
+    ],
+    "87": [
+      {
+        "step": 2,
+        "subtask": "What numerical value do we get when we calculate \\((-4)^2\\)?",
+        "tool": "arith",
+        "mode": "replace"
+      }
+    ],
+    "100": [
+      {
+        "step": 1,
+        "subtask": "How can we simplify the expression \\((3^k)^6\\) using the laws of exponents?",
+        "tool": "simplify",
+        "mode": "assist"
+      }
+    ],
+    "102": [
+      {
+        "step": 1,
+        "subtask": "What is \\(\\frac{1}{3}\\) of 36?\",",
+        "tool": "arith",
+        "mode": "replace"
+      }
+    ],
+    "116": [
+      {
+        "step": 2,
+        "subtask": "What is the value of the common fraction \\(\\frac{22}{7}\\) as a decimal?",
+        "tool": "arith",
+        "mode": "replace"
+      }
+    ],
+    "118": [
+      {
+        "step": 1,
+        "subtask": "\"What is the value of \\( x \\)?\"",
+        "tool": "linear_system_solver",
+        "mode": "replace"
+      },
+      {
+        "step": 2,
+        "subtask": "\"What is the value of \\( y \\)?\"",
+        "tool": "linear_system_solver",
+        "mode": "replace"
+      },
+      {
+        "step": 3,
+        "subtask": "\"What is the product of \\( x \\) and \\( y \\) once you know both values?\"",
+        "tool": "linear_system_solver",
+        "mode": "replace"
+      }
+    ],
+    "130": [
+      {
+        "step": 1,
+        "subtask": "What are the values of \\(a\\) and \\(b\\), the solutions of the equation \\(2x^2-10x+5=0\\)?",
+        "tool": "solve",
+        "mode": "assist"
+      }
+    ],
+    "137": [
+      {
+        "step": 1,
+        "subtask": "estion \"What is \\(m+n\\) where the solutions to the equation \\((x+1)(x+2) = x+3\\) can be written in the form \\(m+\\sqrt{n}\\) and \\(m-\\sqrt{n}\\)?\", we need to:",
+        "tool": "solve",
+        "mode": "assist"
+      },
+      {
+        "step": 2,
+        "subtask": "Expand the left side of the equation \\((x+1)(x+2)\\) and simplify it.",
+        "tool": "expand",
+        "mode": "replace"
+      }
+    ],
+    "144": [
+      {
+        "step": 1,
+        "subtask": "\"What is the expanded form of \\((2x + 3y)^2\\)?\"",
+        "tool": "expand",
+        "mode": "replace"
+      }
+    ],
+    "147": [
+      {
+        "step": 1,
+        "subtask": "How do we factor the denominator \\(x^2 - 8x + 15\\)?",
+        "tool": "factor",
+        "mode": "replace"
+      },
+      {
+        "step": 8,
+        "subtask": "- Factor the quadratic \\(x^2 - 8x + 15\\) as \\((x-3)(x-5)\\).",
+        "tool": "factor",
+        "mode": "replace"
+      }
+    ],
+    "151": [
+      {
+        "step": 1,
+        "subtask": "What are the roots \\(a\\) and \\(b\\) of the quadratic equation \\(2x^2-7x+2=0\\)?",
+        "tool": "solve",
+        "mode": "assist"
+      }
+    ],
+    "153": [
+      {
+        "step": 1,
+        "subtask": "What are the solutions for the equation \\( 18x^2 + 25x - 3 = 0 \\)?",
+        "tool": "solve",
+        "mode": "assist"
+      },
+      {
+        "step": 2,
+        "subtask": "What are the solutions for the equation \\( 4x^2 + 8x + 3 = 0 \\)?",
+        "tool": "solve",
+        "mode": "assist"
+      }
+    ],
+    "172": [
+      {
+        "step": 5,
+        "subtask": "How to determine the difference between the two solutions.",
+        "tool": "solve",
+        "mode": "assist"
+      }
+    ],
+    "174": [
+      {
+        "step": 1,
+        "subtask": "What are the solutions to the quadratic equation \\(5x^2 - 20x + 18 = 0\\)?",
+        "tool": "solve",
+        "mode": "assist"
+      },
+      {
+        "step": 3,
+        "subtask": "What are the approximate decimal values of these roots?",
+        "tool": "solve",
+        "mode": "assist"
+      }
+    ],
+    "176": [
+      {
+        "step": 1,
+        "subtask": "\"What is the simplified form of the left side, \\( 5^b + 5^b + 5^b + 5^b + 5^b \\)?\"",
+        "tool": "simplify",
+        "mode": "assist"
+      }
+    ],
+    "190": [
+      {
+        "step": 1,
+        "subtask": "\"What are the expressions for the coefficients when \\((Ax - 5)(2Bx + C)\\) is expanded?\"",
+        "tool": "expand",
+        "mode": "assist"
+      }
+    ]
+  }
+}

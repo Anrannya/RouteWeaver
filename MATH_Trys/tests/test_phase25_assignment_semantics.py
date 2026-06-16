@@ -139,12 +139,17 @@ def test_target_extraction():
 
 
 def test_case11_root_sum_no_solve():
-    from tools.target_utils import is_root_derived_target
+    from tools.target_utils import is_root_derived_target, detect_root_target
+    from tools.math_tools import run_tool
     sub = "What is the sum of the roots of a quadratic equation?"
     prob = "Solve \\(2x(x-10)=-50\\)."
     assert is_root_derived_target(sub)
-    mode, name, _ = _assign(sub, prob)
-    assert name == "no_tool"
+    assert detect_root_target(sub) == "sum"
+    mode, name, args = _assign(sub, prob)
+    assert name == "solve" and mode == "replace"
+    assert args.get("root_target") == "sum"
+    r = run_tool("solve", args)
+    assert r["success"] and r.get("verified")
     ok, reason = validate_assignment(
         sub, "solve", {"equation": "2*x*(x-10)=-50", "variable": "x", "unique": True}, "assist"
     )

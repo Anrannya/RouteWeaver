@@ -1,0 +1,23 @@
+2026-06-15 15:57:05 [INFO] Phase26 pair diagnostic qids=[59, 70, 74, 126, 131, 132, 162, 170, 173, 191] temperature=0.0 seed=42
+2026-06-15 15:57:05 [INFO] ===== branch: no_tool =====
+2026-06-15 15:57:21 [INFO] Q59 no_tool correct=True time=15.9s
+2026-06-15 15:57:26 [INFO] Q70 no_tool correct=False time=5.4s
+2026-06-15 15:57:34 [INFO] Q74 no_tool correct=False time=8.1s
+2026-06-15 15:57:43 [INFO] Q126 no_tool correct=True time=8.1s
+2026-06-15 15:57:55 [INFO] Q131 no_tool correct=False time=12.3s
+2026-06-15 15:58:04 [INFO] Q132 no_tool correct=True time=8.9s
+2026-06-15 15:58:12 [INFO] Q162 no_tool correct=False time=8.5s
+2026-06-15 15:58:24 [INFO] Q170 no_tool correct=False time=11.3s
+2026-06-15 15:58:31 [INFO] Q173 no_tool correct=True time=7.6s
+2026-06-15 15:58:37 [INFO] Q191 no_tool correct=False time=5.2s
+2026-06-15 15:58:37 [INFO] ===== branch: with_tool =====
+2026-06-15 15:58:49 [INFO] Q59 with_tool correct=True time=12.2s
+2026-06-15 15:58:53 [INFO] Q70 with_tool correct=True time=4.6s
+2026-06-15 15:59:02 [INFO] Q74 with_tool correct=True time=8.7s
+2026-06-15 15:59:05 [INFO] Q126 with_tool correct=True time=2.9s
+2026-06-15 15:59:11 [INFO] Q131 with_tool correct=True time=5.8s
+2026-06-15 15:59:13 [INFO] Q132 with_tool correct=True time=2.1s
+2026-06-15 15:59:21 [INFO] Q162 with_tool correct=False time=8.1s
+2026-06-15 15:59:32 [INFO] Q170 with_tool correct=False time=11.1s
+2026-06-15 15:59:40 [INFO] Q173 with_tool correct=True time=8.1s
+2026-06-15 15:59:44 [INFO] Q191 with_tool correct=True time=4.0s

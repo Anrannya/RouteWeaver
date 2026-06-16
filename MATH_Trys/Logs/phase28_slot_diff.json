@@ -1,0 +1,357 @@
+{
+  "before_tool_slots": 32,
+  "after_tool_slots": 30,
+  "added_assignments": 1,
+  "removed_assignments": 3,
+  "mode_or_args_changes": 0,
+  "affected_qids": [
+    26,
+    72,
+    179
+  ],
+  "focus_qids": {
+    "26": {
+      "before": [
+        {
+          "step": 1,
+          "subtask": "How can we expand the expression \\((2x + 5)(x - 3)\\)?",
+          "tool": "expand",
+          "mode": "replace",
+          "args": {
+            "expression": "(2x + 5)(x - 3)"
+          }
+        }
+      ],
+      "after": [
+        {
+          "step": 1,
+          "subtask": "How can we expand the expression \\((2x + 5)(x - 3)\\)?",
+          "tool": "expand",
+          "mode": "assist",
+          "args": {
+            "expression": "(2x + 5)(x - 3)"
+          }
+        }
+      ]
+    },
+    "36": {
+      "before": [
+        {
+          "step": 3,
+          "subtask": "How do we simplify or transform \\( x^4 + 4x^2 \\) to better understand or solve these inequalities?",
+          "tool": "simplify",
+          "mode": "assist",
+          "args": {
+            "expression": "x^4 + 4x^2"
+          }
+        }
+      ],
+      "after": [
+        {
+          "step": 3,
+          "subtask": "How do we simplify or transform \\( x^4 + 4x^2 \\) to better understand or solve these inequalities?",
+          "tool": "simplify",
+          "mode": "assist",
+          "args": {
+            "expression": "x^4 + 4x^2"
+          }
+        }
+      ]
+    },
+    "44": {
+      "before": [
+        {
+          "step": 1,
+          "subtask": "What is the improper fraction form of \\( 1\\frac{1}{6} \\)?",
+          "tool": "arith",
+          "mode": "replace",
+          "args": {
+            "expression": "(1+(1)/(6))"
+          }
+        },
+        {
+          "step": 2,
+          "subtask": "What is the simplified form of \\(\\frac{42}{3}\\)?",
+          "tool": "arith",
+          "mode": "replace",
+          "args": {
+            "expression": "((42)/(3))"
+          }
+        }
+      ],
+      "after": [
+        {
+          "step": 1,
+          "subtask": "What is the improper fraction form of \\( 1\\frac{1}{6} \\)?",
+          "tool": "arith",
+          "mode": "replace",
+          "args": {
+            "expression": "(1+(1)/(6))"
+          }
+        },
+        {
+          "step": 2,
+          "subtask": "What is the simplified form of \\(\\frac{42}{3}\\)?",
+          "tool": "arith",
+          "mode": "replace",
+          "args": {
+            "expression": "((42)/(3))"
+          }
+        }
+      ]
+    },
+    "72": {
+      "before": [
+        {
+          "step": 1,
+          "subtask": "What does it mean for \\( j \\) and \\( k \\) to be inversely proportional?",
+          "tool": "subst",
+          "mode": "replace",
+          "args": {
+            "expression": "k",
+            "subs": {
+              "k": "14"
+            }
+          }
+        }
+      ],
+      "after": []
+    },
+    "118": {
+      "before": [
+        {
+          "step": 1,
+          "subtask": "\"What is the value of \\( x \\)?\"",
+          "tool": "linear_system_solver",
+          "mode": "replace",
+          "args": {
+            "equations": [
+              "x + y = 7",
+              "x - y = 9"
+            ],
+            "variables": [
+              "x",
+              "y"
+            ],
+            "target": "x",
+            "unique": true
+          }
+        },
+        {
+          "step": 2,
+          "subtask": "\"What is the value of \\( y \\)?\"",
+          "tool": "linear_system_solver",
+          "mode": "replace",
+          "args": {
+            "equations": [
+              "x + y = 7",
+              "x - y = 9"
+            ],
+            "variables": [
+              "x",
+              "y"
+            ],
+            "target": "y",
+            "unique": true
+          }
+        },
+        {
+          "step": 3,
+          "subtask": "\"What is the product of \\( x \\) and \\( y \\) once you know both values?\"",
+          "tool": "linear_system_solver",
+          "mode": "replace",
+          "args": {
+            "equations": [
+              "x + y = 7",
+              "x - y = 9"
+            ],
+            "variables": [
+              "x",
+              "y"
+            ],
+            "target": "x*y",
+            "unique": true
+          }
+        }
+      ],
+      "after": [
+        {
+          "step": 1,
+          "subtask": "\"What is the value of \\( x \\)?\"",
+          "tool": "linear_system_solver",
+          "mode": "replace",
+          "args": {
+            "equations": [
+              "x + y = 7",
+              "x - y = 9"
+            ],
+            "variables": [
+              "x",
+              "y"
+            ],
+            "target": "x",
+            "unique": true
+          }
+        },
+        {
+          "step": 2,
+          "subtask": "\"What is the value of \\( y \\)?\"",
+          "tool": "linear_system_solver",
+          "mode": "replace",
+          "args": {
+            "equations": [
+              "x + y = 7",
+              "x - y = 9"
+            ],
+            "variables": [
+              "x",
+              "y"
+            ],
+            "target": "y",
+            "unique": true
+          }
+        },
+        {
+          "step": 3,
+          "subtask": "\"What is the product of \\( x \\) and \\( y \\) once you know both values?\"",
+          "tool": "linear_system_solver",
+          "mode": "replace",
+          "args": {
+            "equations": [
+              "x + y = 7",
+              "x - y = 9"
+            ],
+            "variables": [
+              "x",
+              "y"
+            ],
+            "target": "x*y",
+            "unique": true
+          }
+        }
+      ]
+    },
+    "130": {
+      "before": [
+        {
+          "step": 1,
+          "subtask": "What are the values of \\(a\\) and \\(b\\), the solutions of the equation \\(2x^2-10x+5=0\\)?",
+          "tool": "solve",
+          "mode": "assist",
+          "args": {
+            "equation": "2x^2-10x+5=0",
+            "variable": "x",
+            "domain": "real",
+            "unique": false
+          }
+        }
+      ],
+      "after": [
+        {
+          "step": 1,
+          "subtask": "What are the values of \\(a\\) and \\(b\\), the solutions of the equation \\(2x^2-10x+5=0\\)?",
+          "tool": "solve",
+          "mode": "assist",
+          "args": {
+            "equation": "2x^2-10x+5=0",
+            "variable": "x",
+            "domain": "real",
+            "unique": false
+          }
+        }
+      ]
+    },
+    "179": {
+      "before": [
+        {
+          "step": 2,
+          "subtask": "How do we evaluate the expression \\( h(x) \\) at a specific value of \\( x \\), namely \\( x = -1 \\)?",
+          "tool": "subst",
+          "mode": "replace",
+          "args": {
+            "expression": "x",
+            "subs": {
+              "x": "-1"
+            }
+          }
+        }
+      ],
+      "after": []
+    },
+    "190": {
+      "before": [
+        {
+          "step": 1,
+          "subtask": "\"What are the expressions for the coefficients when \\((Ax - 5)(2Bx + C)\\) is expanded?\"",
+          "tool": "expand",
+          "mode": "assist",
+          "args": {
+            "expression": "(Ax - 5)(2Bx + C)"
+          }
+        }
+      ],
+      "after": [
+        {
+          "step": 1,
+          "subtask": "\"What are the expressions for the coefficients when \\((Ax - 5)(2Bx + C)\\) is expanded?\"",
+          "tool": "expand",
+          "mode": "assist",
+          "args": {
+            "expression": "(Ax - 5)(2Bx + C)"
+          }
+        }
+      ]
+    }
+  },
+  "added_detail": [
+    {
+      "qid": 26,
+      "step": 1,
+      "subtask": "How can we expand the expression \\((2x + 5)(x - 3)\\)?",
+      "tool": "expand",
+      "mode": "assist",
+      "args": {
+        "expression": "(2x + 5)(x - 3)"
+      }
+    }
+  ],
+  "removed_detail": [
+    {
+      "qid": 26,
+      "step": 1,
+      "subtask": "How can we expand the expression \\((2x + 5)(x - 3)\\)?",
+      "tool": "expand",
+      "mode": "replace",
+      "args": {
+        "expression": "(2x + 5)(x - 3)"
+      }
+    },
+    {
+      "qid": 72,
+      "step": 1,
+      "subtask": "What does it mean for \\( j \\) and \\( k \\) to be inversely proportional?",
+      "tool": "subst",
+      "mode": "replace",
+      "args": {
+        "expression": "k",
+        "subs": {
+          "k": "14"
+        }
+      }
+    },
+    {
+      "qid": 179,
+      "step": 2,
+      "subtask": "How do we evaluate the expression \\( h(x) \\) at a specific value of \\( x \\), namely \\( x = -1 \\)?",
+      "tool": "subst",
+      "mode": "replace",
+      "args": {
+        "expression": "x",
+        "subs": {
+          "x": "-1"
+        }
+      }
+    }
+  ],
+  "changes_detail": []
+}

@@ -1,5 +1,484 @@
 [
   {
+    "qid": 11,
+    "step_id": 1,
+    "subtask": "\"What values of \\(x\\) satisfy the inequality \\(|x| + 1 > 7\\)?\"",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "x"
+      ],
+      "domains": {
+        "x": {
+          "type": "finite_values",
+          "values": [
+            "and"
+          ]
+        }
+      },
+      "constraints": [
+        "|x|+1>7 |x+1|<=7",
+        "|x| + 1 > 7"
+      ],
+      "aggregation": "unique_value",
+      "target_expression": "x"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 11,
+    "step_id": 2,
+    "subtask": "\"What values of \\(x\\) satisfy the inequality \\(|x + 1| \\leq 7\\)?\"",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "x"
+      ],
+      "domains": {
+        "x": {
+          "type": "finite_values",
+          "values": [
+            "and"
+          ]
+        }
+      },
+      "constraints": [
+        "|x|+1>7 |x+1|<=7",
+        "|x + 1| <= 7"
+      ],
+      "aggregation": "unique_value",
+      "target_expression": "x"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 11,
+    "step_id": 3,
+    "subtask": "\"What values of \\(x\\) satisfy both conditions simultaneously?\"",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "x"
+      ],
+      "domains": {
+        "x": {
+          "type": "finite_values",
+          "values": [
+            "and"
+          ]
+        }
+      },
+      "constraints": [
+        "|x|+1>7 |x+1|<=7"
+      ],
+      "aggregation": "unique_value",
+      "target_expression": "x"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 17,
+    "step_id": 1,
+    "subtask": "\"What can we equate from the equation \\(\\frac{A\\sqrt{B}}{C} = \\frac{9}{2\\sqrt{3}}\\) to find \\(A\\), \\(B\\), and \\(C\\)?\",",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "A",
+        "B",
+        "C",
+        "a",
+        "c",
+        "f",
+        "q",
+        "r",
+        "s",
+        "t"
+      ],
+      "domains": {
+        "A": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "B": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "C": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "a": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "c": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "f": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "q": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "r": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "s": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "t": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        }
+      },
+      "constraints": [
+        "frac{Asqrt{B}}{C} = frac{9}{2sqrt{3}}"
+      ],
+      "aggregation": "unique_value",
+      "target_expression": "A"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 17,
+    "step_id": 3,
+    "subtask": "\"Since \\(B\\) has no perfect-square factors other than 1, what are the possible values of \\(B\\) when simplified with \\(\\sqrt{3}\\)?\",",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "A",
+        "B",
+        "C",
+        "a",
+        "c",
+        "f",
+        "q",
+        "r",
+        "s",
+        "t"
+      ],
+      "domains": {
+        "A": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "B": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "C": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "a": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "c": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "f": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "q": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "r": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "s": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "t": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        }
+      },
+      "constraints": [
+        "frac{Asqrt{B}}{C} = frac{9}{2sqrt{3}}"
+      ],
+      "aggregation": "all_values",
+      "target_expression": "B"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 17,
+    "step_id": 5,
+    "subtask": "\"What are the values of \\(A\\), \\(B\\), and \\(C\\) once the expression is simplified, and what is their sum \\(A + B + C\\)?\"",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "A",
+        "B",
+        "C",
+        "a",
+        "c",
+        "f",
+        "q",
+        "r",
+        "s",
+        "t"
+      ],
+      "domains": {
+        "A": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "B": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "C": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "a": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "c": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "f": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "q": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "r": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "s": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        },
+        "t": {
+          "type": "finite_values",
+          "values": [
+            "B"
+          ]
+        }
+      },
+      "constraints": [
+        "frac{Asqrt{B}}{C} = frac{9}{2sqrt{3}}"
+      ],
+      "aggregation": "unique_value",
+      "target_expression": "A + B + C"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 20,
+    "step_id": 2,
+    "subtask": "\"How do the roots relate to the coefficients \\( m \\) and \\( n \\) in the polynomial \\( x^2 - mx + n \\)?\"",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "m"
+      ],
+      "domains": {
+        "m": {
+          "type": "prime",
+          "minimum": 2,
+          "maximum": 20
+        }
+      },
+      "constraints": [
+        "m < 20"
+      ],
+      "aggregation": "unique_value",
+      "target_expression": "m"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 20,
+    "step_id": 4,
+    "subtask": "\"What are the restrictions on the value of \\( m \\) given \\( m < 20 \\)?\"",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "m"
+      ],
+      "domains": {
+        "m": {
+          "type": "prime",
+          "minimum": 2,
+          "maximum": 20
+        }
+      },
+      "constraints": [
+        "m < 20"
+      ],
+      "aggregation": "unique_value",
+      "target_expression": "m < 20"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 27,
+    "step_id": 5,
+    "subtask": "\"What possible integer values of \\( c \\) make this discriminant a perfect square, thereby ensuring the roots are rational?\"",
+    "original_tool": "polynomial_coefficient_match",
+    "original_mode": "replace",
+    "original_args": {
+      "left_expression": "x^2-7x+c",
+      "right_expression": "0",
+      "polynomial_variable": "x",
+      "unknowns": [
+        "c"
+      ],
+      "target_expression": "c"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 29,
+    "step_id": 6,
+    "subtask": "What is the largest possible value of \\( b \\) from the solutions obtained?\"",
+    "original_tool": "solve",
+    "original_mode": "replace",
+    "original_args": {
+      "equation": "x^2+bx+48=0",
+      "select": "maximum"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 38,
+    "step_id": 5,
+    "subtask": "With the equation written in standard circle form, what is the maximum possible value of \\( y \\) given the radius and center?",
+    "original_tool": "solve",
+    "original_mode": "replace",
+    "original_args": {
+      "equation": "x^2+y^2=14x+48y",
+      "select": "maximum"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 50,
+    "step_id": 4,
+    "subtask": "\"What is the maximum value of these calculated differences \\( f(x) - g(x) \\)?\"",
+    "original_tool": "inequality_solver",
+    "original_mode": "replace",
+    "original_args": {
+      "constraints": [
+        "0<= x<= 18"
+      ],
+      "variable": "x",
+      "domain": "real",
+      "target": "maximum"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 57,
+    "step_id": 5,
+    "subtask": "How many values of \\( n \\) result in no real solutions to the equation?",
+    "original_tool": "solve",
+    "original_mode": "replace",
+    "original_args": {
+      "equation": "x(x+5) = -n",
+      "root_target": "count",
+      "domain": "real"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 66,
+    "step_id": 6,
+    "subtask": "\"What is the value of the smallest squared distance \\(a^2\\), after evaluating the function at the critical point?\"",
+    "original_tool": "solve",
+    "original_mode": "replace",
+    "original_args": {
+      "equation": "y=((1)/(2))x^2-9",
+      "select": "minimum"
+    },
+    "reason": "工具执行失败"
+  },
+  {
     "qid": 68,
     "step_id": 18,
     "subtask": "- Therefore, the sum of the fractions is \\(\\frac{1}{16} \\times 120\\).",
@@ -11,6 +490,17 @@
     "reason": "replace 目标无法确认，保守拒绝"
   },
   {
+    "qid": 87,
+    "step_id": 3,
+    "subtask": "How do we solve the equation that results from substituting \\(-4\\) into the quadratic equation to find \\(b\\)?",
+    "original_tool": "arith",
+    "original_mode": "replace",
+    "original_args": {
+      "expression": "-4"
+    },
+    "reason": "求变量子任务禁止 arith replace"
+  },
+  {
     "qid": 100,
     "step_id": 2,
     "subtask": "What equation do we get when we set the simplified expression equal to \\(3^6\\)?",
@@ -20,6 +510,203 @@
       "expression": "3^6"
     },
     "reason": "求方程形式子任务禁止 arith replace"
+  },
+  {
+    "qid": 106,
+    "step_id": 1,
+    "subtask": "What are the integer values of \\(x\\) in the interval \\(0 \\le x \\le 8\\)?",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "h",
+        "x",
+        "y"
+      ],
+      "domains": {
+        "h": {
+          "type": "finite_values",
+          "values": [
+            "return (x-0.5)*(x-2.5)*(x-6.5)*(x-7.5)/16+x;"
+          ]
+        },
+        "x": {
+          "type": "finite_values",
+          "values": [
+            "return (x-0.5)*(x-2.5)*(x-6.5)*(x-7.5)/16+x;"
+          ]
+        },
+        "y": {
+          "type": "finite_values",
+          "values": [
+            "return (x-0.5)*(x-2.5)*(x-6.5)*(x-7.5)/16+x;"
+          ]
+        }
+      },
+      "constraints": [
+        "y=h(x)",
+        "0<= x<= 8",
+        "h(x)>x",
+        "0 <= x <= 8"
+      ],
+      "aggregation": "unique_value",
+      "target_expression": "x"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 106,
+    "step_id": 3,
+    "subtask": "For which integer values of \\(x\\) is \\(h(x) > x\\)?",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "h",
+        "x",
+        "y"
+      ],
+      "domains": {
+        "h": {
+          "type": "finite_values",
+          "values": [
+            "return (x-0.5)*(x-2.5)*(x-6.5)*(x-7.5)/16+x;"
+          ]
+        },
+        "x": {
+          "type": "finite_values",
+          "values": [
+            "return (x-0.5)*(x-2.5)*(x-6.5)*(x-7.5)/16+x;"
+          ]
+        },
+        "y": {
+          "type": "finite_values",
+          "values": [
+            "return (x-0.5)*(x-2.5)*(x-6.5)*(x-7.5)/16+x;"
+          ]
+        }
+      },
+      "constraints": [
+        "y=h(x)",
+        "0<= x<= 8",
+        "h(x)>x",
+        "h(x) > x"
+      ],
+      "aggregation": "unique_value",
+      "target_expression": "x"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 106,
+    "step_id": 4,
+    "subtask": "What is the sum of these integer values of \\(x\\) for which \\(h(x) > x\\)?",
+    "original_tool": "discrete_constraint_enumerator",
+    "original_mode": "replace",
+    "original_args": {
+      "variables": [
+        "h",
+        "x",
+        "y"
+      ],
+      "domains": {
+        "h": {
+          "type": "finite_values",
+          "values": [
+            "return (x-0.5)*(x-2.5)*(x-6.5)*(x-7.5)/16+x;"
+          ]
+        },
+        "x": {
+          "type": "finite_values",
+          "values": [
+            "return (x-0.5)*(x-2.5)*(x-6.5)*(x-7.5)/16+x;"
+          ]
+        },
+        "y": {
+          "type": "finite_values",
+          "values": [
+            "return (x-0.5)*(x-2.5)*(x-6.5)*(x-7.5)/16+x;"
+          ]
+        }
+      },
+      "constraints": [
+        "y=h(x)",
+        "0<= x<= 8",
+        "h(x)>x",
+        "h(x) > x"
+      ],
+      "aggregation": "sum",
+      "target_expression": "x"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 109,
+    "step_id": 3,
+    "subtask": "\"Is there a way to factor or otherwise simplify the equation to find a relation between \\(x\\) and \\(y\\)?\"",
+    "original_tool": "polynomial_coefficient_match",
+    "original_mode": "replace",
+    "original_args": {
+      "left_expression": "2x^2y^3 + 4y^3",
+      "right_expression": "149 + 3x^2",
+      "polynomial_variable": "x",
+      "unknowns": [
+        "y"
+      ],
+      "target_expression": "y"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 109,
+    "step_id": 4,
+    "subtask": "\"Can we identify any integer values for \\(x\\) and \\(y\\) that satisfy the equation?\"",
+    "original_tool": "polynomial_coefficient_match",
+    "original_mode": "replace",
+    "original_args": {
+      "left_expression": "2x^2y^3 + 4y^3",
+      "right_expression": "149 + 3x^2",
+      "polynomial_variable": "x",
+      "unknowns": [
+        "y"
+      ],
+      "target_expression": "y"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 109,
+    "step_id": 5,
+    "subtask": "\"After finding potential values for \\(x\\) and \\(y\\), does substituting them back into the original equation verify their correctness?\"",
+    "original_tool": "polynomial_coefficient_match",
+    "original_mode": "replace",
+    "original_args": {
+      "left_expression": "2x^2y^3 + 4y^3",
+      "right_expression": "149 + 3x^2",
+      "polynomial_variable": "x",
+      "unknowns": [
+        "y"
+      ],
+      "target_expression": "y"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 109,
+    "step_id": 6,
+    "subtask": "\"Once the correct values for \\(x\\) and \\(y\\) are found, what is the sum \\(x + y\\)?\"",
+    "original_tool": "polynomial_coefficient_match",
+    "original_mode": "replace",
+    "original_args": {
+      "left_expression": "2x^2y^3 + 4y^3",
+      "right_expression": "149 + 3x^2",
+      "polynomial_variable": "x",
+      "unknowns": [
+        "y"
+      ],
+      "target_expression": "y"
+    },
+    "reason": "工具执行失败"
   },
   {
     "qid": 116,
@@ -44,14 +731,138 @@
     "reason": "会破坏符号结构，禁止 arith replace"
   },
   {
-    "qid": 178,
-    "step_id": 3,
-    "subtask": "\"What is the expanded form of \\( a(x+b)^2+c \\) using the values of \\( a \\), \\( b \\), and \\( c \\)?\"",
-    "original_tool": "expand",
+    "qid": 124,
+    "step_id": 5,
+    "subtask": "\"What is the smallest integer \\( a \\) and the largest integer \\( b \\) within this interval?\"",
+    "original_tool": "inequality_solver",
     "original_mode": "replace",
     "original_args": {
-      "expression": "a(x+b)^2+c"
+      "constraints": [
+        "x^2 - 15 < 2x"
+      ],
+      "variable": "x",
+      "domain": "real",
+      "target": "minimum"
     },
-    "reason": "表达式含未绑定变量: ['a', 'b', 'c']"
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 127,
+    "step_id": 4,
+    "subtask": "What is the value of \\(x\\) when the exponents of the powers of 2 are equated?",
+    "original_tool": "solve",
+    "original_mode": "replace",
+    "original_args": {
+      "equation": "4^x = 8",
+      "variable": "x",
+      "domain": "real",
+      "context_sources": [
+        "prior_subtask"
+      ],
+      "unique": true
+    },
+    "reason": "子任务未明确要求求变量/根"
+  },
+  {
+    "qid": 147,
+    "step_id": 1,
+    "subtask": "How do we factor the denominator \\(x^2 - 8x + 15\\)?",
+    "original_tool": "factor",
+    "original_mode": "replace",
+    "original_args": {
+      "expression": "x^2 - 8x + 15"
+    },
+    "reason": "过程型 factor/expand 禁止 replace"
+  },
+  {
+    "qid": 150,
+    "step_id": 1,
+    "subtask": "\"At what times (if any) is the cannonball exactly at a height of $6$ meters?\"",
+    "original_tool": "solve",
+    "original_mode": "replace",
+    "original_args": {
+      "equation": "(-4.9*t**2 + 14*t - 0.4)=6",
+      "variable": "t",
+      "domain": "real",
+      "unique": false
+    },
+    "reason": "子任务未明确要求求变量/根"
+  },
+  {
+    "qid": 163,
+    "step_id": 4,
+    "subtask": "\"What is the largest integer value of \\( n \\) that satisfies the inequality?\"",
+    "original_tool": "inequality_solver",
+    "original_mode": "replace",
+    "original_args": {
+      "constraints": [
+        "(1 + 2 + 3 + *s+ n)^2 < 1^3 + 2^3 + *s+ 7^3?",
+        "$(1 + 2 + 3 + *s+ n)^2 < 1^3 + 2^3 + *s+ 7^3?"
+      ],
+      "variable": "n",
+      "domain": "real",
+      "target": "maximum"
+    },
+    "reason": "工具执行失败"
+  },
+  {
+    "qid": 185,
+    "step_id": 1,
+    "subtask": "\"What is the expression for \\(a \\star b\\) given in the problem?\"",
+    "original_tool": "subst",
+    "original_mode": "replace",
+    "original_args": {
+      "expression": "dfrac{(((1)/(b)) - ((1)/(a)))}{(a - b)}",
+      "subs": {
+        "a": "3",
+        "b": "11"
+      }
+    },
+    "reason": "概念/过程性子任务禁止数值工具 replace"
+  },
+  {
+    "qid": 185,
+    "step_id": 4,
+    "subtask": "\"What is the value of \\(\\dfrac{1}{b} - \\dfrac{1}{a}\\) when \\(a = 3\\) and \\(b = 11\\)?\"",
+    "original_tool": "subst",
+    "original_mode": "replace",
+    "original_args": {
+      "expression": "dfrac{(((1)/(b)) - ((1)/(a)))}{(a - b)}",
+      "subs": {
+        "a": "3",
+        "b": "11"
+      }
+    },
+    "reason": "subst 表达式与子任务目标不一致"
+  },
+  {
+    "qid": 185,
+    "step_id": 5,
+    "subtask": "\"What is the value of \\(a - b\\) when \\(a = 3\\) and \\(b = 11\\)?\"",
+    "original_tool": "subst",
+    "original_mode": "replace",
+    "original_args": {
+      "expression": "dfrac{(((1)/(b)) - ((1)/(a)))}{(a - b)}",
+      "subs": {
+        "a": "3",
+        "b": "11"
+      }
+    },
+    "reason": "subst 表达式与子任务目标不一致"
+  },
+  {
+    "qid": 185,
+    "step_id": 7,
+    "subtask": "\"What is the final value of \\(3 \\star 11\\) as a common fraction?\"",
+    "original_tool": "subst",
+    "original_mode": "replace",
+    "original_args": {
+      "expression": "dfrac{(((1)/(b)) - ((1)/(a)))}{(a - b)}",
+      "subs": {
+        "a": "3",
+        "b": "11"
+      }
+    },
+    "reason": "工具执行失败"
   }
 ]

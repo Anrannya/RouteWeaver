@@ -818,7 +818,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "solve"
     ],
     "tool_args": [
       {},
@@ -826,7 +826,10 @@
       {},
       {},
       {},
-      {}
+      {
+        "equation": "|5x - 1| = |3x + 2|",
+        "select": "minimum"
+      }
     ],
     "tool_mode": [
       "no_tool",
@@ -834,7 +837,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "10": {
@@ -1066,19 +1069,27 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "inequality_solver"
     ],
     "tool_args": [
       {},
       {},
       {},
-      {}
+      {
+        "constraints": [
+          "|x|+1>7",
+          "|x+1|<=7"
+        ],
+        "variable": "x",
+        "domain": "integer",
+        "target": "sum"
+      }
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "12": {
@@ -1459,19 +1470,26 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "inequality_solver"
     ],
     "tool_args": [
       {},
       {},
       {},
-      {}
+      {
+        "constraints": [
+          "((x-3)^2-(x-8)^2)>=0"
+        ],
+        "variable": "x",
+        "domain": "real",
+        "target": "minimum"
+      }
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "16": {
@@ -1854,7 +1872,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
+      "discrete_constraint_enumerator",
       "no_tool"
     ],
     "tool_args": [
@@ -1862,7 +1880,29 @@
       {},
       {},
       {},
-      {},
+      {
+        "variables": [
+          "p",
+          "q"
+        ],
+        "domains": {
+          "p": {
+            "type": "prime",
+            "minimum": 2,
+            "maximum": 19
+          },
+          "q": {
+            "type": "prime",
+            "minimum": 2,
+            "maximum": 19
+          }
+        },
+        "constraints": [
+          "p+q<20"
+        ],
+        "target_expression": "p*q",
+        "aggregation": "all_values"
+      },
       {}
     ],
     "tool_mode": [
@@ -1870,7 +1910,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
+      "replace",
       "no_tool"
     ]
   },
@@ -2283,23 +2323,21 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "expand",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {
-        "expression": "(2x + 5)(x - 3)"
-      },
+      {},
       {},
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "replace",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -3014,19 +3052,25 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "sequence_tool"
     ],
     "tool_args": [
       {},
       {},
       {},
-      {}
+      {
+        "sequence_type": "geometric",
+        "first_term": "125/9",
+        "ratio": "3/5",
+        "target": "nth_term",
+        "n": 8
+      }
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "35": {
@@ -3195,29 +3239,33 @@
     ],
     "allo_tool": [
       "no_tool",
-      "no_tool",
+      "arith",
       "simplify",
-      "no_tool",
+      "arith",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {},
-      {},
+      {
+        "expression": "-4"
+      },
       {
         "expression": "x^4 + 4x^2"
       },
-      {},
+      {
+        "expression": "-4"
+      },
       {},
       {},
       {}
     ],
     "tool_mode": [
       "no_tool",
-      "no_tool",
+      "replace",
       "assist",
-      "no_tool",
+      "replace",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -3685,18 +3733,27 @@
     ],
     "allo_tool": [
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "solve",
+      "solve"
     ],
     "tool_args": [
       {},
-      {},
-      {}
+      {
+        "equation": "|x-1| = 7",
+        "variable": "x",
+        "domain": "real",
+        "unique": false
+      },
+      {
+        "equation": "|x-1| = 7",
+        "root_target": "sum",
+        "domain": "real"
+      }
     ],
     "tool_mode": [
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "assist",
+      "replace"
     ]
   },
   "43": {
@@ -3802,9 +3859,9 @@
       "no_tool",
       "no_tool",
       "no_tool",
+      "inequality_solver",
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "inequality_solver"
     ],
     "tool_args": [
       {},
@@ -3812,9 +3869,23 @@
       {},
       {},
       {},
+      {
+        "constraints": [
+          "p <= 32"
+        ],
+        "variable": "p",
+        "domain": "real",
+        "target": "maximum"
+      },
       {},
-      {},
-      {}
+      {
+        "constraints": [
+          "p <= 32"
+        ],
+        "variable": "p",
+        "domain": "real",
+        "target": "maximum"
+      }
     ],
     "tool_mode": [
       "no_tool",
@@ -3822,9 +3893,9 @@
       "no_tool",
       "no_tool",
       "no_tool",
+      "replace",
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "44": {
@@ -4687,19 +4758,24 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "sequence_tool",
       "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {},
+      {
+        "sequence_type": "arithmetic",
+        "first_term": "1000",
+        "difference": "-13",
+        "target": "last_positive_integer_index"
+      },
       {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "replace",
       "no_tool"
     ]
   },
@@ -4807,19 +4883,27 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "inequality_solver",
       "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {},
+      {
+        "constraints": [
+          "t>60",
+          "(t*(70-1*(t-60)))>4200"
+        ],
+        "variable": "t",
+        "domain": "positive_integer",
+        "target": "solution_set"
+      },
       {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "replace",
       "no_tool"
     ]
   },
@@ -5050,7 +5134,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
+      "discrete_constraint_enumerator",
       "no_tool",
       "no_tool"
     ],
@@ -5058,7 +5142,29 @@
       {},
       {},
       {},
-      {},
+      {
+        "variables": [
+          "n",
+          "x"
+        ],
+        "domains": {
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "x": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          }
+        },
+        "constraints": [
+          "x(x+5) = -n"
+        ],
+        "aggregation": "count",
+        "target_expression": "n"
+      },
       {},
       {}
     ],
@@ -5066,7 +5172,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
+      "replace",
       "no_tool",
       "no_tool"
     ]
@@ -6513,24 +6619,19 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "subst",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {
-        "expression": "k",
-        "subs": {
-          "k": "14"
-        }
-      },
+      {},
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "replace",
+      "no_tool",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -6669,7 +6770,7 @@
       "no_tool",
       "no_tool",
       "solve",
-      "no_tool"
+      "solve"
     ],
     "tool_args": [
       {},
@@ -6680,13 +6781,17 @@
         "domain": "real",
         "unique": true
       },
-      {}
+      {
+        "equation": "2x(x-10)=-50",
+        "root_target": "sum",
+        "domain": "real"
+      }
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "assist",
-      "no_tool"
+      "replace"
     ]
   },
   "75": {
@@ -6735,18 +6840,42 @@
     ],
     "allo_tool": [
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "linear_system_solver",
+      "linear_system_solver"
     ],
     "tool_args": [
       {},
-      {},
-      {}
+      {
+        "equations": [
+          "1*a+(-1)*b+c=0",
+          "0*a+(0)*b+c=5",
+          "25*a+(5)*b+c=0"
+        ],
+        "variables": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target_expression": "a"
+      },
+      {
+        "equations": [
+          "1*a+(-1)*b+c=0",
+          "0*a+(0)*b+c=5",
+          "25*a+(5)*b+c=0"
+        ],
+        "variables": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target_expression": "100*a + 10*b + c"
+      }
     ],
     "tool_mode": [
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace",
+      "replace"
     ]
   },
   "76": {
@@ -6892,21 +7021,29 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "solve"
     ],
     "tool_args": [
       {},
       {},
       {},
       {},
-      {}
+      {
+        "equation": "((2x-1)/(2x+2)) = ((x-3)/(x-1))",
+        "variable": "x",
+        "domain": "real",
+        "context_sources": [
+          "prior_subtask"
+        ],
+        "unique": true
+      }
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "78": {
@@ -6965,19 +7102,21 @@
       "llama3:8b"
     ],
     "allo_tool": [
-      "no_tool",
+      "arith",
       "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
-      {},
+      {
+        "expression": "0"
+      },
       {},
       {},
       {}
     ],
     "tool_mode": [
-      "no_tool",
+      "replace",
       "no_tool",
       "no_tool",
       "no_tool"
@@ -7391,19 +7530,30 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "linear_system_solver",
       "no_tool"
     ],
     "tool_args": [
       {},
       {},
-      {},
+      {
+        "equations": [
+          "a = 3",
+          "b = 10"
+        ],
+        "variables": [
+          "a",
+          "b"
+        ],
+        "target": "-a*b + 2*a + 5*b",
+        "unique": true
+      },
       {}
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "no_tool",
+      "replace",
       "no_tool"
     ]
   },
@@ -9566,25 +9716,92 @@
       "deepseek-v4-pro"
     ],
     "allo_tool": [
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver",
+      "linear_system_solver"
     ],
     "tool_args": [
-      {},
-      {},
-      {},
-      {},
-      {}
+      {
+        "equations": [
+          "a = 2",
+          "b = 3",
+          "c = 4"
+        ],
+        "variables": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target": "b - c",
+        "unique": true
+      },
+      {
+        "equations": [
+          "b = 3",
+          "c = 4",
+          "b=3",
+          "c=4"
+        ],
+        "variables": [
+          "b",
+          "c"
+        ],
+        "target_expression": "(b - c)**2"
+      },
+      {
+        "equations": [
+          "b = 3",
+          "c = 4",
+          "b=3",
+          "c=4"
+        ],
+        "variables": [
+          "b",
+          "c"
+        ],
+        "target_expression": "b + c"
+      },
+      {
+        "equations": [
+          "a = 2",
+          "b = 3",
+          "c = 4",
+          "a=2",
+          "b=3",
+          "c=4"
+        ],
+        "variables": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target_expression": "a*(b + c)"
+      },
+      {
+        "equations": [
+          "a = 2",
+          "b = 3",
+          "c = 4",
+          "a=2",
+          "b=3",
+          "c=4"
+        ],
+        "variables": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target_expression": "a*(b + c) + (b - c)**2"
+      }
     ],
     "tool_mode": [
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace",
+      "replace",
+      "replace",
+      "replace",
+      "replace"
     ]
   },
   "113": {
@@ -10100,14 +10317,15 @@
       {
         "equations": [
           "x + y = 7",
-          "x - y = 9"
+          "x - y = 9",
+          "x=8",
+          "y=-1"
         ],
         "variables": [
           "x",
           "y"
         ],
-        "target": "x*y",
-        "unique": true
+        "target_expression": "x*y"
       }
     ],
     "tool_mode": [
@@ -11272,14 +11490,15 @@
       {
         "equations": [
           "2x - 3y = 8",
-          "4x + 3y = -2"
+          "4x + 3y = -2",
+          "x=1",
+          "y=-2"
         ],
         "variables": [
           "x",
           "y"
         ],
-        "target": "x*y",
-        "unique": true
+        "target_expression": "x*y"
       }
     ],
     "tool_mode": [
@@ -11404,26 +11623,28 @@
       {
         "equations": [
           "x+y=12",
-          "x-y=8"
+          "x-y=8",
+          "x=10",
+          "y=2"
         ],
         "variables": [
           "x",
           "y"
         ],
-        "target": "x*y",
-        "unique": true
+        "target_expression": "x*y"
       },
       {
         "equations": [
           "x+y=12",
-          "x-y=8"
+          "x-y=8",
+          "x=10",
+          "y=2"
         ],
         "variables": [
           "x",
           "y"
         ],
-        "target": "-x*y + 2*x",
-        "unique": true
+        "target_expression": "-x*y + 2*x"
       }
     ],
     "tool_mode": [
@@ -11832,14 +12053,12 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "solve"
     ],
     "tool_args": [
       {
         "equation": "(x+1)(x+2) = x+3",
-        "variable": "x",
-        "domain": "real",
-        "unique": false
+        "target_expression": "(a+b)/2 + ((a-b)/2)**2"
       },
       {
         "expression": "(x+1)(x+2)"
@@ -11848,16 +12067,19 @@
       {},
       {},
       {},
-      {}
+      {
+        "equation": "(x+1)(x+2) = x+3",
+        "target_expression": "(a+b)/2 + ((a-b)/2)**2"
+      }
     ],
     "tool_mode": [
-      "assist",
+      "replace",
       "replace",
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "138": {
@@ -12181,23 +12403,36 @@
     "allo_tool": [
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "solve",
+      "solve",
+      "solve"
     ],
     "tool_args": [
       {},
       {},
-      {},
-      {},
-      {}
+      {
+        "equation": "|2-|x| |=1",
+        "variable": "x",
+        "domain": "real",
+        "unique": false
+      },
+      {
+        "equation": "|2-|x| |=1",
+        "root_target": "sum_of_squares",
+        "domain": "real"
+      },
+      {
+        "equation": "|2-|x| |=1",
+        "root_target": "sum_of_squares",
+        "domain": "real"
+      }
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "assist",
+      "replace",
+      "replace"
     ]
   },
   "140": {
@@ -13023,6 +13258,13 @@
       "llama3:8b"
     ],
     "allo_tool": [
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "polynomial_coefficient_match",
+      "polynomial_coefficient_match",
+      "no_tool",
+      "no_tool",
       "factor",
       "no_tool",
       "no_tool",
@@ -13030,7 +13272,6 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "factor",
       "no_tool",
       "no_tool",
       "no_tool",
@@ -13047,20 +13288,38 @@
       "no_tool",
       "no_tool",
       "no_tool",
+      "polynomial_coefficient_match",
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "polynomial_coefficient_match"
     ],
     "tool_args": [
+      {},
+      {},
+      {},
+      {
+        "left_expression": "((A)/(x-3)) + ((B)/(x-5))",
+        "right_expression": "((4x)/(x^2-8x+15))",
+        "polynomial_variable": "x",
+        "unknowns": [
+          "A",
+          "B"
+        ],
+        "target_expression": "A"
+      },
+      {
+        "left_expression": "((A)/(x-3)) + ((B)/(x-5))",
+        "right_expression": "((4x)/(x^2-8x+15))",
+        "polynomial_variable": "x",
+        "unknowns": [
+          "A",
+          "B"
+        ]
+      },
+      {},
+      {},
       {
         "expression": "x^2 - 8x + 15"
       },
@@ -13070,39 +13329,54 @@
       {},
       {},
       {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
       {
-        "expression": "x^2 - 8x + 15"
+        "left_expression": "((A)/(x-3)) + ((B)/(x-5))",
+        "right_expression": "((4x)/(x^2-8x+15))",
+        "polynomial_variable": "x",
+        "unknowns": [
+          "A",
+          "B"
+        ],
+        "target_expression": "B"
       },
       {},
       {},
       {},
       {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {}
+      {
+        "left_expression": "((A)/(x-3)) + ((B)/(x-5))",
+        "right_expression": "((4x)/(x^2-8x+15))",
+        "polynomial_variable": "x",
+        "unknowns": [
+          "A",
+          "B"
+        ]
+      }
     ],
     "tool_mode": [
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "replace",
+      "replace",
+      "no_tool",
+      "no_tool",
       "replace",
       "no_tool",
       "no_tool",
@@ -13110,35 +13384,28 @@
       "no_tool",
       "no_tool",
       "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
+      "no_tool",
       "replace",
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "148": {
@@ -13337,8 +13604,8 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "inequality_solver",
+      "inequality_solver"
     ],
     "tool_args": [
       {},
@@ -13346,8 +13613,22 @@
       {},
       {},
       {},
-      {},
-      {}
+      {
+        "constraints": [
+          "(-4.9*t**2 + 14*t - 0.4)>6"
+        ],
+        "variable": "t",
+        "domain": "real",
+        "target": "interval_length"
+      },
+      {
+        "constraints": [
+          "(-4.9*t**2 + 14*t - 0.4)>6"
+        ],
+        "variable": "t",
+        "domain": "real",
+        "target": "interval_length"
+      }
     ],
     "tool_mode": [
       "no_tool",
@@ -13355,8 +13636,8 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace",
+      "replace"
     ]
   },
   "151": {
@@ -13467,12 +13748,12 @@
       "no_tool",
       "no_tool",
       "no_tool",
+      "solve",
+      "no_tool",
+      "solve",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "solve"
     ],
     "tool_args": [
       {
@@ -13486,12 +13767,22 @@
       {},
       {},
       {},
+      {
+        "equation": "2x^2-7x+2 = 0",
+        "target_expression": "((1)/(a-1))+((1)/(b-1))"
+      },
+      {},
+      {
+        "equation": "2x^2-7x+2 = 0.",
+        "root_target": "product",
+        "domain": "real"
+      },
       {},
       {},
-      {},
-      {},
-      {},
-      {}
+      {
+        "equation": "2x^2-7x+2 = 0",
+        "target_expression": "((1)/(a-1))+((1)/(b-1))"
+      }
     ],
     "tool_mode": [
       "assist",
@@ -13500,12 +13791,12 @@
       "no_tool",
       "no_tool",
       "no_tool",
+      "replace",
+      "no_tool",
+      "replace",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "152": {
@@ -13639,7 +13930,7 @@
       "solve",
       "solve",
       "no_tool",
-      "no_tool"
+      "solve"
     ],
     "tool_args": [
       {
@@ -13655,13 +13946,19 @@
         "unique": false
       },
       {},
-      {}
+      {
+        "equations": [
+          "18x^2+25x-3=0",
+          "4x^2+8x+3=0"
+        ],
+        "common_root": true
+      }
     ],
     "tool_mode": [
       "assist",
       "assist",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "154": {
@@ -15318,21 +15615,27 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "sequence_tool"
     ],
     "tool_args": [
       {},
       {},
       {},
       {},
-      {}
+      {
+        "sequence_type": "geometric",
+        "first_term": "16/9",
+        "ratio": "3/2",
+        "target": "nth_term",
+        "n": 8
+      }
     ],
     "tool_mode": [
       "no_tool",
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "172": {
@@ -15934,25 +16237,63 @@
       "llama3:8b"
     ],
     "allo_tool": [
+      "polynomial_coefficient_match",
       "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "polynomial_coefficient_match",
+      "polynomial_coefficient_match",
+      "polynomial_coefficient_match"
     ],
     "tool_args": [
+      {
+        "left_expression": "a(x+b)^2+c",
+        "right_expression": "4x^2+2x-1",
+        "polynomial_variable": "x",
+        "unknowns": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target_expression": "a"
+      },
       {},
-      {},
-      {},
-      {},
-      {}
+      {
+        "left_expression": "a(x+b)^2+c",
+        "right_expression": "4x^2+2x-1",
+        "polynomial_variable": "x",
+        "unknowns": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      {
+        "left_expression": "a(x+b)^2+c",
+        "right_expression": "4x^2+2x-1",
+        "polynomial_variable": "x",
+        "unknowns": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      {
+        "left_expression": "a(x+b)^2+c",
+        "right_expression": "4x^2+2x-1",
+        "polynomial_variable": "x",
+        "unknowns": [
+          "a",
+          "b",
+          "c"
+        ],
+        "target_expression": "a + b + c"
+      }
     ],
     "tool_mode": [
+      "replace",
       "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool",
-      "no_tool"
+      "replace",
+      "replace",
+      "replace"
     ]
   },
   "179": {
@@ -16012,24 +16353,19 @@
     ],
     "allo_tool": [
       "no_tool",
-      "subst",
+      "no_tool",
       "no_tool",
       "no_tool"
     ],
     "tool_args": [
       {},
-      {
-        "expression": "x",
-        "subs": {
-          "x": "-1"
-        }
-      },
+      {},
       {},
       {}
     ],
     "tool_mode": [
       "no_tool",
-      "replace",
+      "no_tool",
       "no_tool",
       "no_tool"
     ]
@@ -16771,8 +17107,8 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool",
+      "linear_system_solver",
+      "linear_system_solver",
       "no_tool",
       "no_tool"
     ],
@@ -16780,8 +17116,30 @@
       {},
       {},
       {},
-      {},
-      {},
+      {
+        "equations": [
+          "a = 3",
+          "b = 11"
+        ],
+        "variables": [
+          "a",
+          "b"
+        ],
+        "target": "1/b - 1/a",
+        "unique": true
+      },
+      {
+        "equations": [
+          "a = 3",
+          "b = 11"
+        ],
+        "variables": [
+          "a",
+          "b"
+        ],
+        "target": "a - b",
+        "unique": true
+      },
       {},
       {}
     ],
@@ -16789,8 +17147,8 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool",
-      "no_tool",
+      "replace",
+      "replace",
       "no_tool",
       "no_tool"
     ]
@@ -17216,7 +17574,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "polynomial_coefficient_match"
     ],
     "tool_args": [
       {
@@ -17227,7 +17585,17 @@
       {},
       {},
       {},
-      {}
+      {
+        "left_expression": "(Ax-5)(2Bx+C)",
+        "right_expression": "24x^2-19x-35",
+        "polynomial_variable": "x",
+        "unknowns": [
+          "A",
+          "B",
+          "C"
+        ],
+        "target_expression": "A*B - 3*C"
+      }
     ],
     "tool_mode": [
       "assist",
@@ -17236,7 +17604,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "191": {
@@ -17614,7 +17982,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "inequality_solver"
     ],
     "tool_args": [
       {},
@@ -17622,7 +17990,14 @@
       {},
       {},
       {},
-      {}
+      {
+        "constraints": [
+          "(6-x-x^2)>=0"
+        ],
+        "variable": "x",
+        "domain": "real",
+        "target": "solution_set"
+      }
     ],
     "tool_mode": [
       "no_tool",
@@ -17630,7 +18005,7 @@
       "no_tool",
       "no_tool",
       "no_tool",
-      "no_tool"
+      "replace"
     ]
   },
   "196": {

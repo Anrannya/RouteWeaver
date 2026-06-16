@@ -1,0 +1,141 @@
+{
+  "source_log": "Logs/phase26_pair_diagnostic/2026-06-15-17-44-45/",
+  "experiment_git_sha": "e23d2714f67e54b0e2a1aef50956be1d57eb0d68",
+  "cases": [
+    {
+      "qid": 26,
+      "classification": "B",
+      "classification_label": "工具正确，但replace/assist模式不合理",
+      "confirmed_tool_error": false,
+      "rule_changed": true,
+      "rule_change": "过程性展开(How can we expand)改为expand assist，禁止replace",
+      "confirmed_tool_gain": false,
+      "summary": "Step1为How can we expand，expand replace输出2x^2-x-15数学正确；后续LLM自行代数错误导致final -2。非工具输出错误。",
+      "key_step": {
+        "step_id": 1,
+        "subtask": "How can we expand the expression (2x + 5)(x - 3)?",
+        "tool_name": "expand",
+        "tool_mode": "replace",
+        "tool_output": "2*x**2 - x - 15"
+      },
+      "no_tool_final": "0.5",
+      "with_tool_final": "-2",
+      "transition": "right_to_wrong"
+    },
+    {
+      "qid": 36,
+      "classification": "D",
+      "classification_label": "两分支模型生成波动",
+      "confirmed_tool_error": false,
+      "rule_changed": false,
+      "confirmed_tool_gain": false,
+      "summary": "simplify assist输出x**2*(x**2+4)数学正确且与不等式变换相关，未提前暴露区间答案。后续区间求解为LLM推理错误，无充分证据禁止simplify assist。",
+      "key_step": {
+        "step_id": 3,
+        "tool_name": "simplify",
+        "tool_mode": "assist",
+        "tool_output": "x**2*(x**2 + 4)"
+      }
+    },
+    {
+      "qid": 44,
+      "classification": "C",
+      "classification_label": "工具正确，后续LLM推理或汇总丢失",
+      "confirmed_tool_error": false,
+      "rule_changed": false,
+      "confirmed_tool_gain": false,
+      "summary": "arith replace正确：7/6与14。Step4 LLM交叉相乘得7/2而非1/12。非工具目标7 vs 7/2的分配错误。",
+      "key_steps": [
+        {"step_id": 1, "tool_output": "7/6"},
+        {"step_id": 2, "tool_output": "14"}
+      ],
+      "no_tool_final": "1/12",
+      "with_tool_final": "7/2"
+    },
+    {
+      "qid": 72,
+      "classification": "A",
+      "classification_label": "确定的工具分配错误",
+      "confirmed_tool_error": true,
+      "rule_changed": true,
+      "rule_change": "概念型子任务(What does it mean...)禁止subst/arith/solve/linear replace",
+      "confirmed_tool_gain": false,
+      "summary": "Step1询问反比例含义，却subst replace注入k=14得14，污染后续推理得48。",
+      "key_step": {
+        "step_id": 1,
+        "subtask": "What does it mean for j and k to be inversely proportional?",
+        "tool_name": "subst",
+        "tool_mode": "replace",
+        "tool_args": {"expression": "k", "subs": {"k": "14"}},
+        "tool_output": "14"
+      },
+      "no_tool_final": "24",
+      "with_tool_final": "48"
+    },
+    {
+      "qid": 118,
+      "classification": "F",
+      "classification_label": "非分配异常（工具收益已确认）",
+      "confirmed_tool_error": false,
+      "rule_changed": false,
+      "confirmed_tool_gain": true,
+      "summary": "linear replace x=8,y=-1,xy=-8均数学正确且直接回答子任务；no_tool final -64为LLM错误。",
+      "key_steps": [
+        {"step_id": 1, "tool": "linear_system_solver", "tool_output": "x = 8"},
+        {"step_id": 2, "tool": "linear_system_solver", "tool_output": "y = -1"},
+        {"step_id": 3, "tool": "linear_system_solver", "tool_output": "xy = -8"}
+      ],
+      "no_tool_final": "-64",
+      "with_tool_final": "-8"
+    },
+    {
+      "qid": 130,
+      "classification": "E",
+      "classification_label": "Judge波动",
+      "confirmed_tool_error": false,
+      "rule_changed": true,
+      "rule_change": "compare脚本相同规范化final_answer复用Judge",
+      "confirmed_tool_gain": false,
+      "summary": "两分支final_answer均为-22，no_tool judge false、with_tool judge true。属Judge重复调用噪声。",
+      "no_tool_final": "-22",
+      "with_tool_final": "-22",
+      "no_tool_judge": false,
+      "with_tool_judge": true
+    },
+    {
+      "qid": 179,
+      "classification": "A",
+      "classification_label": "确定的工具分配错误",
+      "confirmed_tool_error": true,
+      "rule_changed": true,
+      "rule_change": "How do we evaluate...过程性子任务禁止subst replace；工具输出-1非h(-1)",
+      "confirmed_tool_gain": false,
+      "summary": "Step2为过程说明，subst replace对bare x=-1得-1，非h(-1)=1。Step3 LLM自行纠正得1，属侥幸。",
+      "key_step": {
+        "step_id": 2,
+        "subtask": "How do we evaluate h(x) at x=-1?",
+        "tool_name": "subst",
+        "tool_mode": "replace",
+        "tool_output": "-1"
+      },
+      "note": "最终答案1正确因后续步骤覆盖，非工具目标正确"
+    },
+    {
+      "qid": 190,
+      "classification": "B",
+      "classification_label": "工具正确，assist模式",
+      "confirmed_tool_error": false,
+      "rule_changed": false,
+      "confirmed_tool_gain": true,
+      "summary": "expand assist给出展开系数结构，with_tool final -9正确，no_tool -35错误。",
+      "key_step": {
+        "step_id": 1,
+        "tool_name": "expand",
+        "tool_mode": "assist",
+        "tool_output": "2*A*B*x**2 + A*C*x - 10*B*x - 5*C"
+      },
+      "no_tool_final": "-35",
+      "with_tool_final": "-9"
+    }
+  ]
+}

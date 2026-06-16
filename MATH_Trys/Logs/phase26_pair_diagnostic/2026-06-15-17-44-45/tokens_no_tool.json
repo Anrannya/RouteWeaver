@@ -1,0 +1,7 @@
+{
+    "gpt-4o": {
+        "prompt_tokens": 85662,
+        "completion_tokens": 4114,
+        "total_tokens": 89776
+    }
+}
