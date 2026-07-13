@@ -1,0 +1,1000 @@
+{"fact_id": "fact_000001", "concept": "hospital", "dimension": "typical_location", "fact": "A hospital keeps many fire extinguishers for the safety of patients.", "conditions": []}
+{"fact_id": "fact_000002", "concept": "set table", "dimension": "property", "fact": "Setting the table happens before guests arrive, not at the end.", "conditions": []}
+{"fact_id": "fact_000003", "concept": "sleeping longer", "dimension": "property", "fact": "Sleeping longer is rest, not the dying sensation from fatal injuries.", "conditions": []}
+{"fact_id": "fact_000004", "concept": "laughter", "dimension": "effect", "fact": "A person feeling happiness can fall into laughter.", "conditions": []}
+{"fact_id": "fact_000005", "concept": "safe", "dimension": "primary_function", "fact": "A safe stores valuables and is not a place one travels to with a checked bag.", "conditions": []}
+{"fact_id": "fact_000006", "concept": "beauty", "dimension": "property", "fact": "Beauty is subjective, not the main healthy result of losing weight.", "conditions": []}
+{"fact_id": "fact_000007", "concept": "hospital", "dimension": "typical_location", "fact": "A hospital is where the ill are treated, not the type of person who gets ill.", "conditions": []}
+{"fact_id": "fact_000008", "concept": "nailed", "dimension": "used_for", "fact": "Something is nailed to wood to attach it firmly.", "conditions": []}
+{"fact_id": "fact_000009", "concept": "point", "dimension": "property", "fact": "A point is a location or idea, not someone yelled at.", "conditions": []}
+{"fact_id": "fact_000010", "concept": "wakefulness", "dimension": "effect", "fact": "A great rest leaves a person feeling fresh wakefulness in the morning.", "conditions": []}
+{"fact_id": "fact_000011", "concept": "beans", "dimension": "property", "fact": "Beans are food, not a location for sunbathing.", "conditions": []}
+{"fact_id": "fact_000012", "concept": "hold water", "dimension": "property", "fact": "Holding water is a function of a glass container, not a trait of thinness.", "conditions": []}
+{"fact_id": "fact_000013", "concept": "in bed", "dimension": "typical_location", "fact": "A reader often keeps a book in bed to read before sleeping.", "conditions": []}
+{"fact_id": "fact_000014", "concept": "auditorium", "dimension": "typical_location", "fact": "An auditorium hosts talks, but religious speeches occur in places of worship.", "conditions": []}
+{"fact_id": "fact_000015", "concept": "own house", "dimension": "property", "fact": "Owning a house is wealth, not education.", "conditions": []}
+{"fact_id": "fact_000016", "concept": "desktop", "dimension": "property", "fact": "A desktop is a surface or computer, not the place an accountant works away from home.", "conditions": []}
+{"fact_id": "fact_000017", "concept": "cafeteria", "dimension": "typical_location", "fact": "A cafeteria uses utilitarian tables, not a new home dining table.", "conditions": []}
+{"fact_id": "fact_000018", "concept": "yellow pages", "dimension": "property", "fact": "Yellow pages is a directory listing, not a physical location for a restaurant.", "conditions": []}
+{"fact_id": "fact_000019", "concept": "halloween", "dimension": "property", "fact": "Halloween is the occasion, not the degree of scariness.", "conditions": []}
+{"fact_id": "fact_000020", "concept": "feel good", "dimension": "effect", "fact": "Sex often makes people feel good.", "conditions": []}
+{"fact_id": "fact_000021", "concept": "trash can", "dimension": "property", "fact": "A trash can holds waste, not red flowers bees visit.", "conditions": []}
+{"fact_id": "fact_000022", "concept": "make sex", "dimension": "property", "fact": "Having sex is intimacy, not the commitment a lasting couple makes.", "conditions": []}
+{"fact_id": "fact_000023", "concept": "owner", "dimension": "property", "fact": "An owner outranks the branch head, so is not the one yelled at.", "conditions": []}
+{"fact_id": "fact_000024", "concept": "dreamworker", "dimension": "property", "fact": "A dreamworker interprets dreams and is not what the dream is confused with.", "conditions": []}
+{"fact_id": "fact_000025", "concept": "alley", "dimension": "property", "fact": "An alley is harsh and exposed, not where a pet cat is happiest.", "conditions": []}
+{"fact_id": "fact_000026", "concept": "floor", "dimension": "property", "fact": "The floor is a surface, not what cats get into by being destructive.", "conditions": []}
+{"fact_id": "fact_000027", "concept": "neatness", "dimension": "motivation", "fact": "Grooming before an interview portrays neatness to the employer.", "conditions": []}
+{"fact_id": "fact_000028", "concept": "hands", "dimension": "primary_function", "fact": "Hands grip tools, so injuring the hands would stop him from holding them.", "conditions": []}
+{"fact_id": "fact_000029", "concept": "television", "dimension": "typical_location", "fact": "A television shows news with advertisements between segments.", "conditions": []}
+{"fact_id": "fact_000030", "concept": "carpenter's shop", "dimension": "property", "fact": "A carpenter's shop is usually a single workspace, not a multi-level structure.", "conditions": []}
+{"fact_id": "fact_000031", "concept": "improve yourself", "dimension": "property", "fact": "Improving yourself is a goal, not the tool needed to work efficiently.", "conditions": []}
+{"fact_id": "fact_000032", "concept": "shake hands", "dimension": "property", "fact": "Shaking hands is a greeting, not a way to brainstorm ideas.", "conditions": []}
+{"fact_id": "fact_000033", "concept": "happiness", "dimension": "effect", "fact": "Getting paid leads to happiness.", "conditions": []}
+{"fact_id": "fact_000034", "concept": "not boredom", "dimension": "property", "fact": "Not boredom is a negation, not a feeling one has after housework.", "conditions": []}
+{"fact_id": "fact_000035", "concept": "tears", "dimension": "property", "fact": "Tears can come from joy, but happiness more readily breaks into laughter.", "conditions": []}
+{"fact_id": "fact_000036", "concept": "la ville", "dimension": "property", "fact": "La ville means the city and is not a place to read news with ads.", "conditions": []}
+{"fact_id": "fact_000037", "concept": "france", "dimension": "typical_location", "fact": "Paris is a city in France, so Sam was in France.", "conditions": []}
+{"fact_id": "fact_000038", "concept": "wage war", "dimension": "effect", "fact": "Facing a hostile attack on his country, the president decided to wage war.", "conditions": []}
+{"fact_id": "fact_000039", "concept": "fruit basket", "dimension": "primary_function", "fact": "A fruit basket displays or stores fruit at home, not at a store checkout.", "conditions": []}
+{"fact_id": "fact_000040", "concept": "money", "dimension": "property", "fact": "Money is the means to buy, not the inner drive to shop.", "conditions": []}
+{"fact_id": "fact_000041", "concept": "anguish", "dimension": "effect", "fact": "Carrying all the work in a failing marriage can cause deep anguish.", "conditions": []}
+{"fact_id": "fact_000042", "concept": "church", "dimension": "typical_location", "fact": "A church is for worship, not for jumping jacks.", "conditions": []}
+{"fact_id": "fact_000043", "concept": "garage", "dimension": "property", "fact": "A garage is typically one level for parking cars.", "conditions": []}
+{"fact_id": "fact_000044", "concept": "maine", "dimension": "typical_location", "fact": "Maine is a coastal state, broader than a single seafood spot.", "conditions": []}
+{"fact_id": "fact_000045", "concept": "imagination", "dimension": "property", "fact": "Imagination is creative thought, not what a dream is confused with on waking.", "conditions": []}
+{"fact_id": "fact_000046", "concept": "thought", "dimension": "property", "fact": "Thought is general mental activity, not the specific trait self-learning needs.", "conditions": []}
+{"fact_id": "fact_000047", "concept": "crumpled", "dimension": "property", "fact": "Paper crumples when handled, which requires movement.", "conditions": []}
+{"fact_id": "fact_000048", "concept": "write an essay", "dimension": "used_for", "fact": "Writing an essay is a way to share ideas that are in your head.", "conditions": []}
+{"fact_id": "fact_000049", "concept": "fiddle", "dimension": "property", "fact": "A fiddle is an instrument, unrelated to a boss's instruction.", "conditions": []}
+{"fact_id": "fact_000050", "concept": "computer network", "dimension": "used_for", "fact": "A computer network connects devices so that people can share files.", "conditions": []}
+{"fact_id": "fact_000051", "concept": "credit", "dimension": "property", "fact": "Credit enables spending but is not the desire behind it.", "conditions": []}
+{"fact_id": "fact_000052", "concept": "helicopter", "dimension": "property", "fact": "A helicopter transports few people, not what enables most people to travel.", "conditions": []}
+{"fact_id": "fact_000053", "concept": "atlas", "dimension": "primary_function", "fact": "An atlas is a book of maps used for navigation, the role now filled by GPS services.", "conditions": []}
+{"fact_id": "fact_000054", "concept": "ocean", "dimension": "property", "fact": "The ocean is the water itself, not a place that contains restaurants.", "conditions": []}
+{"fact_id": "fact_000055", "concept": "black", "dimension": "property", "fact": "Black is a color, unrelated to playing with a dog.", "conditions": []}
+{"fact_id": "fact_000056", "concept": "fraternity house", "dimension": "typical_location", "fact": "A fraternity house may have drinks but is not a public source of fried foods.", "conditions": []}
+{"fact_id": "fact_000057", "concept": "coloring book", "dimension": "property", "fact": "A coloring book is for art, not a numerical example.", "conditions": []}
+{"fact_id": "fact_000058", "concept": "formal dining room", "dimension": "typical_location", "fact": "A new dining table goes in the formal dining room.", "conditions": []}
+{"fact_id": "fact_000059", "concept": "communication", "dimension": "property", "fact": "Communication is the means of chatting, not the deeper goal.", "conditions": []}
+{"fact_id": "fact_000060", "concept": "plane", "dimension": "property", "fact": "A plane offers limited food and is not known for fried bar food.", "conditions": []}
+{"fact_id": "fact_000061", "concept": "species", "dimension": "property", "fact": "A species is a biological category, not an individual with a caring heart.", "conditions": []}
+{"fact_id": "fact_000062", "concept": "happiness", "dimension": "property", "fact": "Happiness is the opposite of being grumpy.", "conditions": []}
+{"fact_id": "fact_000063", "concept": "large open area", "dimension": "property", "fact": "A large open area is a space, not a launching platform in the ocean.", "conditions": []}
+{"fact_id": "fact_000064", "concept": "augment", "dimension": "property", "fact": "Augment means to increase, an abstract synonym rather than the plain result.", "conditions": []}
+{"fact_id": "fact_000065", "concept": "town or city", "dimension": "property", "fact": "A town or city is too broad to be the specific shopping place.", "conditions": []}
+{"fact_id": "fact_000066", "concept": "learning about", "dimension": "motivation", "fact": "Discovering something new keeps friends talking because they are learning about it.", "conditions": []}
+{"fact_id": "fact_000067", "concept": "paste", "dimension": "property", "fact": "Paste is an adhesive action, unrelated to scars.", "conditions": []}
+{"fact_id": "fact_000068", "concept": "mexico", "dimension": "property", "fact": "Mexico is a country, not a printed navigation aid.", "conditions": []}
+{"fact_id": "fact_000069", "concept": "in washington", "dimension": "property", "fact": "Washington is a place name, but not specifically a protected haven.", "conditions": []}
+{"fact_id": "fact_000070", "concept": "enforce", "dimension": "property", "fact": "Enforcing rules compels compliance and supports a policy rather than dismissing prior efforts.", "conditions": []}
+{"fact_id": "fact_000071", "concept": "fridge", "dimension": "primary_function", "fact": "A fridge keeps food cold, where neglected leftovers eventually grow mold.", "conditions": []}
+{"fact_id": "fact_000072", "concept": "apply for job", "dimension": "used_for", "fact": "Applying for a job is how a person arranges to earn money.", "conditions": []}
+{"fact_id": "fact_000073", "concept": "body", "dimension": "property", "fact": "The body is general, while a finger is the specific part cut while chopping.", "conditions": []}
+{"fact_id": "fact_000074", "concept": "heartburn", "dimension": "property", "fact": "Heartburn comes from eating, not the reason a glance at a watch causes rushing.", "conditions": []}
+{"fact_id": "fact_000075", "concept": "eat", "dimension": "property", "fact": "A waiter does not eat the customer's meal.", "conditions": []}
+{"fact_id": "fact_000076", "concept": "getting cold", "dimension": "effect", "fact": "A person dying of injuries can feel herself getting cold.", "conditions": []}
+{"fact_id": "fact_000077", "concept": "hot room", "dimension": "property", "fact": "A hot room is the problem, not where the fans are kept.", "conditions": []}
+{"fact_id": "fact_000078", "concept": "city street", "dimension": "typical_location", "fact": "A city street is broad, while people specifically wait on the corner.", "conditions": []}
+{"fact_id": "fact_000079", "concept": "new york", "dimension": "property", "fact": "New York is not associated with marshes and Cajun-speaking people.", "conditions": []}
+{"fact_id": "fact_000080", "concept": "stay here", "dimension": "property", "fact": "Stay here is a command, not how he wished the job were.", "conditions": []}
+{"fact_id": "fact_000081", "concept": "dance", "dimension": "property", "fact": "Dancing is an activity, not a step toward staying together for life.", "conditions": []}
+{"fact_id": "fact_000082", "concept": "serve meal", "dimension": "property", "fact": "Serving the meal occurs during dining, not when it concludes.", "conditions": []}
+{"fact_id": "fact_000083", "concept": "thin", "dimension": "effect", "fact": "After a vasectomy semen no longer carries sperm, so it becomes thin.", "conditions": []}
+{"fact_id": "fact_000084", "concept": "people store", "dimension": "property", "fact": "A people store is not a real place with a shared printer.", "conditions": []}
+{"fact_id": "fact_000085", "concept": "pine tree", "dimension": "typical_location", "fact": "A pine tree is a perch, but it does not guarantee a bald eagle's safety.", "conditions": []}
+{"fact_id": "fact_000086", "concept": "economic instability", "dimension": "property", "fact": "Economic instability is a broad condition, not what negligible inflation fails to be.", "conditions": []}
+{"fact_id": "fact_000087", "concept": "airport", "dimension": "typical_location", "fact": "An airport has phone booths but fewer than an entire city.", "conditions": []}
+{"fact_id": "fact_000088", "concept": "pass course", "dimension": "property", "fact": "Passing a course builds skills but does not directly earn money.", "conditions": []}
+{"fact_id": "fact_000089", "concept": "closet", "dimension": "typical_location", "fact": "A closet stores a small folding chair indoors without needing a large door.", "conditions": []}
+{"fact_id": "fact_000090", "concept": "dense forest", "dimension": "property", "fact": "A dense forest describes the place itself, not the goal the fox is seeking.", "conditions": []}
+{"fact_id": "fact_000091", "concept": "amusement park", "dimension": "typical_location", "fact": "An amusement park has booths selling tickets for its games and rides.", "conditions": []}
+{"fact_id": "fact_000092", "concept": "stressful", "dimension": "property", "fact": "Stressful driving is unpleasant but not the direct cause of accidents.", "conditions": []}
+{"fact_id": "fact_000093", "concept": "teacher", "dimension": "property", "fact": "A teacher may give supplies but is a person, not a source of new pencils to get.", "conditions": []}
+{"fact_id": "fact_000094", "concept": "city", "dimension": "property", "fact": "A city is generic, not the specific region noted for the most famous temple.", "conditions": []}
+{"fact_id": "fact_000095", "concept": "airport", "dimension": "typical_location", "fact": "An airport is where travelers check baggage before boarding a flight.", "conditions": []}
+{"fact_id": "fact_000096", "concept": "insulting them", "dimension": "property", "fact": "Insulting them is rude, not a normal farewell.", "conditions": []}
+{"fact_id": "fact_000097", "concept": "being bored", "dimension": "effect", "fact": "An aloof, self-important person is easily bored when meeting others.", "conditions": []}
+{"fact_id": "fact_000098", "concept": "hobby shop", "dimension": "property", "fact": "A hobby shop sells kites, not the point where the string slipped away.", "conditions": []}
+{"fact_id": "fact_000099", "concept": "own house", "dimension": "property", "fact": "Owning a house is unrelated to being grumpy.", "conditions": []}
+{"fact_id": "fact_000100", "concept": "relief", "dimension": "property", "fact": "Relief is a feeling, not a barrier to buying presents.", "conditions": []}
+{"fact_id": "fact_000101", "concept": "math problem", "dimension": "property", "fact": "Counting apples that fall is an example of a math problem.", "conditions": []}
+{"fact_id": "fact_000102", "concept": "orchestra", "dimension": "property", "fact": "An orchestra uses violins, but the casual fiddle is tied to dance settings.", "conditions": []}
+{"fact_id": "fact_000103", "concept": "park", "dimension": "property", "fact": "A park is a place, not a reaction to being robbed.", "conditions": []}
+{"fact_id": "fact_000104", "concept": "dress themselves", "dimension": "property", "fact": "Dressing themselves is unrelated to brainstorming ideas.", "conditions": []}
+{"fact_id": "fact_000105", "concept": "the last straw", "dimension": "property", "fact": "The last straw is an idiom for a final limit, not a kite string's end.", "conditions": []}
+{"fact_id": "fact_000106", "concept": "flimsy", "dimension": "property", "fact": "Flimsy implies weakness, but fragile is the precise trait of untreated glass.", "conditions": []}
+{"fact_id": "fact_000107", "concept": "thin sauce", "dimension": "property", "fact": "Thinning sauce is a minor task, not the chef's main evening work.", "conditions": []}
+{"fact_id": "fact_000108", "concept": "little", "dimension": "property", "fact": "Little describes size, not how scary the decorations were.", "conditions": []}
+{"fact_id": "fact_000109", "concept": "stay in bed", "dimension": "property", "fact": "Staying in bed is one form of rest but not necessarily restful recovery.", "conditions": []}
+{"fact_id": "fact_000110", "concept": "middle east", "dimension": "typical_location", "fact": "The Middle East is a region containing famous temples and holy sites.", "conditions": []}
+{"fact_id": "fact_000111", "concept": "melt", "dimension": "property", "fact": "Glass does not melt under ordinary conditions, so melting is not its trait.", "conditions": []}
+{"fact_id": "fact_000112", "concept": "summer", "dimension": "property", "fact": "Summer is a season, not the hot surface that burns feet.", "conditions": []}
+{"fact_id": "fact_000113", "concept": "unlikely", "dimension": "property", "fact": "Unlikely means improbable, not his claim about being able to act.", "conditions": []}
+{"fact_id": "fact_000114", "concept": "television", "dimension": "has_prerequisite", "fact": "A television requires a cable connection to receive broadcast channels.", "conditions": []}
+{"fact_id": "fact_000115", "concept": "legs", "dimension": "property", "fact": "Legs help one move but are not specifically what makes a tennis player good.", "conditions": []}
+{"fact_id": "fact_000116", "concept": "ground", "dimension": "property", "fact": "The ground is the surface, not the distance of his run.", "conditions": []}
+{"fact_id": "fact_000117", "concept": "manhattan", "dimension": "property", "fact": "Manhattan is a city, not a shaded spot for undisturbed fungus.", "conditions": []}
+{"fact_id": "fact_000118", "concept": "suicide", "dimension": "cause", "fact": "Severe depression can lead a person to suicide and death.", "conditions": []}
+{"fact_id": "fact_000119", "concept": "closeness", "dimension": "property", "fact": "Closeness is a quality, not the technical sensor name.", "conditions": []}
+{"fact_id": "fact_000120", "concept": "ground", "dimension": "property", "fact": "The ground is a surface underfoot, not a screen cleaned to stop glare.", "conditions": []}
+{"fact_id": "fact_000121", "concept": "appear in court", "dimension": "property", "fact": "Appearing in court gives legal testimony, not spiritual testimony.", "conditions": []}
+{"fact_id": "fact_000122", "concept": "classroom", "dimension": "typical_location", "fact": "A classroom is for lessons, not where a reader keeps a current book.", "conditions": []}
+{"fact_id": "fact_000123", "concept": "admiration", "dimension": "property", "fact": "Admiration is a feeling, not the action a crowd performs.", "conditions": []}
+{"fact_id": "fact_000124", "concept": "headache", "dimension": "cause", "fact": "Sitting too close to a TV strains the eyes and can cause a headache.", "conditions": []}
+{"fact_id": "fact_000125", "concept": "pub", "dimension": "typical_location", "fact": "A pub serves alcohol and fried foods together.", "conditions": []}
+{"fact_id": "fact_000126", "concept": "alabama", "dimension": "property", "fact": "Alabama is south of Tennessee, not the state between Kentucky and Alabama.", "conditions": []}
+{"fact_id": "fact_000127", "concept": "play music", "dimension": "property", "fact": "Play music is an action, not a place a bassoon is played poorly.", "conditions": []}
+{"fact_id": "fact_000128", "concept": "front door", "dimension": "used_for", "fact": "Letters are sometimes delivered by hand through a slot in the front door.", "conditions": []}
+{"fact_id": "fact_000129", "concept": "dying", "dimension": "property", "fact": "Dying is the process, while being dead is the eventual state.", "conditions": []}
+{"fact_id": "fact_000130", "concept": "go to church", "dimension": "typical_location", "fact": "At church people give testimony about how spirituality changed their lives.", "conditions": []}
+{"fact_id": "fact_000131", "concept": "play", "dimension": "used_for", "fact": "You can add a line of dialogue to a play.", "conditions": []}
+{"fact_id": "fact_000132", "concept": "massless", "dimension": "property", "fact": "Massless means having no mass, impossible for a massive building.", "conditions": []}
+{"fact_id": "fact_000133", "concept": "discomfort", "dimension": "property", "fact": "Discomfort would end conversation, not continue it.", "conditions": []}
+{"fact_id": "fact_000134", "concept": "attracting ducks", "dimension": "property", "fact": "Attracting ducks is unrelated to making sales calls.", "conditions": []}
+{"fact_id": "fact_000135", "concept": "refrigerator", "dimension": "primary_function", "fact": "A refrigerator keeps a perishable jar cold so it will not spoil.", "conditions": []}
+{"fact_id": "fact_000136", "concept": "cooperation", "dimension": "property", "fact": "Cooperation involves others, opposite of learning by yourself.", "conditions": []}
+{"fact_id": "fact_000137", "concept": "coastal cities", "dimension": "typical_location", "fact": "Coastal cities on the east coast commonly have seafood restaurants.", "conditions": []}
+{"fact_id": "fact_000138", "concept": "revenge", "dimension": "property", "fact": "Revenge is a motive, not a physical process that endangers the body by cooling.", "conditions": []}
+{"fact_id": "fact_000139", "concept": "hang up", "dimension": "property", "fact": "Hanging up ends a call, the opposite of what a caller hopes for.", "conditions": []}
+{"fact_id": "fact_000140", "concept": "spending money", "dimension": "property", "fact": "Spending money is an action, not the emotion getting paid produces.", "conditions": []}
+{"fact_id": "fact_000141", "concept": "american city", "dimension": "cause", "fact": "Expressway traffic gets worse the closer you get to an American city.", "conditions": []}
+{"fact_id": "fact_000142", "concept": "lead to laughter", "dimension": "property", "fact": "Lead to laughter is a phrase, not the thing happiness falls into.", "conditions": []}
+{"fact_id": "fact_000143", "concept": "talk to each other", "dimension": "property", "fact": "Talking to each other is sharing, but brainstorming uses creative thinking.", "conditions": []}
+{"fact_id": "fact_000144", "concept": "joining", "dimension": "property", "fact": "Joining means connecting, not what scars do over time.", "conditions": []}
+{"fact_id": "fact_000145", "concept": "optical telescope", "dimension": "primary_function", "fact": "An optical telescope is viewed through an eyepiece to see distant objects.", "conditions": []}
+{"fact_id": "fact_000146", "concept": "nervousness", "dimension": "property", "fact": "Nervousness is anxiety, not the cold detachment of self-importance.", "conditions": []}
+{"fact_id": "fact_000147", "concept": "falling down", "dimension": "property", "fact": "Falling down is unrelated to listening in class.", "conditions": []}
+{"fact_id": "fact_000148", "concept": "forgetfulness", "dimension": "property", "fact": "Forgetfulness is memory loss, not the fear of fading out.", "conditions": []}
+{"fact_id": "fact_000149", "concept": "suicide", "dimension": "property", "fact": "Suicide is self-harm, unrelated to reconciling over drinks.", "conditions": []}
+{"fact_id": "fact_000150", "concept": "illiterate", "dimension": "property", "fact": "Illiterate means unable to read, opposite of well educated.", "conditions": []}
+{"fact_id": "fact_000151", "concept": "work", "dimension": "effect", "fact": "A boss told a bored employee to get back to work.", "conditions": []}
+{"fact_id": "fact_000152", "concept": "love", "dimension": "property", "fact": "Love is an emotion one feels, not what happiness falls into here.", "conditions": []}
+{"fact_id": "fact_000153", "concept": "anxiety", "dimension": "property", "fact": "Anxiety is worry, not what listening helps students gain.", "conditions": []}
+{"fact_id": "fact_000154", "concept": "in motion", "dimension": "property", "fact": "In motion describes movement, not how rest makes one feel.", "conditions": []}
+{"fact_id": "fact_000155", "concept": "become knowledgeable", "dimension": "property", "fact": "Becoming knowledgeable helps but is not the concrete requirement to work efficiently.", "conditions": []}
+{"fact_id": "fact_000156", "concept": "good health", "dimension": "property", "fact": "Good health is a condition, not a place skin gets cut.", "conditions": []}
+{"fact_id": "fact_000157", "concept": "brain problems", "dimension": "property", "fact": "Brain problems are serious conditions, not the minor pain from screen strain.", "conditions": []}
+{"fact_id": "fact_000158", "concept": "garage", "dimension": "typical_location", "fact": "A garage is a place to park or repair cars, not a way to show how to work.", "conditions": []}
+{"fact_id": "fact_000159", "concept": "fairgrounds", "dimension": "typical_location", "fact": "Fairgrounds have ticket booths where you buy tickets for games and rides.", "conditions": []}
+{"fact_id": "fact_000160", "concept": "dream", "dimension": "property", "fact": "A dream is not what a boss tells a bored worker to return to.", "conditions": []}
+{"fact_id": "fact_000161", "concept": "table", "dimension": "property", "fact": "A table is furniture where food is set, not the place he traveled to.", "conditions": []}
+{"fact_id": "fact_000162", "concept": "city", "dimension": "property", "fact": "A city is too large to be the gated community he seeks.", "conditions": []}
+{"fact_id": "fact_000163", "concept": "tardiness", "dimension": "property", "fact": "Tardiness is lateness, opposite of the impression grooming gives.", "conditions": []}
+{"fact_id": "fact_000164", "concept": "peace", "dimension": "property", "fact": "Peace is calm, not something to be scared of.", "conditions": []}
+{"fact_id": "fact_000165", "concept": "dance together", "dimension": "property", "fact": "Dancing together is an activity, not a way to travel.", "conditions": []}
+{"fact_id": "fact_000166", "concept": "homeless shelter", "dimension": "property", "fact": "A homeless shelter is temporary housing, not a place of years-long sentence.", "conditions": []}
+{"fact_id": "fact_000167", "concept": "mall", "dimension": "typical_location", "fact": "A mall contains both fashion stores and a bookshop under one roof.", "conditions": []}
+{"fact_id": "fact_000168", "concept": "town", "dimension": "property", "fact": "A town is a large area, broader than the short barefoot run home.", "conditions": []}
+{"fact_id": "fact_000169", "concept": "construction site", "dimension": "typical_location", "fact": "A construction site has metal rods that a worker can trip over while building.", "conditions": []}
+{"fact_id": "fact_000170", "concept": "little italy", "dimension": "typical_location", "fact": "Little Italy is a neighborhood known for restaurants, not a shopping venue.", "conditions": []}
+{"fact_id": "fact_000171", "concept": "studio", "dimension": "property", "fact": "A studio is for recording, not buying a guitar.", "conditions": []}
+{"fact_id": "fact_000172", "concept": "mouth", "dimension": "property", "fact": "A mouth is a body part, not a place a person lives in.", "conditions": []}
+{"fact_id": "fact_000173", "concept": "honey", "dimension": "property", "fact": "Honey is made by bees, not a place with red flowers.", "conditions": []}
+{"fact_id": "fact_000174", "concept": "mandate", "dimension": "property", "fact": "A mandate is an order, and a mandatory evacuation order is broadcast on TV.", "conditions": []}
+{"fact_id": "fact_000175", "concept": "mountain range", "dimension": "property", "fact": "A mountain range is far from the river, not a throwing spot over it.", "conditions": []}
+{"fact_id": "fact_000176", "concept": "boring", "dimension": "property", "fact": "Boring is a feeling, not the point about negligible inflation.", "conditions": []}
+{"fact_id": "fact_000177", "concept": "opera", "dimension": "property", "fact": "An opera is for performances, not finding food.", "conditions": []}
+{"fact_id": "fact_000178", "concept": "leave work", "dimension": "property", "fact": "Leaving work is unrelated to a kingpin coordinating his dealers.", "conditions": []}
+{"fact_id": "fact_000179", "concept": "aircraft carrier", "dimension": "primary_function", "fact": "An aircraft carrier is a mobile launching platform for aircraft at sea.", "conditions": []}
+{"fact_id": "fact_000180", "concept": "hand writing", "dimension": "property", "fact": "Hand writing names the act, close to the handwritten cards he chose.", "conditions": []}
+{"fact_id": "fact_000181", "concept": "sporting goods store", "dimension": "typical_location", "fact": "A sporting goods store sells equipment, not live uniformed players.", "conditions": []}
+{"fact_id": "fact_000182", "concept": "ontario", "dimension": "property", "fact": "Ontario is a region, not the specific waterway whose machine a dam blocks.", "conditions": []}
+{"fact_id": "fact_000183", "concept": "shop", "dimension": "typical_location", "fact": "A shop sells goods, but pet shops specifically carry live animals like snakes.", "conditions": []}
+{"fact_id": "fact_000184", "concept": "elderly person", "dimension": "property", "fact": "An elderly person is more vulnerable but is not the definition of who contracts illness.", "conditions": []}
+{"fact_id": "fact_000185", "concept": "violin case", "dimension": "property", "fact": "A violin case holds an instrument and is not a state.", "conditions": []}
+{"fact_id": "fact_000186", "concept": "dog's mouth", "dimension": "property", "fact": "A dog's mouth is unrelated to cats ripping things apart.", "conditions": []}
+{"fact_id": "fact_000187", "concept": "ocean", "dimension": "property", "fact": "The ocean is far from a backyard.", "conditions": []}
+{"fact_id": "fact_000188", "concept": "running", "dimension": "property", "fact": "Running is an activity, not the hope behind non-competitive sport.", "conditions": []}
+{"fact_id": "fact_000189", "concept": "street corner", "dimension": "typical_location", "fact": "People stand at the street corner of an intersection.", "conditions": []}
+{"fact_id": "fact_000190", "concept": "new jersey", "dimension": "property", "fact": "New Jersey is a state, but the John Davis Lodge Turnpike is not there.", "conditions": []}
+{"fact_id": "fact_000191", "concept": "clear", "dimension": "property", "fact": "Clear describes color or transparency, not the change from thick to less thick.", "conditions": []}
+{"fact_id": "fact_000192", "concept": "substation", "dimension": "property", "fact": "A substation distributes electrical power and is not home entertainment equipment.", "conditions": []}
+{"fact_id": "fact_000193", "concept": "boston", "dimension": "typical_location", "fact": "Boston is one coastal city, more specific than the general kind of place asked.", "conditions": []}
+{"fact_id": "fact_000194", "concept": "anxiety", "dimension": "property", "fact": "Anxiety is worry about the future, not the result of repetitive chores.", "conditions": []}
+{"fact_id": "fact_000195", "concept": "flowers", "dimension": "property", "fact": "Flowers are what a garden grows, not what replaces it.", "conditions": []}
+{"fact_id": "fact_000196", "concept": "synagogue", "dimension": "typical_location", "fact": "A synagogue seats people who listen to a religious speech.", "conditions": []}
+{"fact_id": "fact_000197", "concept": "town", "dimension": "property", "fact": "A town is a settlement, not the open-air status of a field.", "conditions": []}
+{"fact_id": "fact_000198", "concept": "mouth", "dimension": "property", "fact": "Putting grapes in your mouth eats them rather than holding them for purchase.", "conditions": []}
+{"fact_id": "fact_000199", "concept": "dangerous", "dimension": "cause", "fact": "Dangerous driving creates hazards that lead to accidents.", "conditions": []}
+{"fact_id": "fact_000200", "concept": "carnival", "dimension": "typical_location", "fact": "A carnival has performers but the classic phrase is running away with the circus.", "conditions": []}
+{"fact_id": "fact_000201", "concept": "increased knowledge", "dimension": "property", "fact": "Increased knowledge is the input, not the change in how one sees things.", "conditions": []}
+{"fact_id": "fact_000202", "concept": "one dimensional", "dimension": "property", "fact": "Being one-dimensional is a geometric idea, not a change from being left outside.", "conditions": []}
+{"fact_id": "fact_000203", "concept": "corner", "dimension": "property", "fact": "A corner is part of a room, not a screen that produces glare.", "conditions": []}
+{"fact_id": "fact_000204", "concept": "desk", "dimension": "typical_location", "fact": "A desk is a place to set a book being actively read.", "conditions": []}
+{"fact_id": "fact_000205", "concept": "hardware store", "dimension": "property", "fact": "A hardware store sells parts, not what is damaged by throwing a rod.", "conditions": []}
+{"fact_id": "fact_000206", "concept": "they cannot clean corner and library during football match they cannot need that", "dimension": "property", "fact": "This option is nonsensical and names no cleanable screen.", "conditions": []}
+{"fact_id": "fact_000207", "concept": "surface of earth", "dimension": "property", "fact": "The surface of the earth is everything, too broad for a grassless selling spot.", "conditions": []}
+{"fact_id": "fact_000208", "concept": "everglades", "dimension": "typical_location", "fact": "The Everglades are marshlands, but they are in Florida, not Cajun country.", "conditions": []}
+{"fact_id": "fact_000209", "concept": "garage", "dimension": "typical_location", "fact": "A garage stores flammable items but is not where many extinguishers are kept.", "conditions": []}
+{"fact_id": "fact_000210", "concept": "lower i.q", "dimension": "property", "fact": "Lowering IQ is a specific long-term claim, not the general effect of drugs.", "conditions": []}
+{"fact_id": "fact_000211", "concept": "look beautiful", "dimension": "motivation", "fact": "Heading to paradise, they wanted the weather to look beautiful.", "conditions": []}
+{"fact_id": "fact_000212", "concept": "jerusalem", "dimension": "typical_location", "fact": "Jerusalem is a city famous for its historic temple.", "conditions": []}
+{"fact_id": "fact_000213", "concept": "building", "dimension": "part_whole", "fact": "A building in a city often has more than one level or floor.", "conditions": []}
+{"fact_id": "fact_000214", "concept": "hen house", "dimension": "typical_location", "fact": "A hen house is a farm structure, not where a fox searches for water in a drought.", "conditions": []}
+{"fact_id": "fact_000215", "concept": "florida", "dimension": "property", "fact": "Florida is itself the example, not the larger place it is found in.", "conditions": []}
+{"fact_id": "fact_000216", "concept": "stress", "dimension": "property", "fact": "Stress is a feeling, not a person going into a market.", "conditions": []}
+{"fact_id": "fact_000217", "concept": "overdosing", "dimension": "property", "fact": "Overdosing is one method, not the general cause linked to depression.", "conditions": []}
+{"fact_id": "fact_000218", "concept": "present bill", "dimension": "effect", "fact": "At the end of a meal a waiter presents the bill.", "conditions": []}
+{"fact_id": "fact_000219", "concept": "school", "dimension": "typical_location", "fact": "A school has printers, but not used by thousands of different people.", "conditions": []}
+{"fact_id": "fact_000220", "concept": "own family", "dimension": "property", "fact": "Own family is people, not where skin is cut while cooking.", "conditions": []}
+{"fact_id": "fact_000221", "concept": "airplane", "dimension": "property", "fact": "An airplane is steered with a yoke and rudder pedals, larger than the small craft described.", "conditions": []}
+{"fact_id": "fact_000222", "concept": "garage", "dimension": "typical_location", "fact": "A garage is a place, not the consequence of a cat's destructive behavior.", "conditions": []}
+{"fact_id": "fact_000223", "concept": "law suit", "dimension": "effect", "fact": "A victim's family can sue the offender, bringing a law suit against him.", "conditions": []}
+{"fact_id": "fact_000224", "concept": "desk", "dimension": "property", "fact": "A desk is furniture for working and does not use a cable feed.", "conditions": []}
+{"fact_id": "fact_000225", "concept": "present", "dimension": "property", "fact": "Present means current, not the quality he wished the job had.", "conditions": []}
+{"fact_id": "fact_000226", "concept": "hurt feelings", "dimension": "property", "fact": "Hurt feelings are minor compared to the fear of a serious crime being exposed.", "conditions": []}
+{"fact_id": "fact_000227", "concept": "child's hand", "dimension": "property", "fact": "A child's hand is not what she reached when the string ran out.", "conditions": []}
+{"fact_id": "fact_000228", "concept": "bus depot", "dimension": "typical_location", "fact": "A bus depot is for waiting on transport, not relaxing after a hobby.", "conditions": []}
+{"fact_id": "fact_000229", "concept": "bedroom", "dimension": "typical_location", "fact": "A bedroom holds furniture, but an inkwell belongs to a writing desk.", "conditions": []}
+{"fact_id": "fact_000230", "concept": "dessert", "dimension": "property", "fact": "Dessert is food and is misspelled here, not a place lizards surprise people.", "conditions": []}
+{"fact_id": "fact_000231", "concept": "race track", "dimension": "typical_location", "fact": "A race track draws crowds only during scheduled races, not reliably at all times.", "conditions": []}
+{"fact_id": "fact_000232", "concept": "wave goodbye", "dimension": "used_for", "fact": "People wave goodbye to address someone who is leaving.", "conditions": []}
+{"fact_id": "fact_000233", "concept": "space station", "dimension": "property", "fact": "A space station orbits in space, not floating in the ocean.", "conditions": []}
+{"fact_id": "fact_000234", "concept": "impossibility", "dimension": "property", "fact": "Impossibility is an abstract noun, not how he described himself doing tasks.", "conditions": []}
+{"fact_id": "fact_000235", "concept": "binocular", "dimension": "primary_function", "fact": "Binoculars are viewed through eyepieces to see distant things.", "conditions": []}
+{"fact_id": "fact_000236", "concept": "corporation", "dimension": "property", "fact": "A corporation is led by a CEO or chairman, not a president of a nation.", "conditions": []}
+{"fact_id": "fact_000237", "concept": "polished", "dimension": "property", "fact": "Polishing smooths wood's surface, not attaching things.", "conditions": []}
+{"fact_id": "fact_000238", "concept": "denmark", "dimension": "property", "fact": "Denmark is in Europe, not where Florida is located.", "conditions": []}
+{"fact_id": "fact_000239", "concept": "forrest", "dimension": "typical_location", "fact": "A forest has wildlife, but lizards favor warm dry or domestic spots.", "conditions": []}
+{"fact_id": "fact_000240", "concept": "countryside", "dimension": "property", "fact": "The countryside is a rural region, not a tool used for finding directions.", "conditions": []}
+{"fact_id": "fact_000241", "concept": "watch film", "dimension": "property", "fact": "Watching a film is leisure, not what a boss says to do.", "conditions": []}
+{"fact_id": "fact_000242", "concept": "come here", "dimension": "property", "fact": "Come here is a request, not the wished-for quality of the job.", "conditions": []}
+{"fact_id": "fact_000243", "concept": "depressed", "dimension": "property", "fact": "Being depressed is the illness that matches lacking gladness and feeling gloomy.", "conditions": []}
+{"fact_id": "fact_000244", "concept": "garden", "dimension": "typical_location", "fact": "A garden is where a lizard can surprise a person at home.", "conditions": []}
+{"fact_id": "fact_000245", "concept": "pet shops", "dimension": "used_for", "fact": "Pet shops sell animals, so high demand drives them to carry exotic snakes.", "conditions": []}
+{"fact_id": "fact_000246", "concept": "white house", "dimension": "property", "fact": "The White House is the president's residence, not the institution he leads.", "conditions": []}
+{"fact_id": "fact_000247", "concept": "avoid", "dimension": "property", "fact": "Avoiding something means keeping away from it rather than acting upon efforts already made.", "conditions": []}
+{"fact_id": "fact_000248", "concept": "butcher shop", "dimension": "typical_location", "fact": "A butcher shop sells fresh meat but does not make it last a long time.", "conditions": []}
+{"fact_id": "fact_000249", "concept": "pretty flowers.", "dimension": "property", "fact": "Pretty flowers are decorative plants, not what a wild fox seeks in a forest.", "conditions": []}
+{"fact_id": "fact_000250", "concept": "illegal", "dimension": "property", "fact": "Illegal driving breaks laws but is not inherently the cause of accidents.", "conditions": []}
+{"fact_id": "fact_000251", "concept": "rest area", "dimension": "typical_location", "fact": "A rest area is a roadside stop for travelers, not a hobby setting.", "conditions": []}
+{"fact_id": "fact_000252", "concept": "health", "dimension": "property", "fact": "Health comes from care over time, not from a single play session.", "conditions": []}
+{"fact_id": "fact_000253", "concept": "cloud mind", "dimension": "effect", "fact": "Drugs cloud the mind and impair clear thinking.", "conditions": []}
+{"fact_id": "fact_000254", "concept": "heal", "dimension": "effect", "fact": "Figurative emotional scars are wounds that never fully heal.", "conditions": []}
+{"fact_id": "fact_000255", "concept": "country", "dimension": "property", "fact": "A president leads a country as its head of state.", "conditions": []}
+{"fact_id": "fact_000256", "concept": "sleep", "dimension": "property", "fact": "Sleeping is the opposite of an enthusiastic standing crowd.", "conditions": []}
+{"fact_id": "fact_000257", "concept": "water fountain", "dimension": "property", "fact": "A water fountain is a fixture, not a place people exercise.", "conditions": []}
+{"fact_id": "fact_000258", "concept": "calm", "dimension": "effect", "fact": "Listening to music can make you calm.", "conditions": []}
+{"fact_id": "fact_000259", "concept": "towed", "dimension": "effect", "fact": "Leaving a car parked past the allowed time can get it towed.", "conditions": []}
+{"fact_id": "fact_000260", "concept": "california", "dimension": "typical_location", "fact": "California experiences droughts where a thirsty fox might search for water.", "conditions": []}
+{"fact_id": "fact_000261", "concept": "sorrow", "dimension": "property", "fact": "Sorrow is sadness, opposite of how getting paid feels.", "conditions": []}
+{"fact_id": "fact_000262", "concept": "knowledgable", "dimension": "property", "fact": "A well educated person is knowledgeable.", "conditions": []}
+{"fact_id": "fact_000263", "concept": "walking", "dimension": "motivation", "fact": "A person walking into a market is going there to shop.", "conditions": []}
+{"fact_id": "fact_000264", "concept": "loose skin", "dimension": "property", "fact": "Loose skin is a side effect, not a good result of weight loss.", "conditions": []}
+{"fact_id": "fact_000265", "concept": "student union", "dimension": "typical_location", "fact": "A student union serves campus life, not a place pairing fashion shops and bookshops.", "conditions": []}
+{"fact_id": "fact_000266", "concept": "inconsequential", "dimension": "property", "fact": "Inconsequential means unimportant, not structurally weak.", "conditions": []}
+{"fact_id": "fact_000267", "concept": "broken bones", "dimension": "effect", "fact": "A season of skiing can result in broken bones from falls.", "conditions": []}
+{"fact_id": "fact_000268", "concept": "united states", "dimension": "part_whole", "fact": "East coast areas such as Florida are found in the United States.", "conditions": []}
+{"fact_id": "fact_000269", "concept": "forceless", "dimension": "property", "fact": "Forceless is not a standard term for ordinary glass.", "conditions": []}
+{"fact_id": "fact_000270", "concept": "artichoke", "dimension": "property", "fact": "An artichoke is a vegetable with a heart-shaped center but no feelings.", "conditions": []}
+{"fact_id": "fact_000271", "concept": "frustration", "dimension": "effect", "fact": "Repeated uncomfortable misinterpretations cause frustration.", "conditions": []}
+{"fact_id": "fact_000272", "concept": "open country", "dimension": "property", "fact": "Open country exposes a bald eagle rather than protecting it.", "conditions": []}
+{"fact_id": "fact_000273", "concept": "jewelry box", "dimension": "typical_location", "fact": "A jewelry box is a container for keeping jewelry, but the question excludes it.", "conditions": []}
+{"fact_id": "fact_000274", "concept": "time", "dimension": "property", "fact": "Time is a resource, not the urge that drives shopping.", "conditions": []}
+{"fact_id": "fact_000275", "concept": "healthy body", "dimension": "effect", "fact": "A successful season of skiing keeps a person active and builds a healthy body.", "conditions": []}
+{"fact_id": "fact_000276", "concept": "barbeque", "dimension": "primary_function", "fact": "A barbeque is the method of slowly cooking food over a grill.", "conditions": []}
+{"fact_id": "fact_000277", "concept": "court", "dimension": "property", "fact": "A court is a venue, not a source of pollen.", "conditions": []}
+{"fact_id": "fact_000278", "concept": "saturated with water", "dimension": "effect", "fact": "Paper left outside becomes saturated with water from rain or dew even if it never moves.", "conditions": []}
+{"fact_id": "fact_000279", "concept": "go to sleep", "dimension": "used_for", "fact": "Going to sleep restores energy and recovers from exhaustion.", "conditions": []}
+{"fact_id": "fact_000280", "concept": "demonstration", "dimension": "property", "fact": "A demonstration is an event, not a place a person lived in.", "conditions": []}
+{"fact_id": "fact_000281", "concept": "bow and strings", "dimension": "property", "fact": "A bow and strings are parts of a fiddle, not a location.", "conditions": []}
+{"fact_id": "fact_000282", "concept": "have enough food", "dimension": "property", "fact": "Having enough food is sustenance, not education.", "conditions": []}
+{"fact_id": "fact_000283", "concept": "grocery store", "dimension": "property", "fact": "A grocery store is lit and cleaned, not a place fungus grows undisturbed.", "conditions": []}
+{"fact_id": "fact_000284", "concept": "field of flowers", "dimension": "typical_location", "fact": "A field of flowers attracts bees but is not specifically red flowers.", "conditions": []}
+{"fact_id": "fact_000285", "concept": "early for work", "dimension": "property", "fact": "Being early for work would give no reason to rush.", "conditions": []}
+{"fact_id": "fact_000286", "concept": "lack of money", "dimension": "cause", "fact": "A lack of money can prevent someone from buying Christmas presents.", "conditions": []}
+{"fact_id": "fact_000287", "concept": "die", "dimension": "property", "fact": "Die is the victims' fate, not what police do to the killer.", "conditions": []}
+{"fact_id": "fact_000288", "concept": "violence", "dimension": "effect", "fact": "Someone who gets angry when drunk is likely to engage in violence.", "conditions": []}
+{"fact_id": "fact_000289", "concept": "map", "dimension": "property", "fact": "A map shows roads but is not where traffic builds up.", "conditions": []}
+{"fact_id": "fact_000290", "concept": "arranging papers", "dimension": "property", "fact": "Arranging papers is a task, not a place for a dining table.", "conditions": []}
+{"fact_id": "fact_000291", "concept": "fly", "dimension": "capability", "fact": "Geese normally get from place to place by flying.", "conditions": []}
+{"fact_id": "fact_000292", "concept": "in the basement", "dimension": "property", "fact": "A basement is enclosed and underground, with no sunlight to lie in.", "conditions": []}
+{"fact_id": "fact_000293", "concept": "basket", "dimension": "property", "fact": "A basket is a small bed, not a space that feels limitless.", "conditions": []}
+{"fact_id": "fact_000294", "concept": "map", "dimension": "property", "fact": "A map shows places but is not where Florida actually is.", "conditions": []}
+{"fact_id": "fact_000295", "concept": "cabinet", "dimension": "property", "fact": "A cabinet stores items but is not where a student buys pencils.", "conditions": []}
+{"fact_id": "fact_000296", "concept": "print shop", "dimension": "typical_location", "fact": "A print shop has printers used by thousands of customers.", "conditions": []}
+{"fact_id": "fact_000297", "concept": "jewelry store", "dimension": "typical_location", "fact": "A jewelry store sells and displays jewelry such as chokers for customers to find.", "conditions": []}
+{"fact_id": "fact_000298", "concept": "laughter", "dimension": "property", "fact": "Laughter is a happy reaction, not a pain.", "conditions": []}
+{"fact_id": "fact_000299", "concept": "desire", "dimension": "motivation", "fact": "She shopped beyond her needs because she was driven by desire.", "conditions": []}
+{"fact_id": "fact_000300", "concept": "orchard", "dimension": "typical_location", "fact": "An orchard has flowering trees where bees can gather pollen.", "conditions": []}
+{"fact_id": "fact_000301", "concept": "military", "dimension": "property", "fact": "The military is an organization, not a place one heads to carrying checked baggage.", "conditions": []}
+{"fact_id": "fact_000302", "concept": "fairgrounds", "dimension": "typical_location", "fact": "Fairgrounds host events, not a friend's game-watching gathering.", "conditions": []}
+{"fact_id": "fact_000303", "concept": "shops", "dimension": "typical_location", "fact": "Shops are for selling, not the building site where the injury happened.", "conditions": []}
+{"fact_id": "fact_000304", "concept": "beat him up", "dimension": "property", "fact": "Beating him up is not the lawful action police take.", "conditions": []}
+{"fact_id": "fact_000305", "concept": "freezer", "dimension": "primary_function", "fact": "A freezer preserves meat for a long time by keeping it frozen.", "conditions": []}
+{"fact_id": "fact_000306", "concept": "video game", "dimension": "property", "fact": "A video game has levels in gameplay, not physical city floors.", "conditions": []}
+{"fact_id": "fact_000307", "concept": "competition", "dimension": "property", "fact": "Competition tests ability but is not what makes a player good.", "conditions": []}
+{"fact_id": "fact_000308", "concept": "kill", "dimension": "property", "fact": "Kill is too vague to be the president's formal response.", "conditions": []}
+{"fact_id": "fact_000309", "concept": "factory", "dimension": "typical_location", "fact": "A factory has machinery, but tripping over a metal rod while building points to construction.", "conditions": []}
+{"fact_id": "fact_000310", "concept": "louisiana", "dimension": "typical_location", "fact": "Louisiana has marshy bayous and is where the Cajun language is spoken.", "conditions": []}
+{"fact_id": "fact_000311", "concept": "beach", "dimension": "property", "fact": "A beach is where a folding chair is used, not stored at home.", "conditions": []}
+{"fact_id": "fact_000312", "concept": "picnic", "dimension": "property", "fact": "A picnic is an outdoor meal event, not the host's home he brought food to.", "conditions": []}
+{"fact_id": "fact_000313", "concept": "follow ultralight airplane", "dimension": "property", "fact": "Following an ultralight airplane is a special trained case, not normal travel.", "conditions": []}
+{"fact_id": "fact_000314", "concept": "home", "dimension": "typical_location", "fact": "Someone who likes cool temperatures keeps extra electric fans at home.", "conditions": []}
+{"fact_id": "fact_000315", "concept": "calligrapher's hand", "dimension": "property", "fact": "A calligrapher's hand writes but is not an ink-absorbing material.", "conditions": []}
+{"fact_id": "fact_000316", "concept": "disorientation", "dimension": "effect", "fact": "Low visibility underwater can cause disorientation.", "conditions": []}
+{"fact_id": "fact_000317", "concept": "have tools", "dimension": "has_prerequisite", "fact": "Just as learning needs the right book, working efficiently requires having tools.", "conditions": []}
+{"fact_id": "fact_000318", "concept": "old house", "dimension": "property", "fact": "An old house is about age, not the suburban move described.", "conditions": []}
+{"fact_id": "fact_000319", "concept": "outdoors", "dimension": "property", "fact": "The outdoors is a setting, not a vendor that carries snakes for buyers.", "conditions": []}
+{"fact_id": "fact_000320", "concept": "gain weight", "dimension": "effect", "fact": "Failing to reduce her waist, she continued to gain weight.", "conditions": []}
+{"fact_id": "fact_000321", "concept": "falling down", "dimension": "property", "fact": "Falling down is from intoxication generally, not from anger specifically.", "conditions": []}
+{"fact_id": "fact_000322", "concept": "taste sauce", "dimension": "property", "fact": "Tasting sauce is one step, not the chef's overall evening job.", "conditions": []}
+{"fact_id": "fact_000323", "concept": "getting tired", "dimension": "property", "fact": "Getting tired is unrelated to a parking violation.", "conditions": []}
+{"fact_id": "fact_000324", "concept": "knife wounds", "dimension": "property", "fact": "Knife wounds are what Joe inflicted, not an action the victim's family took against him.", "conditions": []}
+{"fact_id": "fact_000325", "concept": "barn", "dimension": "typical_location", "fact": "A barn houses working cats but is less comfortable than a home.", "conditions": []}
+{"fact_id": "fact_000326", "concept": "get smart", "dimension": "motivation", "fact": "A good reason to attend school is to get smart and learn.", "conditions": []}
+{"fact_id": "fact_000327", "concept": "loneliness", "dimension": "property", "fact": "Loneliness is unwanted isolation, not the solitude Sam chose.", "conditions": []}
+{"fact_id": "fact_000328", "concept": "vomiting", "dimension": "property", "fact": "Vomiting comes from drinking too much, not from anger.", "conditions": []}
+{"fact_id": "fact_000329", "concept": "table", "dimension": "property", "fact": "A table is furniture, but the inkwell points specifically to a desk.", "conditions": []}
+{"fact_id": "fact_000330", "concept": "tennessee", "dimension": "typical_location", "fact": "Tennessee lies south of Kentucky and north of Alabama and is known for fiddle playing.", "conditions": []}
+{"fact_id": "fact_000331", "concept": "make time for", "dimension": "property", "fact": "Making time for something is unrelated to running errands for a kingpin.", "conditions": []}
+{"fact_id": "fact_000332", "concept": "working", "dimension": "cause", "fact": "A body appreciates rest after it has been constantly working during the day.", "conditions": []}
+{"fact_id": "fact_000333", "concept": "attractive consistent look", "dimension": "property", "fact": "An attractive consistent look is a description, not a distance run.", "conditions": []}
+{"fact_id": "fact_000334", "concept": "smile", "dimension": "property", "fact": "A smile is friendly, opposite of aloof behavior.", "conditions": []}
+{"fact_id": "fact_000335", "concept": "house", "dimension": "property", "fact": "A house may store a guitar but is not where she buys a new one.", "conditions": []}
+{"fact_id": "fact_000336", "concept": "online media", "dimension": "property", "fact": "Online media is digital, not the personal handmade option.", "conditions": []}
+{"fact_id": "fact_000337", "concept": "closet", "dimension": "typical_location", "fact": "A closet stores things but is not where a book is kept while being read.", "conditions": []}
+{"fact_id": "fact_000338", "concept": "books", "dimension": "property", "fact": "Books are objects, not the place Sam ordered sushi.", "conditions": []}
+{"fact_id": "fact_000339", "concept": "barn", "dimension": "typical_location", "fact": "A barn stores farm goods and is not a way to demonstrate a task.", "conditions": []}
+{"fact_id": "fact_000340", "concept": "commit murder", "dimension": "property", "fact": "Committing murder is violence, opposite of getting close over drinks.", "conditions": []}
+{"fact_id": "fact_000341", "concept": "collaboration", "dimension": "property", "fact": "Collaboration is the working together, not the thing being slowed.", "conditions": []}
+{"fact_id": "fact_000342", "concept": "amsterdam", "dimension": "typical_location", "fact": "Amsterdam has canals but is in Northern Europe, not Southern Europe.", "conditions": []}
+{"fact_id": "fact_000343", "concept": "cause accidents", "dimension": "effect", "fact": "Drug impairment can cause accidents.", "conditions": []}
+{"fact_id": "fact_000344", "concept": "have rest", "dimension": "used_for", "fact": "Having rest is the way to recover from exhaustion.", "conditions": []}
+{"fact_id": "fact_000345", "concept": "deep grass", "dimension": "typical_location", "fact": "Deep grass can hide a snake but is not where potatoes are kept.", "conditions": []}
+{"fact_id": "fact_000346", "concept": "launch pad", "dimension": "property", "fact": "A launch pad is a fixed ground structure, not a mobile ocean platform.", "conditions": []}
+{"fact_id": "fact_000347", "concept": "base", "dimension": "property", "fact": "A base is a bottom support, not a person.", "conditions": []}
+{"fact_id": "fact_000348", "concept": "relaxation", "dimension": "property", "fact": "Relaxation is a calm state, not a deadly cooling process.", "conditions": []}
+{"fact_id": "fact_000349", "concept": "math", "dimension": "property", "fact": "Math is schoolwork, not what a kid does with a friend before play.", "conditions": []}
+{"fact_id": "fact_000350", "concept": "way to much", "dimension": "property", "fact": "Way too much is informal phrasing, while overpriced names the usual cost.", "conditions": []}
+{"fact_id": "fact_000351", "concept": "complete sentence", "dimension": "property", "fact": "A complete sentence is grammar, not a reaction to theft.", "conditions": []}
+{"fact_id": "fact_000352", "concept": "meet", "dimension": "has_prerequisite", "fact": "Before going to play, a kid arranges to meet his friend.", "conditions": []}
+{"fact_id": "fact_000353", "concept": "falling down", "dimension": "effect", "fact": "Right after jumping from the plane he was falling down while losing consciousness.", "conditions": []}
+{"fact_id": "fact_000354", "concept": "broken legs", "dimension": "effect", "fact": "Skiing accidents can cause broken legs.", "conditions": []}
+{"fact_id": "fact_000355", "concept": "better job", "dimension": "property", "fact": "A better job is a career outcome, not how a bodyguard makes a client feel.", "conditions": []}
+{"fact_id": "fact_000356", "concept": "chicago", "dimension": "typical_location", "fact": "Chicago is a city, broader than the shopping spot where a pizzeria is found.", "conditions": []}
+{"fact_id": "fact_000357", "concept": "insubstantial", "dimension": "effect", "fact": "A massive building that is poorly constructed can be insubstantial and unsound.", "conditions": []}
+{"fact_id": "fact_000358", "concept": "post office", "dimension": "property", "fact": "A post office handles mail, not lines you draw.", "conditions": []}
+{"fact_id": "fact_000359", "concept": "fruit market", "dimension": "typical_location", "fact": "A fruit market is a place to shop, not the container used right before checkout.", "conditions": []}
+{"fact_id": "fact_000360", "concept": "embarrassment", "dimension": "property", "fact": "Embarrassment is mild feeling, not the legal result of perjury.", "conditions": []}
+{"fact_id": "fact_000361", "concept": "think creatively", "dimension": "used_for", "fact": "To brainstorm, people use their minds to think creatively.", "conditions": []}
+{"fact_id": "fact_000362", "concept": "train of thought.", "dimension": "property", "fact": "Train of thought is one's thinking, not the joint work being slowed.", "conditions": []}
+{"fact_id": "fact_000363", "concept": "circus", "dimension": "motivation", "fact": "People who attend clown college dream of running away with the circus.", "conditions": []}
+{"fact_id": "fact_000364", "concept": "trouble", "dimension": "property", "fact": "Trouble is general and less precise than the fear of being caught.", "conditions": []}
+{"fact_id": "fact_000365", "concept": "finger", "dimension": "part_whole", "fact": "While chopping onions, the skin most likely cut is on a finger.", "conditions": []}
+{"fact_id": "fact_000366", "concept": "that you", "dimension": "property", "fact": "That you is an unclear phrase, not a shopper going to market.", "conditions": []}
+{"fact_id": "fact_000367", "concept": "michigan", "dimension": "property", "fact": "Michigan is a state, not the thing expressway traffic worsens toward.", "conditions": []}
+{"fact_id": "fact_000368", "concept": "income tax", "dimension": "property", "fact": "Income tax is a deduction from pay, not the feeling of being paid.", "conditions": []}
+{"fact_id": "fact_000369", "concept": "kick the bucket", "dimension": "property", "fact": "Kick the bucket is slang for dying, less literal than the plain outcome.", "conditions": []}
+{"fact_id": "fact_000370", "concept": "bowl", "dimension": "property", "fact": "A bowl holds food, not hand-delivered letters.", "conditions": []}
+{"fact_id": "fact_000371", "concept": "play the lottery", "dimension": "property", "fact": "Playing the lottery is gambling, not a reliable way to earn money.", "conditions": []}
+{"fact_id": "fact_000372", "concept": "misunderstanding", "dimension": "property", "fact": "Misunderstanding hinders talk rather than encouraging it.", "conditions": []}
+{"fact_id": "fact_000373", "concept": "fun", "dimension": "property", "fact": "Fun driving describes enjoyment, not a cause of crashes.", "conditions": []}
+{"fact_id": "fact_000374", "concept": "storage", "dimension": "property", "fact": "Storage holds unused items, not new guitars for sale.", "conditions": []}
+{"fact_id": "fact_000375", "concept": "breadbox", "dimension": "primary_function", "fact": "A breadbox stores bread, not general leftovers kept for a long time.", "conditions": []}
+{"fact_id": "fact_000376", "concept": "bus stop", "dimension": "property", "fact": "A bus stop is a transit point, not something you add a line to.", "conditions": []}
+{"fact_id": "fact_000377", "concept": "change of color", "dimension": "property", "fact": "Change of color happens to the body but is not the inner feeling.", "conditions": []}
+{"fact_id": "fact_000378", "concept": "park", "dimension": "property", "fact": "A park is a place, not an action dealers were told to do.", "conditions": []}
+{"fact_id": "fact_000379", "concept": "storybook", "dimension": "property", "fact": "A storybook is a fictional object, not something an animal searches for.", "conditions": []}
+{"fact_id": "fact_000380", "concept": "good", "dimension": "property", "fact": "Good is the opposite of being poorly constructed.", "conditions": []}
+{"fact_id": "fact_000381", "concept": "rest area", "dimension": "typical_location", "fact": "A rest area is a paved roadside stop where one could set up a roadside stand.", "conditions": []}
+{"fact_id": "fact_000382", "concept": "fatigue", "dimension": "effect", "fact": "Playing soccer for a long time leads to fatigue from sustained exertion.", "conditions": []}
+{"fact_id": "fact_000383", "concept": "car", "dimension": "property", "fact": "A car is steered with a wheel and uses a foot accelerator, not foot pedals for steering.", "conditions": []}
+{"fact_id": "fact_000384", "concept": "no go", "dimension": "property", "fact": "No go is slang for refusal, not how he described the activities.", "conditions": []}
+{"fact_id": "fact_000385", "concept": "sneezing", "dimension": "property", "fact": "Sneezing is a reflex, not what avoids housework punishment.", "conditions": []}
+{"fact_id": "fact_000386", "concept": "the reward money", "dimension": "property", "fact": "Reward money is a payment, not what a guilty person hiding a body fears.", "conditions": []}
+{"fact_id": "fact_000387", "concept": "party", "dimension": "property", "fact": "A party is a gathering, not what a clown runs away with.", "conditions": []}
+{"fact_id": "fact_000388", "concept": "mall", "dimension": "typical_location", "fact": "A mall hosts casual eateries aimed at shoppers, not business dining.", "conditions": []}
+{"fact_id": "fact_000389", "concept": "ripped", "dimension": "property", "fact": "Paper rips from being pulled, which requires movement.", "conditions": []}
+{"fact_id": "fact_000390", "concept": "toenails", "dimension": "typical_location", "fact": "Toenails are dark and enclosed, where fungus can grow undisturbed by sunlight.", "conditions": []}
+{"fact_id": "fact_000391", "concept": "spend time", "dimension": "property", "fact": "Spending time is vague and not a strong reason to attend school.", "conditions": []}
+{"fact_id": "fact_000392", "concept": "appreciation of nature", "dimension": "effect", "fact": "Learning science can deepen one's appreciation of nature.", "conditions": []}
+{"fact_id": "fact_000393", "concept": "bus stop", "dimension": "typical_location", "fact": "A bus stop is for waiting on transit, not doing exercises.", "conditions": []}
+{"fact_id": "fact_000394", "concept": "television", "dimension": "used_for", "fact": "Cleaning dust off a television screen prevents glare while watching a game.", "conditions": []}
+{"fact_id": "fact_000395", "concept": "desk drawer", "dimension": "primary_function", "fact": "A desk drawer stores supplies and does not absorb ink.", "conditions": []}
+{"fact_id": "fact_000396", "concept": "city hall", "dimension": "property", "fact": "City hall is a government building, not where an accountant routinely works.", "conditions": []}
+{"fact_id": "fact_000397", "concept": "head", "dimension": "property", "fact": "A head is a body part, not a kind of person who contracts illness.", "conditions": []}
+{"fact_id": "fact_000398", "concept": "eastern united states", "dimension": "property", "fact": "Eastern United States is a region, broader than the single state asked.", "conditions": []}
+{"fact_id": "fact_000399", "concept": "united states", "dimension": "property", "fact": "The United States is a country, too broad for where a bee gathers pollen.", "conditions": []}
+{"fact_id": "fact_000400", "concept": "ocean", "dimension": "property", "fact": "The ocean is not located in a backyard.", "conditions": []}
+{"fact_id": "fact_000401", "concept": "have fun", "dimension": "motivation", "fact": "The hope of playing sports without competition is simply to have fun.", "conditions": []}
+{"fact_id": "fact_000402", "concept": "new york", "dimension": "typical_location", "fact": "New York is one city, while seafood restaurants are common in coastal places generally.", "conditions": []}
+{"fact_id": "fact_000403", "concept": "insides of skyscraper's walls", "dimension": "property", "fact": "Inside a skyscraper's walls is too confined to be where one builds and trips.", "conditions": []}
+{"fact_id": "fact_000404", "concept": "snow", "dimension": "property", "fact": "Snow is cold, so it would not burn bare feet.", "conditions": []}
+{"fact_id": "fact_000405", "concept": "closet", "dimension": "property", "fact": "A closet stores shoes but is not where one wears them.", "conditions": []}
+{"fact_id": "fact_000406", "concept": "bridge", "dimension": "property", "fact": "A bridge crosses water but is not a place in Southern Europe.", "conditions": []}
+{"fact_id": "fact_000407", "concept": "making love", "dimension": "property", "fact": "Making love is another term for sex, not its effect on people.", "conditions": []}
+{"fact_id": "fact_000408", "concept": "feel cold", "dimension": "property", "fact": "Feeling cold comes from temperature, not from being pinched.", "conditions": []}
+{"fact_id": "fact_000409", "concept": "music shop", "dimension": "typical_location", "fact": "A music shop sells acoustic guitars for her to buy.", "conditions": []}
+{"fact_id": "fact_000410", "concept": "desert", "dimension": "property", "fact": "A desert is a natural biome, not what replaces an urban garden.", "conditions": []}
+{"fact_id": "fact_000411", "concept": "band", "dimension": "property", "fact": "A band may lack a cello, unlike a symphony orchestra.", "conditions": []}
+{"fact_id": "fact_000412", "concept": "anterior", "dimension": "property", "fact": "Anterior is an anatomical term meaning front, not a common name for a doorway.", "conditions": []}
+{"fact_id": "fact_000413", "concept": "suburban home", "dimension": "motivation", "fact": "Leaving the city for a master bedroom, they sought a suburban home.", "conditions": []}
+{"fact_id": "fact_000414", "concept": "neighborhood", "dimension": "typical_location", "fact": "A neighborhood is a general residential area, not specifically gated.", "conditions": []}
+{"fact_id": "fact_000415", "concept": "vomiting", "dimension": "property", "fact": "Vomiting is a physical effect of alcohol, not an angry action.", "conditions": []}
+{"fact_id": "fact_000416", "concept": "music store", "dimension": "typical_location", "fact": "A music store sells instruments rather than hosting live fiddle playing.", "conditions": []}
+{"fact_id": "fact_000417", "concept": "contained", "dimension": "property", "fact": "Contained means held within bounds, unrelated to in-game purchases.", "conditions": []}
+{"fact_id": "fact_000418", "concept": "have information", "dimension": "property", "fact": "Having information is a state, not a way to share it with others.", "conditions": []}
+{"fact_id": "fact_000419", "concept": "beer", "dimension": "property", "fact": "Beer is a drink, not a place serving alcohol and fried foods.", "conditions": []}
+{"fact_id": "fact_000420", "concept": "grassy field", "dimension": "typical_location", "fact": "A grassy field is open ground where a fox can be caught or trapped.", "conditions": []}
+{"fact_id": "fact_000421", "concept": "wedding", "dimension": "typical_location", "fact": "White shoes are traditionally worn at a wedding.", "conditions": []}
+{"fact_id": "fact_000422", "concept": "spoons", "dimension": "property", "fact": "Spoons are utensils, unrelated to clown college.", "conditions": []}
+{"fact_id": "fact_000423", "concept": "food", "dimension": "property", "fact": "Food is what a market sells, not the one entering it.", "conditions": []}
+{"fact_id": "fact_000424", "concept": "entertainment", "dimension": "property", "fact": "Entertainment is what music provides, not a state you become.", "conditions": []}
+{"fact_id": "fact_000425", "concept": "shattering", "dimension": "effect", "fact": "Thin glass tends to shatter when struck, which follows from breaking easily.", "conditions": []}
+{"fact_id": "fact_000426", "concept": "school", "dimension": "property", "fact": "A school is an institution, not a home storage spot.", "conditions": []}
+{"fact_id": "fact_000427", "concept": "wristwatch", "dimension": "property", "fact": "A wristwatch tells time and is not where a second calculator is kept.", "conditions": []}
+{"fact_id": "fact_000428", "concept": "quiz", "dimension": "property", "fact": "A quiz is a small test, not the grade letter A.", "conditions": []}
+{"fact_id": "fact_000429", "concept": "big house", "dimension": "typical_location", "fact": "Staying indoors, the small dog felt a big house held all the space in the world.", "conditions": []}
+{"fact_id": "fact_000430", "concept": "lawyer", "dimension": "property", "fact": "The lawyer is the professional consulted, not the relationship ended.", "conditions": []}
+{"fact_id": "fact_000431", "concept": "respond", "dimension": "effect", "fact": "Making calls all day, he hoped people would respond well to his offer.", "conditions": []}
+{"fact_id": "fact_000432", "concept": "captive", "dimension": "property", "fact": "Captive describes being trapped, not what parents did about microtransactions.", "conditions": []}
+{"fact_id": "fact_000433", "concept": "getting somewhere", "dimension": "property", "fact": "Getting somewhere is a goal, not the danger from poor visibility.", "conditions": []}
+{"fact_id": "fact_000434", "concept": "beauty", "dimension": "property", "fact": "Beauty is an attribute, while grooming aims at a tidy professional look.", "conditions": []}
+{"fact_id": "fact_000435", "concept": "hardware store", "dimension": "property", "fact": "A hardware store sells fans but is not where one keeps personal fans.", "conditions": []}
+{"fact_id": "fact_000436", "concept": "sky", "dimension": "property", "fact": "The sky is where bees fly, not where they gather pollen.", "conditions": []}
+{"fact_id": "fact_000437", "concept": "synagogue", "dimension": "typical_location", "fact": "A synagogue is a place of worship, unrelated to demonstrating work.", "conditions": []}
+{"fact_id": "fact_000438", "concept": "summarize main points", "dimension": "property", "fact": "Summarizing main points condenses ideas but is part of preparing, not sharing them.", "conditions": []}
+{"fact_id": "fact_000439", "concept": "balls touch", "dimension": "property", "fact": "Balls touching is incidental, not the goal of casual sport.", "conditions": []}
+{"fact_id": "fact_000440", "concept": "gym", "dimension": "property", "fact": "A gym is for exercising, not for relaxing after a separate hobby.", "conditions": []}
+{"fact_id": "fact_000441", "concept": "bill collectors to happy", "dimension": "property", "fact": "Bill collectors are people seeking money, not the feeling of getting paid.", "conditions": []}
+{"fact_id": "fact_000442", "concept": "cloud judgment", "dimension": "effect", "fact": "Sexual desire can cloud a person's judgment.", "conditions": []}
+{"fact_id": "fact_000443", "concept": "unhappy", "dimension": "property", "fact": "Unhappy is a feeling already listed, not the illness itself.", "conditions": []}
+{"fact_id": "fact_000444", "concept": "shin splints", "dimension": "property", "fact": "Shin splints are an injury, not a good result of jogging.", "conditions": []}
+{"fact_id": "fact_000445", "concept": "building", "dimension": "typical_location", "fact": "A building contains homes where a person can live.", "conditions": []}
+{"fact_id": "fact_000446", "concept": "lay down", "dimension": "property", "fact": "Lay down is the act of resting, not the morning feeling it produces.", "conditions": []}
+{"fact_id": "fact_000447", "concept": "fork in road", "dimension": "property", "fact": "A fork in the road is a split, not where pedestrians stand.", "conditions": []}
+{"fact_id": "fact_000448", "concept": "house clean", "dimension": "property", "fact": "A clean house is the chore itself, not what prevents the punishment.", "conditions": []}
+{"fact_id": "fact_000449", "concept": "boston", "dimension": "typical_location", "fact": "Boston is an East Coast city with many seafood restaurants.", "conditions": []}
+{"fact_id": "fact_000450", "concept": "conference", "dimension": "property", "fact": "A conference is a meeting, not a reliable place to find food.", "conditions": []}
+{"fact_id": "fact_000451", "concept": "pool table", "dimension": "property", "fact": "A pool table is for a cue game, not uniformed teams with a ball.", "conditions": []}
+{"fact_id": "fact_000452", "concept": "good repair", "dimension": "property", "fact": "Good repair describes road condition, not a state.", "conditions": []}
+{"fact_id": "fact_000453", "concept": "rest stops", "dimension": "property", "fact": "Rest stops are pull-offs, not where congestion peaks.", "conditions": []}
+{"fact_id": "fact_000454", "concept": "web page", "dimension": "typical_location", "fact": "A web page displays news articles alongside advertisements.", "conditions": []}
+{"fact_id": "fact_000455", "concept": "missing out", "dimension": "effect", "fact": "Being sick in bed on the day of the event meant she was missing out.", "conditions": []}
+{"fact_id": "fact_000456", "concept": "going to jail", "dimension": "effect", "fact": "When caught for killing, an offender is sent going to jail.", "conditions": []}
+{"fact_id": "fact_000457", "concept": "train station", "dimension": "typical_location", "fact": "A train station sells transit tickets, not game tickets at a fair booth.", "conditions": []}
+{"fact_id": "fact_000458", "concept": "irritated", "dimension": "property", "fact": "Irritated is a negative feeling, opposite of a good bodyguard's effect.", "conditions": []}
+{"fact_id": "fact_000459", "concept": "music class", "dimension": "typical_location", "fact": "A music class is where someone learns to play the upright piano.", "conditions": []}
+{"fact_id": "fact_000460", "concept": "drink tea", "dimension": "property", "fact": "Drinking tea is unrelated to having money stolen.", "conditions": []}
+{"fact_id": "fact_000461", "concept": "field of flowers", "dimension": "typical_location", "fact": "A field of flowers is where a bee gathers pollen.", "conditions": []}
+{"fact_id": "fact_000462", "concept": "natural habitat", "dimension": "motivation", "fact": "A fox leaves the city for the forest to return to its natural habitat where it can live and hunt.", "conditions": []}
+{"fact_id": "fact_000463", "concept": "marriage", "dimension": "effect", "fact": "Seeing a divorce lawyer is meant to end a marriage.", "conditions": []}
+{"fact_id": "fact_000464", "concept": "gaining weight", "dimension": "property", "fact": "Gaining weight is a long-term result, not the immediate feeling after a meal.", "conditions": []}
+{"fact_id": "fact_000465", "concept": "headache", "dimension": "effect", "fact": "A grumpy person is irritable and likely to have a headache.", "conditions": []}
+{"fact_id": "fact_000466", "concept": "empathy", "dimension": "effect", "fact": "Listening can build empathy, but the teacher framed it as how they gain learning.", "conditions": []}
+{"fact_id": "fact_000467", "concept": "get fat", "dimension": "property", "fact": "Getting fat is a weight change, not a pain from watching TV closely.", "conditions": []}
+{"fact_id": "fact_000468", "concept": "solitude", "dimension": "motivation", "fact": "Disliking company, Sam preferred solitude.", "conditions": []}
+{"fact_id": "fact_000469", "concept": "opera", "dimension": "property", "fact": "An opera is a musical performance, not a place for calisthenics.", "conditions": []}
+{"fact_id": "fact_000470", "concept": "reach tentative agreement", "dimension": "effect", "fact": "Talking things out over drinks can let people reach a tentative agreement.", "conditions": []}
+{"fact_id": "fact_000471", "concept": "garden", "dimension": "property", "fact": "A garden has grass and plants, not a grassless stand site.", "conditions": []}
+{"fact_id": "fact_000472", "concept": "michigan", "dimension": "property", "fact": "Michigan is in the United States, not Southern Europe.", "conditions": []}
+{"fact_id": "fact_000473", "concept": "engine", "dimension": "property", "fact": "An engine is a machine part, not a place a worker builds.", "conditions": []}
+{"fact_id": "fact_000474", "concept": "garage", "dimension": "typical_location", "fact": "A garage stores items but usually needs a large door, which the house lacks.", "conditions": []}
+{"fact_id": "fact_000475", "concept": "sparse", "dimension": "property", "fact": "Sparse refers to quantity spread out, not the thickness of a fluid.", "conditions": []}
+{"fact_id": "fact_000476", "concept": "optical illusion", "dimension": "property", "fact": "An optical illusion is a misleading image, not the act of viewing through an eyepiece.", "conditions": []}
+{"fact_id": "fact_000477", "concept": "electrical circuit", "dimension": "property", "fact": "An electrical circuit is unrelated to a couple's relationship.", "conditions": []}
+{"fact_id": "fact_000478", "concept": "city block", "dimension": "property", "fact": "Running from the corner store to home is about a city block.", "conditions": []}
+{"fact_id": "fact_000479", "concept": "house", "dimension": "typical_location", "fact": "A house has a few extinguishers, not a large quantity.", "conditions": []}
+{"fact_id": "fact_000480", "concept": "inside joke", "dimension": "property", "fact": "An inside joke is a shared remark, not a place to catch a fox.", "conditions": []}
+{"fact_id": "fact_000481", "concept": "compliments", "dimension": "property", "fact": "Compliments are praise from others, not what a grumpy person has.", "conditions": []}
+{"fact_id": "fact_000482", "concept": "street", "dimension": "typical_location", "fact": "A street has many businesses but is not specifically a shopping place with eateries.", "conditions": []}
+{"fact_id": "fact_000483", "concept": "thank god", "dimension": "property", "fact": "Thank god is an exclamation, not a way to address a person leaving.", "conditions": []}
+{"fact_id": "fact_000484", "concept": "music shop", "dimension": "property", "fact": "A music shop sells gear and is not a performing group.", "conditions": []}
+{"fact_id": "fact_000485", "concept": "happy", "dimension": "effect", "fact": "Listening to music can make you happy.", "conditions": []}
+{"fact_id": "fact_000486", "concept": "boutique", "dimension": "typical_location", "fact": "A boutique sells fashion items, but the question excludes it as an option.", "conditions": []}
+{"fact_id": "fact_000487", "concept": "increased energy", "dimension": "effect", "fact": "Losing weight can give a person increased energy.", "conditions": []}
+{"fact_id": "fact_000488", "concept": "be happy", "dimension": "property", "fact": "Be happy is a feeling for people, not what they wanted the weather to do.", "conditions": []}
+{"fact_id": "fact_000489", "concept": "movie theater", "dimension": "property", "fact": "A movie theater is a public venue, not part of his home.", "conditions": []}
+{"fact_id": "fact_000490", "concept": "satisfaction", "dimension": "effect", "fact": "Getting paid brings a feeling of satisfaction.", "conditions": []}
+{"fact_id": "fact_000491", "concept": "playground", "dimension": "property", "fact": "A playground is a small play area, not specifically an open soccer field.", "conditions": []}
+{"fact_id": "fact_000492", "concept": "office", "dimension": "typical_location", "fact": "An accountant keeps one calculator at home and one at the office where he works.", "conditions": []}
+{"fact_id": "fact_000493", "concept": "military base", "dimension": "typical_location", "fact": "A military base runs physical drills where people do jumping jacks.", "conditions": []}
+{"fact_id": "fact_000494", "concept": "music store", "dimension": "property", "fact": "A music store is a shop, not a state.", "conditions": []}
+{"fact_id": "fact_000495", "concept": "free flowing", "dimension": "property", "fact": "Free flowing describes movement, while the contrast asked is with thickness.", "conditions": []}
+{"fact_id": "fact_000496", "concept": "cyanide", "dimension": "property", "fact": "Cyanide is a poison, a specific means rather than the depression-driven cause.", "conditions": []}
+{"fact_id": "fact_000497", "concept": "stress", "dimension": "effect", "fact": "An aloof, self-important person can create stress when meeting people.", "conditions": []}
+{"fact_id": "fact_000498", "concept": "anger", "dimension": "property", "fact": "Anger is a sharp emotion, not the dull feeling after long chores.", "conditions": []}
+{"fact_id": "fact_000499", "concept": "carpet", "dimension": "property", "fact": "A carpet is a floor covering and does not store food.", "conditions": []}
+{"fact_id": "fact_000500", "concept": "fridge", "dimension": "primary_function", "fact": "A fridge chills meat so it lasts longer, though not as long as freezing.", "conditions": []}
+{"fact_id": "fact_000501", "concept": "attempt suicide", "dimension": "property", "fact": "Attempting suicide is self-harm, unrelated to seeing someone off.", "conditions": []}
+{"fact_id": "fact_000502", "concept": "tension", "dimension": "property", "fact": "Tension is stress, not the legal punishment for lying under oath.", "conditions": []}
+{"fact_id": "fact_000503", "concept": "circus", "dimension": "property", "fact": "A circus is entertainment, not a launching platform.", "conditions": []}
+{"fact_id": "fact_000504", "concept": "sick", "dimension": "effect", "fact": "Overeating an entire menu can make a person feel sick.", "conditions": []}
+{"fact_id": "fact_000505", "concept": "happyness", "dimension": "effect", "fact": "Sex can bring people happiness.", "conditions": []}
+{"fact_id": "fact_000506", "concept": "jewlery box", "dimension": "typical_location", "fact": "A jewelry box stores jewelry at home, but the question excludes it.", "conditions": []}
+{"fact_id": "fact_000507", "concept": "meet expectations", "dimension": "property", "fact": "Meeting expectations is performance, not the trait of being educated.", "conditions": []}
+{"fact_id": "fact_000508", "concept": "fuel system", "dimension": "property", "fact": "A fuel system delivers fuel and is not a vehicle one steers.", "conditions": []}
+{"fact_id": "fact_000509", "concept": "symphony", "dimension": "part_whole", "fact": "A symphony orchestra includes cellists playing the cello.", "conditions": []}
+{"fact_id": "fact_000510", "concept": "progress", "dimension": "effect", "fact": "Time spent communicating slowed their progress on the project.", "conditions": []}
+{"fact_id": "fact_000511", "concept": "a bed of nails", "dimension": "property", "fact": "A bed of nails is a stunt prop, not the distance he ran home.", "conditions": []}
+{"fact_id": "fact_000512", "concept": "examine thing", "dimension": "property", "fact": "Examining a thing is inspection, not resolving differences with someone.", "conditions": []}
+{"fact_id": "fact_000513", "concept": "answer", "dimension": "property", "fact": "Answering the phone is just picking up, not responding well to an offer.", "conditions": []}
+{"fact_id": "fact_000514", "concept": "ocean", "dimension": "property", "fact": "An ocean cannot be built where a city garden stood.", "conditions": []}
+{"fact_id": "fact_000515", "concept": "sky", "dimension": "property", "fact": "The sky is where eagles fly but offers no protection from threats.", "conditions": []}
+{"fact_id": "fact_000516", "concept": "windowsill", "dimension": "property", "fact": "A windowsill is a narrow ledge, not a walking surface that burns feet.", "conditions": []}
+{"fact_id": "fact_000517", "concept": "healthier", "dimension": "effect", "fact": "A good result of losing weight is becoming healthier.", "conditions": []}
+{"fact_id": "fact_000518", "concept": "coach", "dimension": "property", "fact": "A coach is a vehicle or trainer, not a place where food is stored.", "conditions": []}
+{"fact_id": "fact_000519", "concept": "coma", "dimension": "property", "fact": "A coma is a prolonged unconsciousness, a specific medical state.", "conditions": []}
+{"fact_id": "fact_000520", "concept": "freeway", "dimension": "property", "fact": "A freeway carries vehicles, not digital files.", "conditions": []}
+{"fact_id": "fact_000521", "concept": "overpriced", "dimension": "cause", "fact": "He bought it on sale because the game was usually overpriced.", "conditions": []}
+{"fact_id": "fact_000522", "concept": "driving", "dimension": "property", "fact": "Driving is operating the car, not a penalty for overstaying parking.", "conditions": []}
+{"fact_id": "fact_000523", "concept": "engine", "dimension": "effect", "fact": "Throwing a rod means a connecting rod broke, damaging the engine.", "conditions": []}
+{"fact_id": "fact_000524", "concept": "classroom", "dimension": "typical_location", "fact": "A classroom is where pencils are used, not bought.", "conditions": []}
+{"fact_id": "fact_000525", "concept": "hole", "dimension": "property", "fact": "A hole is an opening, not a place to watch uniformed ball players.", "conditions": []}
+{"fact_id": "fact_000526", "concept": "beach", "dimension": "typical_location", "fact": "A beach is an open sunny place where people lie in the sun.", "conditions": []}
+{"fact_id": "fact_000527", "concept": "change quickly", "dimension": "property", "fact": "Change quickly is unstable, opposite of the nice weather they hoped for.", "conditions": []}
+{"fact_id": "fact_000528", "concept": "backpack", "dimension": "property", "fact": "A backpack carries supplies but is not where new pencils come from.", "conditions": []}
+{"fact_id": "fact_000529", "concept": "west", "dimension": "property", "fact": "West is a direction, not a place to sunbathe.", "conditions": []}
+{"fact_id": "fact_000530", "concept": "country", "dimension": "property", "fact": "A country is too broad to be where traffic concentrates.", "conditions": []}
+{"fact_id": "fact_000531", "concept": "graph", "dimension": "used_for", "fact": "You can add a line to a graph to plot data.", "conditions": []}
+{"fact_id": "fact_000532", "concept": "relaxation", "dimension": "effect", "fact": "Listening to music can bring relaxation.", "conditions": []}
+{"fact_id": "fact_000533", "concept": "insect repellent", "dimension": "property", "fact": "Insect repellent is a product, not a result of jogging.", "conditions": []}
+{"fact_id": "fact_000534", "concept": "mail box", "dimension": "primary_function", "fact": "A mailbox receives letters, but hand delivery uses a door slot.", "conditions": []}
+{"fact_id": "fact_000535", "concept": "side", "dimension": "property", "fact": "A side entrance is on the side of a building, distinct from the back.", "conditions": []}
+{"fact_id": "fact_000536", "concept": "closet", "dimension": "property", "fact": "A closet stores things and does not sell guitars.", "conditions": []}
+{"fact_id": "fact_000537", "concept": "ground", "dimension": "property", "fact": "The ground is low, giving little height for a big splash.", "conditions": []}
+{"fact_id": "fact_000538", "concept": "bus", "dimension": "property", "fact": "A bus is transport that may carry ads but is not where you read news.", "conditions": []}
+{"fact_id": "fact_000539", "concept": "church", "dimension": "typical_location", "fact": "A church seats many people listening to a religious sermon.", "conditions": []}
+{"fact_id": "fact_000540", "concept": "gas stations", "dimension": "typical_location", "fact": "Gas stations may have a phone booth, but cities have far more.", "conditions": []}
+{"fact_id": "fact_000541", "concept": "under rocks", "dimension": "typical_location", "fact": "Under rocks is dark and damp, where fungus grows away from sunlight.", "conditions": []}
+{"fact_id": "fact_000542", "concept": "inkwell", "dimension": "primary_function", "fact": "An inkwell holds ink for dipping a pen, the opposite of absorbing excess ink.", "conditions": []}
+{"fact_id": "fact_000543", "concept": "walk", "dimension": "property", "fact": "A walk is one activity, not a sustained state of exertion all day.", "conditions": []}
+{"fact_id": "fact_000544", "concept": "backery", "dimension": "property", "fact": "A bakery makes bread, not a place meat lasts a long time.", "conditions": []}
+{"fact_id": "fact_000545", "concept": "organize thoughts", "dimension": "has_prerequisite", "fact": "Organizing thoughts is a preparatory step, not the act of sharing them.", "conditions": []}
+{"fact_id": "fact_000546", "concept": "store", "dimension": "property", "fact": "A store sells goods but does not serve prepared alcohol and fried foods.", "conditions": []}
+{"fact_id": "fact_000547", "concept": "refrigerator", "dimension": "primary_function", "fact": "A refrigerator stores food cold, where forgotten leftovers can grow mold over time.", "conditions": []}
+{"fact_id": "fact_000548", "concept": "speak information", "dimension": "used_for", "fact": "Speaking information aloud is a direct way to share what is in your head.", "conditions": []}
+{"fact_id": "fact_000549", "concept": "sit", "dimension": "property", "fact": "Sitting is passive, not what kids arrange before playing.", "conditions": []}
+{"fact_id": "fact_000550", "concept": "fishing camp", "dimension": "property", "fact": "A fishing camp is a place, not what a thrown rod damages.", "conditions": []}
+{"fact_id": "fact_000551", "concept": "feel pressure", "dimension": "effect", "fact": "Skin pinched in something will feel pressure.", "conditions": []}
+{"fact_id": "fact_000552", "concept": "unable", "dimension": "effect", "fact": "Refusing what was possible, he complained he was unable to do the simplest activities.", "conditions": []}
+{"fact_id": "fact_000553", "concept": "bouquet of flowers", "dimension": "typical_location", "fact": "A bouquet holds cut flowers, but bees gather at growing flowers.", "conditions": []}
+{"fact_id": "fact_000554", "concept": "exposure", "dimension": "property", "fact": "Exposure introduces material but is not what makes self-learning work.", "conditions": []}
+{"fact_id": "fact_000555", "concept": "save money", "dimension": "property", "fact": "Saving money is financial, not the protective feeling a bodyguard provides.", "conditions": []}
+{"fact_id": "fact_000556", "concept": "moving", "dimension": "property", "fact": "Moving is vague, while the body had been steadily working to need rest.", "conditions": []}
+{"fact_id": "fact_000557", "concept": "television", "dimension": "property", "fact": "A television shows games but is not the place where players are.", "conditions": []}
+{"fact_id": "fact_000558", "concept": "spending money", "dimension": "property", "fact": "Spending money is an action, not the person entering the market.", "conditions": []}
+{"fact_id": "fact_000559", "concept": "town", "dimension": "typical_location", "fact": "A town is a broad area, not the specific district where business restaurants cluster.", "conditions": []}
+{"fact_id": "fact_000560", "concept": "symphony", "dimension": "property", "fact": "A symphony is a formal ensemble, not where a folk fiddle usually plays.", "conditions": []}
+{"fact_id": "fact_000561", "concept": "bridge", "dimension": "typical_location", "fact": "Throwing a rock from a bridge gives height for a big splash into the river.", "conditions": []}
+{"fact_id": "fact_000562", "concept": "can die", "dimension": "property", "fact": "Can die states the capacity, not the certain future state.", "conditions": []}
+{"fact_id": "fact_000563", "concept": "super market", "dimension": "typical_location", "fact": "A supermarket is the whole store, not where you place grapes just before paying.", "conditions": []}
+{"fact_id": "fact_000564", "concept": "baritone woodwind sound", "dimension": "property", "fact": "A baritone woodwind sound describes the bassoon's tone, not a place to hear it played badly.", "conditions": []}
+{"fact_id": "fact_000565", "concept": "doll house", "dimension": "property", "fact": "A doll house is a toy and holds no real fire extinguishers.", "conditions": []}
+{"fact_id": "fact_000566", "concept": "supermarket", "dimension": "property", "fact": "A supermarket is an indoor store, not a grassless roadside spot.", "conditions": []}
+{"fact_id": "fact_000567", "concept": "cuba", "dimension": "property", "fact": "Cuba is a different country, not where Paris is located.", "conditions": []}
+{"fact_id": "fact_000568", "concept": "paying", "dimension": "effect", "fact": "A supposedly free game led the parents to end up paying for microtransactions.", "conditions": []}
+{"fact_id": "fact_000569", "concept": "foot", "dimension": "property", "fact": "A foot is a body part, not a person being yelled at.", "conditions": []}
+{"fact_id": "fact_000570", "concept": "tiredness", "dimension": "effect", "fact": "Eating too much dinner can cause tiredness as the body works to digest.", "conditions": []}
+{"fact_id": "fact_000571", "concept": "run out of steam", "dimension": "property", "fact": "Running out of steam is becoming exhausted, not recovering.", "conditions": []}
+{"fact_id": "fact_000572", "concept": "get arrested", "dimension": "effect", "fact": "When the cops find a murderer out, they arrest him.", "conditions": []}
+{"fact_id": "fact_000573", "concept": "feeling satisfied", "dimension": "property", "fact": "Feeling satisfied is an emotion, not what stops the chores.", "conditions": []}
+{"fact_id": "fact_000574", "concept": "orchestra", "dimension": "typical_location", "fact": "An orchestra plays polished music, not an unpleasing bassoon.", "conditions": []}
+{"fact_id": "fact_000575", "concept": "front", "dimension": "property", "fact": "The front entrance is the opposite of the back entrance.", "conditions": []}
+{"fact_id": "fact_000576", "concept": "boat", "dimension": "property", "fact": "A small boat can use a hand throttle and foot-controlled steering.", "conditions": []}
+{"fact_id": "fact_000577", "concept": "control events", "dimension": "property", "fact": "Controlling events is not how minds generate ideas.", "conditions": []}
+{"fact_id": "fact_000578", "concept": "north america", "dimension": "property", "fact": "North America is a continent, not a seller stocking exotic snakes.", "conditions": []}
+{"fact_id": "fact_000579", "concept": "main", "dimension": "property", "fact": "A main entrance is the principal way in, an alternative to the back entrance.", "conditions": []}
+{"fact_id": "fact_000580", "concept": "pocket", "dimension": "property", "fact": "A pocket is too small for a beaver dam.", "conditions": []}
+{"fact_id": "fact_000581", "concept": "two eyes", "dimension": "property", "fact": "Two eyes is common to nearly all people, not specific to a family.", "conditions": []}
+{"fact_id": "fact_000582", "concept": "apartment", "dimension": "typical_location", "fact": "An apartment houses only a single household, not a crowd of people.", "conditions": []}
+{"fact_id": "fact_000583", "concept": "symphony", "dimension": "property", "fact": "A symphony performs skillfully, not in an unpleasing fashion.", "conditions": []}
+{"fact_id": "fact_000584", "concept": "lake or river", "dimension": "typical_location", "fact": "A lake or river is where beavers build dams, though not always near machinery.", "conditions": []}
+{"fact_id": "fact_000585", "concept": "dog park", "dimension": "property", "fact": "A dog park is outdoors, but the dog stayed strictly indoors.", "conditions": []}
+{"fact_id": "fact_000586", "concept": "see new", "dimension": "property", "fact": "See new is vague and not a workplace instruction.", "conditions": []}
+{"fact_id": "fact_000587", "concept": "have more knowledge", "dimension": "property", "fact": "Having more knowledge aids learning but is not the tool for efficient work.", "conditions": []}
+{"fact_id": "fact_000588", "concept": "stand in line", "dimension": "property", "fact": "Standing in line is waiting, not a way to earn money.", "conditions": []}
+{"fact_id": "fact_000589", "concept": "connecticut", "dimension": "typical_location", "fact": "The John Davis Lodge Turnpike is a toll road in Connecticut.", "conditions": []}
+{"fact_id": "fact_000590", "concept": "relocation", "dimension": "property", "fact": "Relocation is moving, not the confusion caused by low visibility.", "conditions": []}
+{"fact_id": "fact_000591", "concept": "california", "dimension": "property", "fact": "California is on the west coast, not where east coast Florida lies.", "conditions": []}
+{"fact_id": "fact_000592", "concept": "contact", "dimension": "property", "fact": "Contact is the act of calling, not the hoped-for reaction.", "conditions": []}
+{"fact_id": "fact_000593", "concept": "home", "dimension": "typical_location", "fact": "A person keeps multiple fans at home to stay cool.", "conditions": []}
+{"fact_id": "fact_000594", "concept": "box", "dimension": "property", "fact": "A box is a temporary hideaway, not where a tabby cat is happiest.", "conditions": []}
+{"fact_id": "fact_000595", "concept": "paying attention", "dimension": "property", "fact": "Paying attention is a mental act, not a place to hear testimony.", "conditions": []}
+{"fact_id": "fact_000596", "concept": "make reservations", "dimension": "property", "fact": "Making reservations happens before the show, not as a standing response.", "conditions": []}
+{"fact_id": "fact_000597", "concept": "hostility", "dimension": "property", "fact": "Hostility is an attitude, not a body part one injures.", "conditions": []}
+{"fact_id": "fact_000598", "concept": "low lands", "dimension": "property", "fact": "Low lands describe terrain generally, not the specific place tied to Cajun speakers.", "conditions": []}
+{"fact_id": "fact_000599", "concept": "anger", "dimension": "property", "fact": "Anger is an emotion, not a direct consequence of long physical activity.", "conditions": []}
+{"fact_id": "fact_000600", "concept": "friend's house", "dimension": "typical_location", "fact": "He brought food over to a friend's house for the big game.", "conditions": []}
+{"fact_id": "fact_000601", "concept": "big house", "dimension": "property", "fact": "A big house is roomy, but the move out of the city points to the suburbs.", "conditions": []}
+{"fact_id": "fact_000602", "concept": "roadblock", "dimension": "property", "fact": "A roadblock is a barrier that stops traffic, not a place people gather.", "conditions": []}
+{"fact_id": "fact_000603", "concept": "garden", "dimension": "property", "fact": "A garden grows plants outdoors and is not the source of household cooking smells.", "conditions": []}
+{"fact_id": "fact_000604", "concept": "fatigue", "dimension": "property", "fact": "Fatigue is tiredness, unrelated to a report card outcome.", "conditions": []}
+{"fact_id": "fact_000605", "concept": "nightmare", "dimension": "property", "fact": "A nightmare is itself a bad dream, not the thing it is mistaken for.", "conditions": []}
+{"fact_id": "fact_000606", "concept": "millpond", "dimension": "typical_location", "fact": "A millpond powers a mill, so a beaver dam there can disrupt the machinery.", "conditions": []}
+{"fact_id": "fact_000607", "concept": "exercise", "dimension": "property", "fact": "Exercise is one form of activity, not the general working that tires the body.", "conditions": []}
+{"fact_id": "fact_000608", "concept": "keeping personal objects", "dimension": "property", "fact": "Keeping personal objects is a goal of storage, not the type of home sought.", "conditions": []}
+{"fact_id": "fact_000609", "concept": "see things differently", "dimension": "effect", "fact": "After learning about science a person can see things differently.", "conditions": []}
+{"fact_id": "fact_000610", "concept": "this", "dimension": "property", "fact": "This is a pronoun, not the name of a sensor.", "conditions": []}
+{"fact_id": "fact_000611", "concept": "hot country", "dimension": "property", "fact": "A hot country is a region, not the container holding the snake.", "conditions": []}
+{"fact_id": "fact_000612", "concept": "caught", "dimension": "property", "fact": "Caught means trapped or discovered, not the act of spending on a game.", "conditions": []}
+{"fact_id": "fact_000613", "concept": "feel safe", "dimension": "effect", "fact": "A good bodyguard makes the person who hired him feel safe.", "conditions": []}
+{"fact_id": "fact_000614", "concept": "front of door", "dimension": "property", "fact": "The front of a door is an entry spot, not furniture with an inkwell.", "conditions": []}
+{"fact_id": "fact_000615", "concept": "roof", "dimension": "property", "fact": "A roof is exposed outdoors and unsuitable for storing a folding chair.", "conditions": []}
+{"fact_id": "fact_000616", "concept": "space shuttle", "dimension": "property", "fact": "A space shuttle is a spacecraft, not a place to watch a game with food.", "conditions": []}
+{"fact_id": "fact_000617", "concept": "happiness", "dimension": "property", "fact": "Happiness is a positive feeling, not what stops gift buying.", "conditions": []}
+{"fact_id": "fact_000618", "concept": "believe in god", "dimension": "property", "fact": "Believing in god is faith, not a means of transport.", "conditions": []}
+{"fact_id": "fact_000619", "concept": "neighbor's house", "dimension": "typical_location", "fact": "A neighbor's house is a place, not the name of a cooking technique.", "conditions": []}
+{"fact_id": "fact_000620", "concept": "shirt pocket", "dimension": "property", "fact": "A shirt pocket holds small items but is not used to absorb ink.", "conditions": []}
+{"fact_id": "fact_000621", "concept": "end of line", "dimension": "effect", "fact": "The string slipped from her fingers when she reached the end of the line on the spool.", "conditions": []}
+{"fact_id": "fact_000622", "concept": "grocery store", "dimension": "property", "fact": "A grocery store is where it is bought, not where you keep it at home.", "conditions": []}
+{"fact_id": "fact_000623", "concept": "winning", "dimension": "property", "fact": "Winning belongs to competition, which non-competitive play avoids.", "conditions": []}
+{"fact_id": "fact_000624", "concept": "all mammals", "dimension": "property", "fact": "All mammals have hearts, but caring as compassion is a human trait.", "conditions": []}
+{"fact_id": "fact_000625", "concept": "being found out", "dimension": "motivation", "fact": "Someone lying about a body constantly worries about being found out.", "conditions": []}
+{"fact_id": "fact_000626", "concept": "playing dead", "dimension": "property", "fact": "Playing dead is a trick, not the result of playing with a dog.", "conditions": []}
+{"fact_id": "fact_000627", "concept": "near", "dimension": "property", "fact": "Near describes closeness but is not the name of this sensor.", "conditions": []}
+{"fact_id": "fact_000628", "concept": "destroy enemy", "dimension": "property", "fact": "Destroying the enemy is a war aim, not the decision named.", "conditions": []}
+{"fact_id": "fact_000629", "concept": "toy store", "dimension": "property", "fact": "A toy store sells kites, not the spool's end she reached.", "conditions": []}
+{"fact_id": "fact_000630", "concept": "not noticeable", "dimension": "property", "fact": "When inflation is negligible, fighting it isn't even noticeable in effect.", "conditions": []}
+{"fact_id": "fact_000631", "concept": "walmart", "dimension": "property", "fact": "Walmart is a retail company led by a CEO, not a president.", "conditions": []}
+{"fact_id": "fact_000632", "concept": "crockpot", "dimension": "primary_function", "fact": "A crockpot slow-cooks indoors and is not the same as grilling.", "conditions": []}
+{"fact_id": "fact_000633", "concept": "active", "dimension": "effect", "fact": "A great rest leaves a person feeling active in the morning.", "conditions": []}
+{"fact_id": "fact_000634", "concept": "to fill their time", "dimension": "property", "fact": "Filling time is idle motive, not why a new discovery sustains talk.", "conditions": []}
+{"fact_id": "fact_000635", "concept": "break easily", "dimension": "property", "fact": "Thin glass breaks easily because it is fragile.", "conditions": []}
+{"fact_id": "fact_000636", "concept": "medium", "dimension": "property", "fact": "A medium is a means or material, not a place to learn piano.", "conditions": []}
+{"fact_id": "fact_000637", "concept": "sorrowful", "dimension": "property", "fact": "Sorrowful describes grief, not the clinical condition.", "conditions": []}
+{"fact_id": "fact_000638", "concept": "garage", "dimension": "typical_location", "fact": "A garage can be converted, but a building is the general place one lives in.", "conditions": []}
+{"fact_id": "fact_000639", "concept": "stress", "dimension": "property", "fact": "Stress is a feeling that may accompany shopping, not what blocks buying.", "conditions": []}
+{"fact_id": "fact_000640", "concept": "building", "dimension": "property", "fact": "A building is generic and not specifically where food is found.", "conditions": []}
+{"fact_id": "fact_000641", "concept": "tears", "dimension": "property", "fact": "Tears are a physical expression of emotion, not the feeling itself.", "conditions": []}
+{"fact_id": "fact_000642", "concept": "boredom", "dimension": "property", "fact": "Boredom is a negative feeling, not a reason to attend school.", "conditions": []}
+{"fact_id": "fact_000643", "concept": "cathedral", "dimension": "property", "fact": "A cathedral is a church, not a place selling game tickets.", "conditions": []}
+{"fact_id": "fact_000644", "concept": "living room", "dimension": "typical_location", "fact": "A living room is one indoor room, not the whole indoor space the dog roamed.", "conditions": []}
+{"fact_id": "fact_000645", "concept": "pantry", "dimension": "typical_location", "fact": "A pantry stores dry goods at room temperature, not chilled perishables.", "conditions": []}
+{"fact_id": "fact_000646", "concept": "dwarf", "dimension": "property", "fact": "A dwarf is small, contradicting a massive building.", "conditions": []}
+{"fact_id": "fact_000647", "concept": "feel relaxed", "dimension": "effect", "fact": "Chatting with friends helps a person feel relaxed.", "conditions": []}
+{"fact_id": "fact_000648", "concept": "cause illness", "dimension": "effect", "fact": "Drugs can cause illness through their harmful effects.", "conditions": []}
+{"fact_id": "fact_000649", "concept": "death", "dimension": "property", "fact": "Death is final, not the activity during the jump.", "conditions": []}
+{"fact_id": "fact_000650", "concept": "suburbs", "dimension": "property", "fact": "Suburbs are outlying residential zones, not necessarily gated communities.", "conditions": []}
+{"fact_id": "fact_000651", "concept": "boredom", "dimension": "effect", "fact": "Doing housework for hours often leaves a person feeling boredom.", "conditions": []}
+{"fact_id": "fact_000652", "concept": "comfort", "dimension": "property", "fact": "Comfort is a feeling, not the consequence of being too sick to attend.", "conditions": []}
+{"fact_id": "fact_000653", "concept": "death and decay", "dimension": "property", "fact": "Death and decay is the aftermath, not the feeling while dying.", "conditions": []}
+{"fact_id": "fact_000654", "concept": "take care of proposals", "dimension": "property", "fact": "Taking care of proposals is a work task, not the basic way to earn income.", "conditions": []}
+{"fact_id": "fact_000655", "concept": "reality", "dimension": "effect", "fact": "A vivid scary dream can be hard to tell apart from reality.", "conditions": []}
+{"fact_id": "fact_000656", "concept": "left foot", "dimension": "property", "fact": "The left foot is where a shoe goes, not an occasion for white shoes.", "conditions": []}
+{"fact_id": "fact_000657", "concept": "making new friends", "dimension": "property", "fact": "Making new friends is openness, opposite of being aloof.", "conditions": []}
+{"fact_id": "fact_000658", "concept": "authoritarian", "dimension": "property", "fact": "Authoritarian describes a controlling style of leadership, not an action taken toward someone's efforts.", "conditions": []}
+{"fact_id": "fact_000659", "concept": "due to", "dimension": "property", "fact": "Due to is a connecting phrase, not an effect of low visibility.", "conditions": []}
+{"fact_id": "fact_000660", "concept": "light fire", "dimension": "has_prerequisite", "fact": "A camper must light a fire before food can be cooked over it.", "conditions": []}
+{"fact_id": "fact_000661", "concept": "sights", "dimension": "property", "fact": "Sights are things seen, not the term for viewing through an eyepiece.", "conditions": []}
+{"fact_id": "fact_000662", "concept": "hair salon", "dimension": "property", "fact": "A hair salon is a business, not a room in his home.", "conditions": []}
+{"fact_id": "fact_000663", "concept": "illness", "dimension": "property", "fact": "Illness is general, while overeating specifically upsets the stomach.", "conditions": []}
+{"fact_id": "fact_000664", "concept": "meat", "dimension": "property", "fact": "Meat is the food being cut, not the person's skin.", "conditions": []}
+{"fact_id": "fact_000665", "concept": "injury", "dimension": "property", "fact": "Injury is harm, not the action happening as he lost consciousness skydiving.", "conditions": []}
+{"fact_id": "fact_000666", "concept": "carved", "dimension": "property", "fact": "Carving shapes wood, not attaching something to it.", "conditions": []}
+{"fact_id": "fact_000667", "concept": "one material often recycled", "dimension": "property", "fact": "Being recyclable is a property of paper, not what happens when it is left outside.", "conditions": []}
+{"fact_id": "fact_000668", "concept": "here", "dimension": "property", "fact": "Here indicates a location, not a sensor type.", "conditions": []}
+{"fact_id": "fact_000669", "concept": "boat", "dimension": "property", "fact": "A boat is on water, not a backyard where kids find fish.", "conditions": []}
+{"fact_id": "fact_000670", "concept": "united states", "dimension": "property", "fact": "The United States is a country, not a navigation tool that maps could replace.", "conditions": []}
+{"fact_id": "fact_000671", "concept": "fists", "dimension": "property", "fact": "Fists are clenched hands, but holding tools needs the open hands.", "conditions": []}
+{"fact_id": "fact_000672", "concept": "garden center", "dimension": "property", "fact": "A garden center sells plants, unrelated to an apple counting problem.", "conditions": []}
+{"fact_id": "fact_000673", "concept": "grocery cart", "dimension": "used_for", "fact": "A grocery cart holds items you intend to buy as you move toward the checkout.", "conditions": []}
+{"fact_id": "fact_000674", "concept": "house", "dimension": "property", "fact": "A house is a place to live, not an occasion requiring white shoes.", "conditions": []}
+{"fact_id": "fact_000675", "concept": "murder", "dimension": "property", "fact": "Murder is harm by another, not what depression drives a person to.", "conditions": []}
+{"fact_id": "fact_000676", "concept": "rose garden", "dimension": "typical_location", "fact": "A rose garden is full of red flowers where bees congregate.", "conditions": []}
+{"fact_id": "fact_000677", "concept": "forest", "dimension": "property", "fact": "A forest is wooded land, not the marshy bayou where Cajun is spoken.", "conditions": []}
+{"fact_id": "fact_000678", "concept": "demonstration", "dimension": "used_for", "fact": "A hands-on demonstration shows others how to perform the work step by step.", "conditions": []}
+{"fact_id": "fact_000679", "concept": "closer", "dimension": "motivation", "fact": "Having moved away from family for work, he wished the job were closer to them.", "conditions": []}
+{"fact_id": "fact_000680", "concept": "playing uno", "dimension": "property", "fact": "Playing Uno is a card game, unrelated to skydiving.", "conditions": []}
+{"fact_id": "fact_000681", "concept": "beach town", "dimension": "typical_location", "fact": "A beach town is coastal, but the option is generic rather than on the east coast.", "conditions": []}
+{"fact_id": "fact_000682", "concept": "enemies", "dimension": "property", "fact": "Enemies are opponents, not the win/lose split a competitor enjoys.", "conditions": []}
+{"fact_id": "fact_000683", "concept": "jail time", "dimension": "effect", "fact": "Jail time results from criminal conviction, but it is imposed by the court, not the family.", "conditions": []}
+{"fact_id": "fact_000684", "concept": "own cars", "dimension": "used_for", "fact": "Owning cars enables most people to transport themselves.", "conditions": []}
+{"fact_id": "fact_000685", "concept": "ticket", "dimension": "effect", "fact": "Not moving a car in the required time earns a parking ticket.", "conditions": []}
+{"fact_id": "fact_000686", "concept": "you", "dimension": "property", "fact": "You is a pronoun, not the state Sam preferred over company.", "conditions": []}
+{"fact_id": "fact_000687", "concept": "smiles", "dimension": "property", "fact": "Smiles are expressions of happiness, not what one falls into.", "conditions": []}
+{"fact_id": "fact_000688", "concept": "optional", "dimension": "property", "fact": "Optional means by choice, contradicting a mandatory order.", "conditions": []}
+{"fact_id": "fact_000689", "concept": "radio", "dimension": "capability", "fact": "A radio receives broadcasts and does not share files between people.", "conditions": []}
+{"fact_id": "fact_000690", "concept": "city", "dimension": "property", "fact": "A city may be inland and lack ready seafood.", "conditions": []}
+{"fact_id": "fact_000691", "concept": "fun", "dimension": "effect", "fact": "Playing with a dog makes it have fun.", "conditions": []}
+{"fact_id": "fact_000692", "concept": "garden", "dimension": "typical_location", "fact": "A garden has benches where a person can sit and relax after working on a hobby like gardening.", "conditions": []}
+{"fact_id": "fact_000693", "concept": "excitement", "dimension": "property", "fact": "Excitement is a mood, not the physical result of prolonged exertion.", "conditions": []}
+{"fact_id": "fact_000694", "concept": "applaud", "dimension": "effect", "fact": "At a great play the crowd stands and applauds.", "conditions": []}
+{"fact_id": "fact_000695", "concept": "gravity", "dimension": "property", "fact": "Gravity makes apples fall, but the X-apples setup is a math problem.", "conditions": []}
+{"fact_id": "fact_000696", "concept": "neighbor's house", "dimension": "property", "fact": "A neighbor's house is not where a convicted person serves time.", "conditions": []}
+{"fact_id": "fact_000697", "concept": "harder", "dimension": "property", "fact": "Harder is a comparative word, not an emotion a person feels.", "conditions": []}
+{"fact_id": "fact_000698", "concept": "trouble", "dimension": "effect", "fact": "Cats that rip things apart get into trouble.", "conditions": []}
+{"fact_id": "fact_000699", "concept": "store", "dimension": "typical_location", "fact": "A store sells pencils, so a student goes there to get new ones.", "conditions": []}
+{"fact_id": "fact_000700", "concept": "tennessee", "dimension": "typical_location", "fact": "Tennessee has wildlife, but a fox is caught in open hunting ground.", "conditions": []}
+{"fact_id": "fact_000701", "concept": "department store", "dimension": "property", "fact": "A department store sells fashion but does not typically house a separate bookshop.", "conditions": []}
+{"fact_id": "fact_000702", "concept": "ham sandwich", "dimension": "property", "fact": "A ham sandwich is food, not a place to preserve meat.", "conditions": []}
+{"fact_id": "fact_000703", "concept": "apartment", "dimension": "typical_location", "fact": "An apartment has some food but is not where people generally go to find it.", "conditions": []}
+{"fact_id": "fact_000704", "concept": "mortal", "dimension": "property", "fact": "Mortal describes the condition of being able to die, not the eventual event.", "conditions": []}
+{"fact_id": "fact_000705", "concept": "getting full", "dimension": "effect", "fact": "Working through a whole tasting menu makes a person progressively get full.", "conditions": []}
+{"fact_id": "fact_000706", "concept": "government", "dimension": "property", "fact": "A government is run by the president, but the country is the institution he leads.", "conditions": []}
+{"fact_id": "fact_000707", "concept": "library of congress", "dimension": "property", "fact": "The Library of Congress archives books, not where one keeps a book mid-reading.", "conditions": []}
+{"fact_id": "fact_000708", "concept": "alone", "dimension": "property", "fact": "Alone describes a state, while solitude is the preferred condition named.", "conditions": []}
+{"fact_id": "fact_000709", "concept": "bad breath", "dimension": "property", "fact": "Bad breath is unrelated to hurrying after checking the time.", "conditions": []}
+{"fact_id": "fact_000710", "concept": "death", "dimension": "property", "fact": "Death is harmful, not a good result of losing weight.", "conditions": []}
+{"fact_id": "fact_000711", "concept": "kitchen cupboard", "dimension": "typical_location", "fact": "A kitchen cupboard is at room temperature, where a perishable jar would spoil.", "conditions": []}
+{"fact_id": "fact_000712", "concept": "live animal", "dimension": "property", "fact": "A live animal has a heart organ but not necessarily a caring nature.", "conditions": []}
+{"fact_id": "fact_000713", "concept": "ditch", "dimension": "property", "fact": "A ditch is a trench, not a seller responding to demand for snakes.", "conditions": []}
+{"fact_id": "fact_000714", "concept": "eat cake", "dimension": "property", "fact": "Eating cake is unrelated to fastening things to wood.", "conditions": []}
+{"fact_id": "fact_000715", "concept": "acid reflux", "dimension": "effect", "fact": "Overeating at dinner can trigger acid reflux.", "conditions": []}
+{"fact_id": "fact_000716", "concept": "spend more", "dimension": "property", "fact": "Spending more is a behavior, not what tiny inflation fails to be.", "conditions": []}
+{"fact_id": "fact_000717", "concept": "prison", "dimension": "typical_location", "fact": "After a drunk-driving accident, an offender can spend years in prison.", "conditions": []}
+{"fact_id": "fact_000718", "concept": "mediate", "dimension": "property", "fact": "To mediate is to resolve disputes, not to recover from exhaustion.", "conditions": []}
+{"fact_id": "fact_000719", "concept": "proximity", "dimension": "primary_function", "fact": "A proximity sensor measures distance and triggers an alarm when something is close.", "conditions": []}
+{"fact_id": "fact_000720", "concept": "jewish community", "dimension": "property", "fact": "A Jewish community is a group of people, not a region with a famous temple.", "conditions": []}
+{"fact_id": "fact_000721", "concept": "light microscope", "dimension": "primary_function", "fact": "A light microscope is viewed through an eyepiece to see tiny objects.", "conditions": []}
+{"fact_id": "fact_000722", "concept": "wonderful thing", "dimension": "property", "fact": "Calling it a wonderful thing is an opinion, not a specific effect.", "conditions": []}
+{"fact_id": "fact_000723", "concept": "desk", "dimension": "part_whole", "fact": "A desk can have an inkwell and may sit on a rug, spilling ink onto it.", "conditions": []}
+{"fact_id": "fact_000724", "concept": "calm down", "dimension": "property", "fact": "Calming down is an emotional change, not the heat loss that threatens life.", "conditions": []}
+{"fact_id": "fact_000725", "concept": "living room", "dimension": "typical_location", "fact": "A living room is a room, not the inkwell-bearing furniture itself.", "conditions": []}
+{"fact_id": "fact_000726", "concept": "state park", "dimension": "typical_location", "fact": "A state park has benches where someone can rest after outdoor activity.", "conditions": []}
+{"fact_id": "fact_000727", "concept": "smile", "dimension": "property", "fact": "A smile is a reaction, not the inner state music causes.", "conditions": []}
+{"fact_id": "fact_000728", "concept": "attacked his country", "dimension": "property", "fact": "The enemy attacked his country, which is the cause, not his decision.", "conditions": []}
+{"fact_id": "fact_000729", "concept": "kitchen", "dimension": "property", "fact": "The kitchen is where food is cooked, so its aromas draw people in.", "conditions": []}
+{"fact_id": "fact_000730", "concept": "the desert", "dimension": "property", "fact": "A desert is sparsely inhabited and is where one goes to avoid crowds.", "conditions": []}
+{"fact_id": "fact_000731", "concept": "speak words", "dimension": "property", "fact": "Speaking words is communication, not transportation.", "conditions": []}
+{"fact_id": "fact_000732", "concept": "horrible", "dimension": "effect", "fact": "A great job on scary decorations makes them completely horrible in a frightening sense.", "conditions": []}
+{"fact_id": "fact_000733", "concept": "finish line", "dimension": "property", "fact": "A finish line belongs to racing, not a season of recreational skiing.", "conditions": []}
+{"fact_id": "fact_000734", "concept": "bed sores", "dimension": "property", "fact": "Bed sores come from very long bed rest, not from missing one event.", "conditions": []}
+{"fact_id": "fact_000735", "concept": "feel bumpy", "dimension": "property", "fact": "Feeling bumpy is a texture, not the sensation of being pinched.", "conditions": []}
+{"fact_id": "fact_000736", "concept": "hen house", "dimension": "typical_location", "fact": "A hen house is a farm structure in inhabited areas, not found in a forest.", "conditions": []}
+{"fact_id": "fact_000737", "concept": "coastal cities", "dimension": "typical_location", "fact": "Coastal cities have access to seafood and commonly host seafood restaurants.", "conditions": []}
+{"fact_id": "fact_000738", "concept": "might win", "dimension": "property", "fact": "Might win is a possibility, not a fixed category.", "conditions": []}
+{"fact_id": "fact_000739", "concept": "painting", "dimension": "property", "fact": "A painting is an artwork, not a place a thirsty fox could be.", "conditions": []}
+{"fact_id": "fact_000740", "concept": "elective", "dimension": "property", "fact": "Elective means optional, the opposite of a mandatory evacuation.", "conditions": []}
+{"fact_id": "fact_000741", "concept": "problems", "dimension": "property", "fact": "Problems is vague and does not capture the specific fear of discovery.", "conditions": []}
+{"fact_id": "fact_000742", "concept": "knowlege", "dimension": "effect", "fact": "The teacher said listening is the main way students gain knowledge.", "conditions": []}
+{"fact_id": "fact_000743", "concept": "mosque", "dimension": "property", "fact": "A mosque is an Islamic place of worship, not a temple region.", "conditions": []}
+{"fact_id": "fact_000744", "concept": "music store", "dimension": "property", "fact": "A music store sells instruments, not a group that performs with a cello.", "conditions": []}
+{"fact_id": "fact_000745", "concept": "purchase", "dimension": "property", "fact": "Purchase is the act, not the usual high price that made the sale notable.", "conditions": []}
+{"fact_id": "fact_000746", "concept": "names", "dimension": "property", "fact": "Family members often share the same family name.", "conditions": []}
+{"fact_id": "fact_000747", "concept": "locked up", "dimension": "property", "fact": "Locked up describes confinement but prison is the specific place.", "conditions": []}
+{"fact_id": "fact_000748", "concept": "newspaper office", "dimension": "typical_location", "fact": "A newspaper office prints in bulk but is staffed by employees, not thousands of users.", "conditions": []}
+{"fact_id": "fact_000749", "concept": "fallen tree", "dimension": "typical_location", "fact": "A fallen tree shelters fungus, though it can still get some light.", "conditions": []}
+{"fact_id": "fact_000750", "concept": "terrible", "dimension": "property", "fact": "Terrible is negative judgment, but scary decorations are meant to be frightful in a good way.", "conditions": []}
+{"fact_id": "fact_000751", "concept": "costly", "dimension": "property", "fact": "Costly describes the game's expense but is not the action the parents took.", "conditions": []}
+{"fact_id": "fact_000752", "concept": "abbreviation", "dimension": "property", "fact": "An abbreviation is a shortened word, unrelated to preferring no company.", "conditions": []}
+{"fact_id": "fact_000753", "concept": "cross street", "dimension": "property", "fact": "Crossing the street is unrelated to theft.", "conditions": []}
+{"fact_id": "fact_000754", "concept": "house", "dimension": "typical_location", "fact": "A house may have a piano but is not the formal place to learn.", "conditions": []}
+{"fact_id": "fact_000755", "concept": "tropical forest", "dimension": "property", "fact": "A tropical forest is where ficus grows wild, not a part of a home.", "conditions": []}
+{"fact_id": "fact_000756", "concept": "ocean", "dimension": "property", "fact": "The ocean is a body of water, unrelated to being paid.", "conditions": []}
+{"fact_id": "fact_000757", "concept": "home", "dimension": "typical_location", "fact": "A tabby cat is happiest at home where it feels safe and cared for.", "conditions": []}
+{"fact_id": "fact_000758", "concept": "being married", "dimension": "property", "fact": "Being married is the state, and divorce ends being married.", "conditions": []}
+{"fact_id": "fact_000759", "concept": "large house", "dimension": "property", "fact": "A large house has space, but the move was specifically for a master bedroom suburban home.", "conditions": []}
+{"fact_id": "fact_000760", "concept": "grab a match", "dimension": "has_prerequisite", "fact": "Grabbing a match is needed to start the fire used for cooking.", "conditions": []}
+{"fact_id": "fact_000761", "concept": "sadness", "dimension": "property", "fact": "Sadness is the feeling of depression, not the cause of death.", "conditions": []}
+{"fact_id": "fact_000762", "concept": "conference", "dimension": "property", "fact": "A conference is a meeting, not a dwelling.", "conditions": []}
+{"fact_id": "fact_000763", "concept": "laugh", "dimension": "property", "fact": "Laughing is a reaction, not the plan made before going to play.", "conditions": []}
+{"fact_id": "fact_000764", "concept": "lay down", "dimension": "property", "fact": "Lying down is rest, the opposite of being active during the day.", "conditions": []}
+{"fact_id": "fact_000765", "concept": "take money", "dimension": "property", "fact": "Taking money is only part of dealing, not the coded purpose of visiting every dealer.", "conditions": []}
+{"fact_id": "fact_000766", "concept": "carried by people", "dimension": "property", "fact": "Geese are not normally carried by people from place to place.", "conditions": []}
+{"fact_id": "fact_000767", "concept": "yard", "dimension": "property", "fact": "A yard is outdoors and is not known for cooking aromas.", "conditions": []}
+{"fact_id": "fact_000768", "concept": "stress", "dimension": "effect", "fact": "Hours of housework can leave a person feeling stress.", "conditions": []}
+{"fact_id": "fact_000769", "concept": "being tired", "dimension": "effect", "fact": "Jogging can leave a person being tired, which is not the good result.", "conditions": []}
+{"fact_id": "fact_000770", "concept": "sick person", "dimension": "property", "fact": "A sick person is one who has already contracted an illness.", "conditions": []}
+{"fact_id": "fact_000771", "concept": "prepare food", "dimension": "primary_function", "fact": "In the evening a chef prepares food for the dinner service.", "conditions": []}
+{"fact_id": "fact_000772", "concept": "family room", "dimension": "typical_location", "fact": "A ficus is a houseplant that looks good in the family room.", "conditions": []}
+{"fact_id": "fact_000773", "concept": "late for work", "dimension": "motivation", "fact": "Checking his watch and rushing suggests he was late for work.", "conditions": []}
+{"fact_id": "fact_000774", "concept": "sadness", "dimension": "effect", "fact": "Bearing the whole burden before a divorce can leave a person feeling sadness.", "conditions": []}
+{"fact_id": "fact_000775", "concept": "gain weight", "dimension": "property", "fact": "Gaining weight is a slow result, not the reason to rush during lunch.", "conditions": []}
+{"fact_id": "fact_000776", "concept": "stay in bed", "dimension": "property", "fact": "Staying in bed is resting, not hashing out an agreement.", "conditions": []}
+{"fact_id": "fact_000777", "concept": "skill", "dimension": "has_prerequisite", "fact": "Being good at tennis requires skill developed through practice.", "conditions": []}
+{"fact_id": "fact_000778", "concept": "bend", "dimension": "property", "fact": "Glass is rigid and does not bend.", "conditions": []}
+{"fact_id": "fact_000779", "concept": "oceans", "dimension": "property", "fact": "Oceans are large bodies of water, not a navigation product replaced by GPS.", "conditions": []}
+{"fact_id": "fact_000780", "concept": "desk drawer", "dimension": "typical_location", "fact": "A desk drawer stores items but is not the workplace counterpart to home.", "conditions": []}
+{"fact_id": "fact_000781", "concept": "put together", "dimension": "property", "fact": "Putting together is assembling, not the fate of figurative scars.", "conditions": []}
+{"fact_id": "fact_000782", "concept": "handsomeness", "dimension": "property", "fact": "Handsomeness is appearance, but grooming chiefly signals neat presentation.", "conditions": []}
+{"fact_id": "fact_000783", "concept": "ignore", "dimension": "effect", "fact": "Ignoring someone's efforts means disregarding them and treating the work as if it never happened.", "conditions": []}
+{"fact_id": "fact_000784", "concept": "two people", "dimension": "property", "fact": "Two people is a count, not the marital status being ended.", "conditions": []}
+{"fact_id": "fact_000785", "concept": "nose", "dimension": "property", "fact": "A nose is on the face and is not used to hold tools.", "conditions": []}
+{"fact_id": "fact_000786", "concept": "make breakfast", "dimension": "property", "fact": "Making breakfast is itself cooking, not the step done beforehand.", "conditions": []}
+{"fact_id": "fact_000787", "concept": "frustration", "dimension": "property", "fact": "Frustration is annoyance, not the emotion from receiving pay.", "conditions": []}
+{"fact_id": "fact_000788", "concept": "surprise", "dimension": "property", "fact": "A surprise is an event, not something one runs away with.", "conditions": []}
+{"fact_id": "fact_000789", "concept": "expensive", "dimension": "cause", "fact": "He grabbed it on sale because it was normally expensive.", "conditions": []}
+{"fact_id": "fact_000790", "concept": "will", "dimension": "property", "fact": "A will is a legal document, not something a whole family shares.", "conditions": []}
+{"fact_id": "fact_000791", "concept": "at a red light", "dimension": "property", "fact": "At a red light is a signal moment, not the place people stand.", "conditions": []}
+{"fact_id": "fact_000792", "concept": "paying bills", "dimension": "property", "fact": "Paying bills is what the money is used for, not the emotion of being paid.", "conditions": []}
+{"fact_id": "fact_000793", "concept": "surprise us", "dimension": "property", "fact": "Surprise us implies uncertainty, not the beautiful weather they wanted.", "conditions": []}
+{"fact_id": "fact_000794", "concept": "strip club", "dimension": "property", "fact": "A strip club is a venue, not a waterway where a beaver builds a dam.", "conditions": []}
+{"fact_id": "fact_000795", "concept": "burlap sack", "dimension": "typical_location", "fact": "A burlap sack holds produce like potatoes, where a snake could hide instead.", "conditions": []}
+{"fact_id": "fact_000796", "concept": "current", "dimension": "property", "fact": "Current describes something present in time, not a type of entrance.", "conditions": []}
+{"fact_id": "fact_000797", "concept": "go into court", "dimension": "property", "fact": "Going into court involves legal, not spiritual, testimony.", "conditions": []}
+{"fact_id": "fact_000798", "concept": "solar system", "dimension": "property", "fact": "The solar system is outer space, not a place a person can lie in the sun.", "conditions": []}
+{"fact_id": "fact_000799", "concept": "music room", "dimension": "typical_location", "fact": "A music room can hold a piano, but lessons are given in a class.", "conditions": []}
+{"fact_id": "fact_000800", "concept": "angry", "dimension": "property", "fact": "Anger is an emotion, not the condition of persistent unhappiness.", "conditions": []}
+{"fact_id": "fact_000801", "concept": "cook dinner", "dimension": "primary_function", "fact": "A chef working in the evening cooks dinner for guests.", "conditions": []}
+{"fact_id": "fact_000802", "concept": "practice", "dimension": "property", "fact": "Practice is preparation, not the grade you receive.", "conditions": []}
+{"fact_id": "fact_000803", "concept": "homework", "dimension": "property", "fact": "Homework is assigned work, not the letter grade earned.", "conditions": []}
+{"fact_id": "fact_000804", "concept": "yell at", "dimension": "property", "fact": "Yelling at someone is an angry verbal reaction, not a way of responding to work they have done.", "conditions": []}
+{"fact_id": "fact_000805", "concept": "train station", "dimension": "typical_location", "fact": "A train station has some phone booths, fewer than a whole city.", "conditions": []}
+{"fact_id": "fact_000806", "concept": "new york", "dimension": "property", "fact": "New York is in the United States, not Southern Europe.", "conditions": []}
+{"fact_id": "fact_000807", "concept": "ocean", "dimension": "property", "fact": "The ocean is water, not a group of musicians.", "conditions": []}
+{"fact_id": "fact_000808", "concept": "study french cooking", "dimension": "property", "fact": "Studying French cooking is training, not the evening service task.", "conditions": []}
+{"fact_id": "fact_000809", "concept": "occur here", "dimension": "property", "fact": "Occur here is vague, not the pleasant weather wished for at the destination.", "conditions": []}
+{"fact_id": "fact_000810", "concept": "weak", "dimension": "property", "fact": "Untreated glass is weak compared to tempered glass.", "conditions": []}
+{"fact_id": "fact_000811", "concept": "arrest", "dimension": "effect", "fact": "Committing perjury can lead to arrest.", "conditions": []}
+{"fact_id": "fact_000812", "concept": "study", "dimension": "property", "fact": "Study is the activity itself, not the trait needed to sustain self-learning.", "conditions": []}
+{"fact_id": "fact_000813", "concept": "stop breathing", "dimension": "effect", "fact": "Someone dying may feel herself stop breathing.", "conditions": []}
+{"fact_id": "fact_000814", "concept": "rising interest rates", "dimension": "property", "fact": "Rising interest rates are a policy tool, not the negligible quality described.", "conditions": []}
+{"fact_id": "fact_000815", "concept": "feel angry", "dimension": "effect", "fact": "If a person's money is stolen, they feel angry.", "conditions": []}
+{"fact_id": "fact_000816", "concept": "outside", "dimension": "property", "fact": "A soccer field not inside a building is outside in the open air.", "conditions": []}
+{"fact_id": "fact_000817", "concept": "accelerate", "dimension": "property", "fact": "Accelerate is an action, not a vehicle with controls.", "conditions": []}
+{"fact_id": "fact_000818", "concept": "school grade", "dimension": "property", "fact": "An A is a school grade given for doing well on a test.", "conditions": []}
+{"fact_id": "fact_000819", "concept": "buying", "dimension": "property", "fact": "Buying is the action he took, not why the price dropped on sale.", "conditions": []}
+{"fact_id": "fact_000820", "concept": "neck", "dimension": "primary_function", "fact": "The neck is the body part where a choker is worn, not a place to locate one for sale.", "conditions": []}
+{"fact_id": "fact_000821", "concept": "sleep more", "dimension": "property", "fact": "Sleeping more is part of being sick, not the effect on the event.", "conditions": []}
+{"fact_id": "fact_000822", "concept": "building", "dimension": "property", "fact": "A building is a structure, not a method of showing how work is done.", "conditions": []}
+{"fact_id": "fact_000823", "concept": "sisters", "dimension": "property", "fact": "Sisters are siblings, a relationship not ended by divorce.", "conditions": []}
+{"fact_id": "fact_000824", "concept": "nature", "dimension": "property", "fact": "Nature is the outdoors, not what destructive cats get into.", "conditions": []}
+{"fact_id": "fact_000825", "concept": "your spine", "dimension": "property", "fact": "Your spine is anatomy, not what the mechanical phrase refers to.", "conditions": []}
+{"fact_id": "fact_000826", "concept": "death", "dimension": "motivation", "fact": "Losing consciousness frightens a person because they fear death.", "conditions": []}
+{"fact_id": "fact_000827", "concept": "loss of life", "dimension": "motivation", "fact": "Fading out can make a person fear loss of life.", "conditions": []}
+{"fact_id": "fact_000828", "concept": "loss of heat", "dimension": "cause", "fact": "Cooling off too quickly is a dangerous loss of body heat that must be stopped to survive.", "conditions": []}
+{"fact_id": "fact_000829", "concept": "looking good", "dimension": "motivation", "fact": "Grooming before an interview is meant to portray looking good.", "conditions": []}
+{"fact_id": "fact_000830", "concept": "fragile", "dimension": "property", "fact": "Glass not strengthened is fragile and breaks easily.", "conditions": []}
+{"fact_id": "fact_000831", "concept": "mexico", "dimension": "property", "fact": "Mexico is a country, not where an uncovered field would be.", "conditions": []}
+{"fact_id": "fact_000832", "concept": "accidents", "dimension": "property", "fact": "Accidents come from driving, not from leaving a car parked too long.", "conditions": []}
+{"fact_id": "fact_000833", "concept": "regular", "dimension": "property", "fact": "Regular describes ordinary glass but not its breakable nature.", "conditions": []}
+{"fact_id": "fact_000834", "concept": "purse", "dimension": "property", "fact": "A purse holds personal items, not sacks of potatoes.", "conditions": []}
+{"fact_id": "fact_000835", "concept": "subdivision", "dimension": "property", "fact": "A subdivision is a planned residential development that is often gated off from other places.", "conditions": []}
+{"fact_id": "fact_000836", "concept": "wires", "dimension": "property", "fact": "Wires can carry signals but are not the system that enables file sharing.", "conditions": []}
+{"fact_id": "fact_000837", "concept": "business sector", "dimension": "typical_location", "fact": "A business sector is full of offices, making it where business restaurants locate to serve professionals.", "conditions": []}
+{"fact_id": "fact_000838", "concept": "total number", "dimension": "property", "fact": "A total number is a count, not a structure with levels.", "conditions": []}
+{"fact_id": "fact_000839", "concept": "food court", "dimension": "typical_location", "fact": "A food court is the area inside a shopping mall where eateries like pizzerias are found.", "conditions": []}
+{"fact_id": "fact_000840", "concept": "serve food", "dimension": "property", "fact": "Serving food happens during the meal, not at its end.", "conditions": []}
+{"fact_id": "fact_000841", "concept": "hunger", "dimension": "property", "fact": "Hunger is from not eating, not the result of good rest.", "conditions": []}
+{"fact_id": "fact_000842", "concept": "buy a gun", "dimension": "property", "fact": "Buying a gun is an action, but not the typical legal response from a victim's family.", "conditions": []}
+{"fact_id": "fact_000843", "concept": "become educated", "dimension": "property", "fact": "Becoming educated is general, not the specific change in viewpoint.", "conditions": []}
+{"fact_id": "fact_000844", "concept": "further cause", "dimension": "property", "fact": "Further cause is an abstract phrase, not a way to address someone leaving.", "conditions": []}
+{"fact_id": "fact_000845", "concept": "transfer of information", "dimension": "property", "fact": "Transfer of information is the communication itself, not what it slowed.", "conditions": []}
+{"fact_id": "fact_000846", "concept": "fish market", "dimension": "property", "fact": "A fish market sells raw fish, not prepared sushi in Paris.", "conditions": []}
+{"fact_id": "fact_000847", "concept": "cant do", "dimension": "property", "fact": "Cant do is informal phrasing rather than the fitting description.", "conditions": []}
+{"fact_id": "fact_000848", "concept": "atlantic ocean", "dimension": "property", "fact": "The Atlantic Ocean is water, not where Sam ordered at a sushi place.", "conditions": []}
+{"fact_id": "fact_000849", "concept": "house", "dimension": "typical_location", "fact": "A house contains the dining room where the table belongs.", "conditions": []}
+{"fact_id": "fact_000850", "concept": "headache", "dimension": "property", "fact": "A headache is discomfort, not the reassurance a good bodyguard gives.", "conditions": []}
+{"fact_id": "fact_000851", "concept": "anger", "dimension": "property", "fact": "Anger is an emotion, not the body part needed to hold tools.", "conditions": []}
+{"fact_id": "fact_000852", "concept": "brains", "dimension": "property", "fact": "Brains are organs everyone has, not a shared family feature.", "conditions": []}
+{"fact_id": "fact_000853", "concept": "in the park", "dimension": "property", "fact": "A park is outdoors, not where a dining table is placed.", "conditions": []}
+{"fact_id": "fact_000854", "concept": "soap opera", "dimension": "property", "fact": "A soap opera is entertainment, not an emergency announcement.", "conditions": []}
+{"fact_id": "fact_000855", "concept": "store bought", "dimension": "property", "fact": "Store bought cards are impersonal, opposite of his choice.", "conditions": []}
+{"fact_id": "fact_000856", "concept": "overthinking", "dimension": "property", "fact": "Overthinking is a mental habit, not the direct result of feeling uncomfortable.", "conditions": []}
+{"fact_id": "fact_000857", "concept": "attic", "dimension": "typical_location", "fact": "An attic is a storage space, unrelated to glare on a screen.", "conditions": []}
+{"fact_id": "fact_000858", "concept": "awake", "dimension": "property", "fact": "Awake is a state, while the confusion is between the dream and reality.", "conditions": []}
+{"fact_id": "fact_000859", "concept": "go to jail", "dimension": "effect", "fact": "Perjury is a crime that can send a person to jail.", "conditions": []}
+{"fact_id": "fact_000860", "concept": "static", "dimension": "property", "fact": "Static is interference, not what extended communicating slows.", "conditions": []}
+{"fact_id": "fact_000861", "concept": "downcast", "dimension": "property", "fact": "Downcast describes a sad mood, not the named illness.", "conditions": []}
+{"fact_id": "fact_000862", "concept": "supermarket", "dimension": "typical_location", "fact": "A supermarket is full of food for people to find and buy.", "conditions": []}
+{"fact_id": "fact_000863", "concept": "stomach ache", "dimension": "effect", "fact": "Eating too much dinner commonly results in a stomach ache.", "conditions": []}
+{"fact_id": "fact_000864", "concept": "colds and flu", "dimension": "property", "fact": "Colds and flu are illnesses spread at school, not a reason to attend.", "conditions": []}
+{"fact_id": "fact_000865", "concept": "see work", "dimension": "property", "fact": "See work is not a term for the mark earned on a test.", "conditions": []}
+{"fact_id": "fact_000866", "concept": "person", "dimension": "property", "fact": "A person can have a caring heart through compassion.", "conditions": []}
+{"fact_id": "fact_000867", "concept": "living longer", "dimension": "property", "fact": "Living longer is a benefit of moderation, not a result of overeating.", "conditions": []}
+{"fact_id": "fact_000868", "concept": "expansion", "dimension": "property", "fact": "Expansion is a change in size, unrelated to a body cooling dangerously.", "conditions": []}
+{"fact_id": "fact_000869", "concept": "headaches", "dimension": "effect", "fact": "Persistent communication discomfort can build up into headaches.", "conditions": []}
+{"fact_id": "fact_000870", "concept": "alive", "dimension": "property", "fact": "Alive is a state of being, not what playing creates for a dog.", "conditions": []}
+{"fact_id": "fact_000871", "concept": "taking tests", "dimension": "property", "fact": "Taking tests is a school activity, not the underlying reason to attend.", "conditions": []}
+{"fact_id": "fact_000872", "concept": "high school band", "dimension": "typical_location", "fact": "A high school band has learners, where a bassoon may be played unpleasingly.", "conditions": []}
+{"fact_id": "fact_000873", "concept": "pond", "dimension": "typical_location", "fact": "A backyard pond is where kids can find fish at home.", "conditions": []}
+{"fact_id": "fact_000874", "concept": "home office", "dimension": "property", "fact": "A home office printer serves a household, not thousands.", "conditions": []}
+{"fact_id": "fact_000875", "concept": "movie hall", "dimension": "property", "fact": "A movie hall is an indoor venue, not a place a real fox seeks water.", "conditions": []}
+{"fact_id": "fact_000876", "concept": "bitterness", "dimension": "effect", "fact": "Doing all the work while a marriage ends commonly breeds bitterness toward the partner.", "conditions": []}
+{"fact_id": "fact_000877", "concept": "row about", "dimension": "property", "fact": "Rowing about is arguing, opposite of committing to stay together.", "conditions": []}
+{"fact_id": "fact_000878", "concept": "patience", "dimension": "has_prerequisite", "fact": "Learning by yourself requires patience to work through difficulties alone.", "conditions": []}
+{"fact_id": "fact_000879", "concept": "grass", "dimension": "property", "fact": "Grass grows outdoors and is not something you add a line to.", "conditions": []}
+{"fact_id": "fact_000880", "concept": "stitch", "dimension": "property", "fact": "To stitch is to sew a wound, not what a healed-over scar fails to do.", "conditions": []}
+{"fact_id": "fact_000881", "concept": "suitcase", "dimension": "property", "fact": "A suitcase carries belongings, not delivered letters.", "conditions": []}
+{"fact_id": "fact_000882", "concept": "social bonding", "dimension": "motivation", "fact": "A person chatting with friends often hopes to accomplish social bonding.", "conditions": []}
+{"fact_id": "fact_000883", "concept": "new mexico", "dimension": "typical_location", "fact": "New Mexico has lizards, but the surprise comes from a specific encounter spot.", "conditions": []}
+{"fact_id": "fact_000884", "concept": "post office", "dimension": "typical_location", "fact": "A post office processes mail but is not the slot letters are pushed through by hand.", "conditions": []}
+{"fact_id": "fact_000885", "concept": "shame", "dimension": "property", "fact": "Shame is a feeling, not the legal consequence of perjury.", "conditions": []}
+{"fact_id": "fact_000886", "concept": "going to prison", "dimension": "effect", "fact": "A convicted killer ends up going to prison.", "conditions": []}
+{"fact_id": "fact_000887", "concept": "make larger", "dimension": "property", "fact": "Make larger is vague, while gaining weight is the concrete outcome.", "conditions": []}
+{"fact_id": "fact_000888", "concept": "parking lot", "dimension": "effect", "fact": "Urban community gardens are often demolished to build another parking lot.", "conditions": []}
+{"fact_id": "fact_000889", "concept": "pack or bag", "dimension": "property", "fact": "Packing a bag is for travel, not the immediate step before cooking.", "conditions": []}
+{"fact_id": "fact_000890", "concept": "hand written", "dimension": "motivation", "fact": "Wanting to be more personal, he chose hand written cards instead of printed ones.", "conditions": []}
+{"fact_id": "fact_000891", "concept": "heart attacks", "dimension": "property", "fact": "Heart attacks are a risk of inactivity, not a good result of jogging.", "conditions": []}
+{"fact_id": "fact_000892", "concept": "guard house", "dimension": "property", "fact": "A guard house is a structure, not how geese travel.", "conditions": []}
+{"fact_id": "fact_000893", "concept": "blank", "dimension": "property", "fact": "Blank means empty and does not describe the consistency of semen.", "conditions": []}
+{"fact_id": "fact_000894", "concept": "london", "dimension": "typical_location", "fact": "London is famous for its red phone booths, but a city in general has many.", "conditions": []}
+{"fact_id": "fact_000895", "concept": "lap", "dimension": "typical_location", "fact": "A lap gives a cat affection, though home overall makes it happiest.", "conditions": []}
+{"fact_id": "fact_000896", "concept": "living room", "dimension": "property", "fact": "A living room is for relaxing and does not produce cooking aromas.", "conditions": []}
+{"fact_id": "fact_000897", "concept": "experience", "dimension": "property", "fact": "Experience is what they have, not the action of standing up.", "conditions": []}
+{"fact_id": "fact_000898", "concept": "world cup", "dimension": "property", "fact": "The World Cup is a tournament, not a place a field is located.", "conditions": []}
+{"fact_id": "fact_000899", "concept": "brown hair", "dimension": "property", "fact": "Brown hair is one possible trait, not what families generally share.", "conditions": []}
+{"fact_id": "fact_000900", "concept": "misunderstandings", "dimension": "property", "fact": "Misunderstandings are the earlier cause, not the final feeling produced.", "conditions": []}
+{"fact_id": "fact_000901", "concept": "bridge", "dimension": "property", "fact": "A bridge is a structure, not where one serves an 8-year sentence.", "conditions": []}
+{"fact_id": "fact_000902", "concept": "deadly", "dimension": "property", "fact": "Deadly describes an outcome, while dangerous driving is what leads to accidents.", "conditions": []}
+{"fact_id": "fact_000903", "concept": "library", "dimension": "property", "fact": "A library lends books but does not sell the latest fashion.", "conditions": []}
+{"fact_id": "fact_000904", "concept": "arizona", "dimension": "property", "fact": "Arizona is in the southwest, far from this northeastern toll road.", "conditions": []}
+{"fact_id": "fact_000905", "concept": "go hiking", "dimension": "property", "fact": "Going hiking is unrelated to preparing to cook at a campsite.", "conditions": []}
+{"fact_id": "fact_000906", "concept": "tennis court", "dimension": "has_prerequisite", "fact": "A tennis court is the venue, not the personal ability to play well.", "conditions": []}
+{"fact_id": "fact_000907", "concept": "get tired", "dimension": "property", "fact": "Getting tired is a side effect, not the hope of casual sport.", "conditions": []}
+{"fact_id": "fact_000908", "concept": "mountains countryside", "dimension": "property", "fact": "Mountainous countryside is terrain, not the elevated spot to throw from.", "conditions": []}
+{"fact_id": "fact_000909", "concept": "hear things", "dimension": "property", "fact": "Hearing things is the act of listening, not what is gained from it.", "conditions": []}
+{"fact_id": "fact_000910", "concept": "getting good grades", "dimension": "cause", "fact": "Getting good grades could have prevented the housework punishment.", "conditions": []}
+{"fact_id": "fact_000911", "concept": "dead", "dimension": "effect", "fact": "Someone lacking immortality will one day be dead.", "conditions": []}
+{"fact_id": "fact_000912", "concept": "hurting", "dimension": "effect", "fact": "Extended soccer can lead to hurting muscles, though that is incidental.", "conditions": []}
+{"fact_id": "fact_000913", "concept": "meeting new people", "dimension": "property", "fact": "Meeting new people is unrelated to underwater visibility.", "conditions": []}
+{"fact_id": "fact_000914", "concept": "state park", "dimension": "property", "fact": "A state park has grass and nature, not a bare selling area.", "conditions": []}
+{"fact_id": "fact_000915", "concept": "agreement", "dimension": "property", "fact": "Agreement is a result, not the reason talk continues after a discovery.", "conditions": []}
+{"fact_id": "fact_000916", "concept": "restaurant", "dimension": "typical_location", "fact": "A restaurant is a place to eat, not the term for slow grilling.", "conditions": []}
+{"fact_id": "fact_000917", "concept": "understand themselves", "dimension": "property", "fact": "Understanding themselves is self-awareness, not a trait of grumpiness.", "conditions": []}
+{"fact_id": "fact_000918", "concept": "plan to marry", "dimension": "motivation", "fact": "Wanting to be together longer, the couple decided to plan to marry.", "conditions": []}
+{"fact_id": "fact_000919", "concept": "virginia", "dimension": "property", "fact": "Virginia is generally wetter and not noted for drought conditions.", "conditions": []}
+{"fact_id": "fact_000920", "concept": "being entertained", "dimension": "property", "fact": "Being entertained is a result, not an action before play.", "conditions": []}
+{"fact_id": "fact_000921", "concept": "at hotel", "dimension": "typical_location", "fact": "A hotel contains restaurants mainly for its guests rather than the business crowd.", "conditions": []}
+{"fact_id": "fact_000922", "concept": "basement", "dimension": "property", "fact": "A basement is used for storage and is not a source of food aromas.", "conditions": []}
+{"fact_id": "fact_000923", "concept": "fight enemy", "dimension": "property", "fact": "Fighting the enemy is part of war, not the formal decision itself.", "conditions": []}
+{"fact_id": "fact_000924", "concept": "laziness", "dimension": "property", "fact": "Laziness is a behavior, not a type of pain.", "conditions": []}
+{"fact_id": "fact_000925", "concept": "pantry", "dimension": "typical_location", "fact": "A pantry is unrefrigerated, so a spoilable jar would still go bad there.", "conditions": []}
+{"fact_id": "fact_000926", "concept": "tennis racket", "dimension": "has_prerequisite", "fact": "A tennis racket is equipment for tennis but not the ability that makes one good.", "conditions": []}
+{"fact_id": "fact_000927", "concept": "excitement", "dimension": "property", "fact": "Excitement is a feeling, not a lasting change in views.", "conditions": []}
+{"fact_id": "fact_000928", "concept": "city", "dimension": "typical_location", "fact": "A city has more telephone booths than rural or single locations.", "conditions": []}
+{"fact_id": "fact_000929", "concept": "persistence", "dimension": "property", "fact": "Persistence is a trait, not the tool that parallels needing a book.", "conditions": []}
+{"fact_id": "fact_000930", "concept": "pet shops", "dimension": "property", "fact": "Pet shops sell snakes but are not where potatoes are stored.", "conditions": []}
+{"fact_id": "fact_000931", "concept": "exhiliration", "dimension": "property", "fact": "Exhilaration is excitement, not a reason one cannot buy gifts.", "conditions": []}
+{"fact_id": "fact_000932", "concept": "damage", "dimension": "effect", "fact": "Drugs can do damage to the body and mind.", "conditions": []}
+{"fact_id": "fact_000933", "concept": "resting", "dimension": "property", "fact": "Resting is what she did in bed, not the consequence for the event.", "conditions": []}
+{"fact_id": "fact_000934", "concept": "backyard", "dimension": "typical_location", "fact": "A backyard is where grilling often happens but is not the name of the cooking method.", "conditions": []}
+{"fact_id": "fact_000935", "concept": "dispare", "dimension": "property", "fact": "Dispare is not a standard word for what happened to her waist.", "conditions": []}
+{"fact_id": "fact_000936", "concept": "receive instructions", "dimension": "motivation", "fact": "Running errands to all the dealers was code for them to receive instructions.", "conditions": []}
+{"fact_id": "fact_000937", "concept": "group together", "dimension": "property", "fact": "Grouping together is how geese flock, not how they move between places.", "conditions": []}
+{"fact_id": "fact_000938", "concept": "wasteland", "dimension": "effect", "fact": "Demolishing a garden could leave a wasteland, but cities clear land for development.", "conditions": []}
+{"fact_id": "fact_000939", "concept": "improved health", "dimension": "effect", "fact": "A good result of jogging is improved health.", "conditions": []}
+{"fact_id": "fact_000940", "concept": "blotter", "dimension": "used_for", "fact": "A blotter is absorbent paper used to soak up excess ink from a pen.", "conditions": []}
+{"fact_id": "fact_000941", "concept": "perform better", "dimension": "property", "fact": "Performing better is an aim, not a category people are divided into.", "conditions": []}
+{"fact_id": "fact_000942", "concept": "better communication", "dimension": "property", "fact": "Better communication is a positive outcome, opposite of the discomfort described.", "conditions": []}
+{"fact_id": "fact_000943", "concept": "confession", "dimension": "property", "fact": "Confession is a private rite, not a crowd listening to a speech.", "conditions": []}
+{"fact_id": "fact_000944", "concept": "subordinate", "dimension": "property", "fact": "A subordinate ranks below the branch head, who would yell at them.", "conditions": []}
+{"fact_id": "fact_000945", "concept": "flower garden", "dimension": "property", "fact": "A flower garden is outdoors, not the indoor spot for a potted ficus.", "conditions": []}
+{"fact_id": "fact_000946", "concept": "email", "dimension": "property", "fact": "Email delivers messages, not primarily news with ads.", "conditions": []}
+{"fact_id": "fact_000947", "concept": "satisfaction", "dimension": "effect", "fact": "Finishing a fine tasting menu can leave a diner feeling satisfaction.", "conditions": []}
+{"fact_id": "fact_000948", "concept": "expand", "dimension": "property", "fact": "Expand is general, while gaining weight names the failed-diet result.", "conditions": []}
+{"fact_id": "fact_000949", "concept": "capital cities", "dimension": "property", "fact": "Capital cities are large cities, not a specific shopping location.", "conditions": []}
+{"fact_id": "fact_000950", "concept": "cursive writing", "dimension": "property", "fact": "Cursive writing is a style, but the personal choice is handwritten cards.", "conditions": []}
+{"fact_id": "fact_000951", "concept": "sporting event", "dimension": "typical_location", "fact": "A sporting event is where people in uniform play with a ball.", "conditions": []}
+{"fact_id": "fact_000952", "concept": "music store", "dimension": "typical_location", "fact": "A music store sells pianos rather than teaching how to play.", "conditions": []}
+{"fact_id": "fact_000953", "concept": "gathering of information", "dimension": "property", "fact": "Gathering information is a goal of research, not casual chatting with friends.", "conditions": []}
+{"fact_id": "fact_000954", "concept": "street", "dimension": "property", "fact": "A street is a single road, not a gated residential community.", "conditions": []}
+{"fact_id": "fact_000955", "concept": "sporting goods store", "dimension": "property", "fact": "A sporting goods store is unrelated to a thrown engine rod.", "conditions": []}
+{"fact_id": "fact_000956", "concept": "coastal cities", "dimension": "typical_location", "fact": "Coastal cities, near the sea, are natural places for seafood restaurants.", "conditions": []}
+{"fact_id": "fact_000957", "concept": "end of line", "dimension": "property", "fact": "End of line is a fishing phrase, not a backyard place.", "conditions": []}
+{"fact_id": "fact_000958", "concept": "office", "dimension": "typical_location", "fact": "An office may have a fan, but home is where one keeps several for comfort.", "conditions": []}
+{"fact_id": "fact_000959", "concept": "venice", "dimension": "typical_location", "fact": "Venice is a Southern European city famous for its many canals.", "conditions": []}
+{"fact_id": "fact_000960", "concept": "winners and losers", "dimension": "effect", "fact": "A competitive person likes dividing people into winners and losers.", "conditions": []}
+{"fact_id": "fact_000961", "concept": "boat", "dimension": "property", "fact": "A boat carries a few extinguishers, not a large number.", "conditions": []}
+{"fact_id": "fact_000962", "concept": "populated areas", "dimension": "property", "fact": "Populated areas are by definition places where many people are gathered.", "conditions": []}
+{"fact_id": "fact_000963", "concept": "cars", "dimension": "property", "fact": "Cars are vehicles in the road, not where people stand at an intersection.", "conditions": []}
+{"fact_id": "fact_000964", "concept": "losses", "dimension": "property", "fact": "Losses are outcomes, not the paired categories of people.", "conditions": []}
+{"fact_id": "fact_000965", "concept": "tennessee", "dimension": "typical_location", "fact": "Tennessee is known for fiddle music but is a state, not a venue.", "conditions": []}
+{"fact_id": "fact_000966", "concept": "itches", "dimension": "property", "fact": "Itching is irritation, not the squeezing sensation of a pinch.", "conditions": []}
+{"fact_id": "fact_000967", "concept": "lower standards", "dimension": "property", "fact": "Lowering standards is a judgment effect, not an angry act.", "conditions": []}
+{"fact_id": "fact_000968", "concept": "disneyland", "dimension": "typical_location", "fact": "Disneyland has paved walkways, but it is not defined by burning hot ground.", "conditions": []}
+{"fact_id": "fact_000969", "concept": "spending money", "dimension": "property", "fact": "Spending money is the act, not the inner motivation to shop.", "conditions": []}
+{"fact_id": "fact_000970", "concept": "tennis", "dimension": "used_for", "fact": "White shoes are required for playing tennis under court dress codes.", "conditions": []}
+{"fact_id": "fact_000971", "concept": "coma", "dimension": "property", "fact": "A coma is prolonged unconsciousness, not the act during the dive.", "conditions": []}
+{"fact_id": "fact_000972", "concept": "park", "dimension": "property", "fact": "A park is a place, not what a subtraction story illustrates.", "conditions": []}
+{"fact_id": "fact_000973", "concept": "small", "dimension": "property", "fact": "Small describes size, not the frightful quality achieved.", "conditions": []}
+{"fact_id": "fact_000974", "concept": "wildlife refuge", "dimension": "typical_location", "fact": "A wildlife refuge is a protected area where a bald eagle is safe.", "conditions": []}
+{"fact_id": "fact_000975", "concept": "creek", "dimension": "typical_location", "fact": "A creek is a watery spot, less likely for a surprising lizard than a garden.", "conditions": []}
+{"fact_id": "fact_000976", "concept": "cabinet", "dimension": "property", "fact": "A cabinet is furniture for storage and needs no cable signal.", "conditions": []}
+{"fact_id": "fact_000977", "concept": "office", "dimension": "property", "fact": "An office is for work, not for crowds hearing a religious speech.", "conditions": []}
+{"fact_id": "fact_000978", "concept": "watch soap operas", "dimension": "property", "fact": "Watching soap operas is entertainment, not hearing spiritual testimony.", "conditions": []}
+{"fact_id": "fact_000979", "concept": "chapped lips", "dimension": "effect", "fact": "Cold windy skiing can leave a person with chapped lips.", "conditions": []}
+{"fact_id": "fact_000980", "concept": "kill boredom", "dimension": "motivation", "fact": "People chat with friends partly to kill boredom.", "conditions": []}
+{"fact_id": "fact_000981", "concept": "full stomach", "dimension": "effect", "fact": "Eating an entire tasting menu leaves one with a full stomach.", "conditions": []}
+{"fact_id": "fact_000982", "concept": "garbage can", "dimension": "property", "fact": "A garbage can is for waste, not a destination a traveler heads to with luggage.", "conditions": []}
+{"fact_id": "fact_000983", "concept": "jewelry store", "dimension": "typical_location", "fact": "A jewelry store sells jewelry and does not check passengers' baggage.", "conditions": []}
+{"fact_id": "fact_000984", "concept": "sorrow", "dimension": "property", "fact": "Sorrow is sadness, opposite of how getting paid feels.", "conditions": []}
+{"fact_id": "fact_000985", "concept": "feel clammy", "dimension": "property", "fact": "Feeling clammy is moisture, not the pressure of a pinch.", "conditions": []}
+{"fact_id": "fact_000986", "concept": "doctor's office", "dimension": "typical_location", "fact": "A doctor's office is a place for care, not a type of person.", "conditions": []}
+{"fact_id": "fact_000987", "concept": "small apartment", "dimension": "typical_location", "fact": "A small dog can feel a small apartment is its whole indoor world.", "conditions": []}
+{"fact_id": "fact_000988", "concept": "available", "dimension": "property", "fact": "Available means open, but he already had the job.", "conditions": []}
+{"fact_id": "fact_000989", "concept": "the forrest", "dimension": "typical_location", "fact": "A fox lives in the forest, where it can be caught.", "conditions": []}
+{"fact_id": "fact_000990", "concept": "metro station", "dimension": "property", "fact": "A metro station sells transit fares, not amusement game tickets.", "conditions": []}
+{"fact_id": "fact_000991", "concept": "getting tired", "dimension": "effect", "fact": "Playing soccer for a long time leads to getting tired.", "conditions": []}
+{"fact_id": "fact_000992", "concept": "petrify", "dimension": "property", "fact": "To petrify is to turn to stone over ages, not to attach something.", "conditions": []}
+{"fact_id": "fact_000993", "concept": "bleeding", "dimension": "property", "fact": "Bleeding is a physical effect on the victim, not something the family did to Joe.", "conditions": []}
+{"fact_id": "fact_000994", "concept": "street", "dimension": "cause", "fact": "A street's paved surface heats up in sunshine and can burn bare feet.", "conditions": []}
+{"fact_id": "fact_000995", "concept": "advisory", "dimension": "property", "fact": "An advisory is a non-binding suggestion, not the announcement of a mandatory evacuation.", "conditions": []}
+{"fact_id": "fact_000996", "concept": "dance hall", "dimension": "typical_location", "fact": "A dance hall usually has a fiddle playing for the dancers.", "conditions": []}
+{"fact_id": "fact_000997", "concept": "england", "dimension": "property", "fact": "England is a country with foxes, broader than the catching spot.", "conditions": []}
+{"fact_id": "fact_000998", "concept": "radio shack", "dimension": "property", "fact": "Radio Shack is a store, not a piece of home entertainment equipment.", "conditions": []}
+{"fact_id": "fact_000999", "concept": "electrical circuit", "dimension": "property", "fact": "An electrical circuit carries current, not shareable computer files.", "conditions": []}
+{"fact_id": "fact_001000", "concept": "surface of earth", "dimension": "property", "fact": "The surface of the earth is general ground, not a height above the river.", "conditions": []}

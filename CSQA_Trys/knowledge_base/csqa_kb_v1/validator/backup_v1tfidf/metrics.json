@@ -1,0 +1,34 @@
+{
+  "random_seed": 42,
+  "question_count": 100,
+  "direct_rows": 500,
+  "direct_positive": 93,
+  "option_rows": 2500,
+  "option_positive": 89,
+  "test_question_count": 20,
+  "direct_feature_names": [
+    "tfidf_q_fact",
+    "tfidf_qopt_max",
+    "tfidf_qopt_mean",
+    "dim_type_match",
+    "is_weak_dimension",
+    "concept_opt_max",
+    "jaccard_q_fact",
+    "option_sim_spread"
+  ],
+  "option_feature_names": [
+    "tfidf_qopt_fact",
+    "jaccard_opt_fact",
+    "concept_opt_match",
+    "specificity",
+    "dim_type_match",
+    "is_weak_dimension",
+    "tfidf_q_fact",
+    "option_sim_spread"
+  ],
+  "direct_agreement": 0.79,
+  "option_agreement": 0.8667,
+  "teacher_student_agreement": 0.79,
+  "direct_eval_count": 100,
+  "option_eval_count": 15
+}

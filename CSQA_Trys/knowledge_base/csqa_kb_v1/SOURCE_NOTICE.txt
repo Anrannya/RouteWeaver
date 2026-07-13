@@ -1,0 +1,6 @@
+CSQA KB stage 1-3 source notice
+
+The concept coverage is induced from the uploaded CSQA training split.
+Lexical definitions and semantic relations were adapted from Princeton WordNet 3.1 data files.
+WordNet data source used for this build: open-language/en-wordnet, database/3.1.
+The runtime KB intentionally omits source and validation metadata; those are stored in csqa_kb_audit.jsonl.

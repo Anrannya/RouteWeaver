@@ -1,0 +1,30 @@
+{
+  "README.md": {
+    "size_bytes": 2305,
+    "sha256": "f44a72a1ea15dacbe87d2589ed589577435eef75f2c4aa3491e1709b0350edec"
+  },
+  "SOURCE_NOTICE.txt": {
+    "size_bytes": 388,
+    "sha256": "60da6b6bc51a91ec1d5bbfa95ed1e8c25c06eab3455567ca38b6c9eb03beb94d"
+  },
+  "build_csqa_kb_stage1_3.py": {
+    "size_bytes": 59457,
+    "sha256": "c5de34ec6724c7d2d1f28d86c258b8072d861ebb4296942f60467093a7610f23"
+  },
+  "csqa_commonsense_kb.jsonl": {
+    "size_bytes": 3293447,
+    "sha256": "0f3704fe4aad3499cb569a218b81c3943b0a2a7aa2678f53f43df8aa76f8636a"
+  },
+  "csqa_concept_inventory.json": {
+    "size_bytes": 2828820,
+    "sha256": "ac0d6445aec99cf869f772555734b172f97ed0f779c89ec0c1d8ae6f31714e4c"
+  },
+  "csqa_kb_audit.jsonl": {
+    "size_bytes": 6041368,
+    "sha256": "aaa05738d65c3c593fe478dce6ab2bb16d6a4da8a289d519a5656d64dff414a9"
+  },
+  "csqa_kb_summary.json": {
+    "size_bytes": 2135,
+    "sha256": "b95778c488afc3ccad53bd61aea8fed788468cdc4f1fe10143fc37eb7a6e3943"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "input_file": "train_rand_split.jsonl",
+  "question_count": 9741,
+  "required_fact_count": {
+    "minimum": 19482,
+    "maximum": 29223
+  },
+  "target_fact_count": 19677,
+  "final_fact_count": 19677,
+  "facts_per_question": 2.020018,
+  "normalized_concept_count": 13270,
+  "concepts_with_wordnet_senses": 6744,
+  "retained_sense_count": 8547,
+  "candidate_fact_count_before_cleaning": 22254,
+  "clean_fact_count_before_quantity_cap": 22053,
+  "rejection_counts": {
+    "too_short_or_generic": 123,
+    "exact_duplicate": 40,
+    "circular_synonym": 24,
+    "invalid_synonym": 7,
+    "too_long": 4,
+    "article_number_error": 3
+  },
+  "source_distribution": {
+    "wordnet_definition": 7450,
+    "wordnet_hypernym": 5315,
+    "wordnet_synonym_1": 4817,
+    "wordnet_antonym": 1013,
+    "wordnet_gloss_relation": 609,
+    "wordnet_synonym_2": 272,
+    "wordnet_secondary_hypernym": 107,
+    "compound_head_category": 94
+  },
+  "dimension_distribution": {
+    "category": 10732,
+    "lexical_equivalence": 5089,
+    "property": 2019,
+    "capability": 956,
+    "primary_function": 405,
+    "part_whole": 164,
+    "typical_content": 156,
+    "typical_location": 86,
+    "effect": 70
+  },
+  "csqa_relation_pattern_distribution": {},
+  "runtime_schema": [
+    "fact_id",
+    "concept",
+    "dimension",
+    "fact",
+    "conditions"
+  ],
+  "stage_scope": {
+    "stage_1": "Use all CSQA training questions, choices, and question concepts to establish concept coverage and context-aware senses.",
+    "stage_2": "Generate decontextualized lexical and commonsense facts from selected dictionary senses; do not convert CSQA answer labels into facts.",
+    "stage_3": "Remove malformed, generic, context-dependent, answer-mapping, and duplicate records; keep runtime fields minimal."
+  },
+  "important_limitations": [
+    "This is a deterministic stage-1-to-3 knowledge base, not a guarantee that every fact will improve an LLM answer.",
+    "Whether a fact distinguishes the current five choices must be evaluated by the later runtime validator.",
+    "Whether and where to inject a valid fact belongs to the later GRPO routing stage."
+  ]
+}
