@@ -8,6 +8,19 @@ import sys
 import openai
 from openai import OpenAI
 
+# 各模型 API 单价, 单位: 美元 / 1M tokens。
+# DeepSeek 为官方永久价(2026-05 起): 输入区分缓存命中(prompt_cache_hit)与未命中(prompt)。
+# GPT 系列沿用原有计费方式(无缓存分层)。本地模型(llama 等)不在表中, 计费为 0。
+MODEL_PRICES_PER_1M = {
+    "gpt-4-turbo": {"prompt": 10, "completion": 30},
+    "gpt-4o-mini": {"prompt": 0.15, "completion": 0.6},
+    "gpt-3.5-turbo": {"prompt": 0.5, "completion": 1.5},
+    "gpt-4": {"prompt": 30, "completion": 60},
+    "gpt-4o": {"prompt": 2.5, "completion": 10},
+    "deepseek-v4-pro": {"prompt": 0.435, "prompt_cache_hit": 0.003625, "completion": 0.87},
+    "deepseek-v4-flash": {"prompt": 0.14, "prompt_cache_hit": 0.0028, "completion": 0.28},
+}
+
 
 def askChatGPT(messages, model="deepseek-v4-pro", temperature = 1, max_tokens=10000):
     response = openai.ChatCompletion.create(
@@ -42,8 +55,7 @@ def askLLM(clients, messages, tokens_path, model="deepseek-v4-pro", temperature 
                      }
                 },
             )
-        model ='gpt-4o'
-        update_token_usage(model, response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
+        record_usage(model, response.usage, tokens_path)
         answer = response.choices[0].message.content
         
     elif model in ['llama3-70b', 'llama3-8b', 'llama3:8b']:
@@ -81,11 +93,7 @@ def askLLM_withprob(clients, messages, tokens_path, model="deepseek-v4-pro", tem
                 },
                 logprobs = True,
             )
-        # print(response.usage
-        # add token 需要更加细致.
-        # addtoken(response.usage.total_tokens)
-        model = model
-        update_token_usage(model, response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
+        record_usage(model, response.usage, tokens_path)
         answer = response.choices[0].message.content
         for item in response.choices[0].logprobs.content:
             # 在这一步就把logprob用e指数返回成prob
@@ -100,8 +108,7 @@ def askLLM_withprob(clients, messages, tokens_path, model="deepseek-v4-pro", tem
                 max_tokens = max_tokens,
                 logprobs = True,
             )
-        # addtoken(response.usage.total_tokens)
-        update_token_usage("deepseek-v4-pro", response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
+        record_usage("deepseek-v4-pro", response.usage, tokens_path)
         answer = response.choices[0].message.content
         for item in response.choices[0].logprobs.content:
             probs[item.token] = math.exp(item.logprob)
@@ -114,27 +121,37 @@ def askLLM_withprob(clients, messages, tokens_path, model="deepseek-v4-pro", tem
 
 
 
-def update_token_usage(model_name, prompt_tokens, completion_tokens, file_path='token_usage.json'):
-    # 读取现有数据
+def update_token_usage(model_name, prompt_tokens, completion_tokens,
+                       file_path='token_usage.json', prompt_cache_hit_tokens=0):
+    """按模型累计 token 用量。prompt_cache_hit_tokens 是 prompt_tokens 中命中缓存的部分(DeepSeek 计费更低)。"""
     with open(file_path, 'r') as f:
         data = json.load(f)
-    
-    # 如果模型不存在，则初始化模型的数据结构
-    if model_name not in data:
-        data[model_name] = {
-            'prompt_tokens': 0,
-            'completion_tokens': 0,
-            'total_tokens': 0
-        }
-    
-    # 更新模型的token数量
-    data[model_name]['prompt_tokens'] += prompt_tokens
-    data[model_name]['completion_tokens'] += completion_tokens
-    data[model_name]['total_tokens'] += (prompt_tokens + completion_tokens)
-    
-    # 将更新后的数据写回文件
+
+    entry = data.setdefault(model_name, {
+        'prompt_tokens': 0,
+        'prompt_cache_hit_tokens': 0,
+        'completion_tokens': 0,
+        'total_tokens': 0
+    })
+
+    entry['prompt_tokens'] += prompt_tokens
+    entry['prompt_cache_hit_tokens'] = entry.get('prompt_cache_hit_tokens', 0) + prompt_cache_hit_tokens
+    entry['completion_tokens'] += completion_tokens
+    entry['total_tokens'] += (prompt_tokens + completion_tokens)
+
     with open(file_path, 'w') as f:
         json.dump(data, f, indent=4)
+
+
+def record_usage(model_name, usage, tokens_path):
+    """从 API response.usage 中读取真实 token 数并按真实模型名记账。
+
+    DeepSeek 的 usage 额外返回 prompt_cache_hit_tokens(缓存命中输入), 记录下来供
+    CountCost 按官方 缓存命中/未命中 两档价格计算真实开销; 其他模型该字段为 0。
+    """
+    cache_hit = getattr(usage, 'prompt_cache_hit_tokens', 0) or 0
+    update_token_usage(model_name, usage.prompt_tokens, usage.completion_tokens,
+                       file_path=tokens_path, prompt_cache_hit_tokens=cache_hit)
 
  
 def addtoken(num):
@@ -154,10 +171,46 @@ def addtoken(num):
         pass
 
     
+def _load_dotenv(path):
+    """从 KEY=VALUE 文件加载环境变量（不覆盖已存在的 env）。"""
+    if not path or not os.path.isfile(path):
+        return
+    try:
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, val = line.split("=", 1)
+                key, val = key.strip(), val.strip().strip('"').strip("'")
+                if key and key not in os.environ:
+                    os.environ[key] = val
+    except OSError:
+        pass
+
+
+def _resolve_deepseek_api_key():
+    """优先读已 export 的环境变量；否则尝试项目内 .env（不覆盖已有 env）。"""
+    key = (os.environ.get("DEEPSEEK_API_KEY") or os.environ.get("OPENAI_API_KEY") or "").strip()
+    if key:
+        return key
+    here = os.path.dirname(os.path.abspath(__file__))
+    for rel in (".env", "../.env", "MATH_Trys/.env", "CSQA_Trys/.env"):
+        _load_dotenv(os.path.normpath(os.path.join(here, rel)))
+    return (os.environ.get("DEEPSEEK_API_KEY") or os.environ.get("OPENAI_API_KEY") or "").strip()
+
+
 def setOpenAi(keyid = 0):
     # set your deepseek key here.
     base_url = "https://api.deepseek.com"
-    api_key = os.environ.get("DEEPSEEK_API_KEY") or os.environ.get("OPENAI_API_KEY")
+    api_key = _resolve_deepseek_api_key()
+    if not api_key:
+        raise RuntimeError(
+            "未找到 DeepSeek API Key。请在运行前执行：\n"
+            "  export DEEPSEEK_API_KEY='sk-...'\n"
+            "或在 DoT/DoT/.env 中写入：DEEPSEEK_API_KEY=sk-...\n"
+            "（也支持 OPENAI_API_KEY；当前 shell 中两者均未设置）"
+        )
     client = OpenAI(base_url=base_url, api_key=api_key)
     addtoken(-1)
     return client
@@ -214,25 +267,28 @@ def setup_logger(tailName=""):
     return logger, "test_"+tailName+".log"
 
 def CountCost(token_usage):
-    cost_per_1000_tokens = {
-        "gpt-4-turbo": {"prompt": 10, "completion": 30},
-        "gpt-4o-mini": {"prompt": 0.15, "completion": 0.6},
-        "gpt-3.5-turbo": {"prompt": 0.5, "completion": 1.5},
-        "gpt-4": {"prompt": 30, "completion": 60},
-        "gpt-4o": {"prompt": 2.5, "completion": 10}
-    }
+    """根据累计 token 用量计算 (总token数, 总成本/美元)。
 
-    # 计算总token和总成本
+    价格表见 MODEL_PRICES_PER_1M。对带缓存分层的模型(DeepSeek), 输入按
+    缓存命中/未命中 两档分别计价; 无价格记录的模型(如本地 llama)按 0 计费。
+    """
     total_tokens = 0
-    total_cost = 0
+    total_cost = 0.0
 
     for model, tokens in token_usage.items():
         prompt_tokens = tokens['prompt_tokens']
         completion_tokens = tokens['completion_tokens']
+        cache_hit_tokens = min(tokens.get('prompt_cache_hit_tokens', 0), prompt_tokens)
         total_tokens += prompt_tokens + completion_tokens
-        total_cost += (prompt_tokens / 1000000) * cost_per_1000_tokens[model]["prompt"]
-        total_cost += (completion_tokens / 1000000) * cost_per_1000_tokens[model]["completion"]
-    
+
+        price = MODEL_PRICES_PER_1M.get(model)
+        if price is None:
+            continue  # 本地/未知模型不计费
+        hit_price = price.get('prompt_cache_hit', price['prompt'])
+        total_cost += (cache_hit_tokens / 1e6) * hit_price
+        total_cost += ((prompt_tokens - cache_hit_tokens) / 1e6) * price['prompt']
+        total_cost += (completion_tokens / 1e6) * price['completion']
+
     return total_tokens, total_cost
 
 

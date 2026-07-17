@@ -28,6 +28,7 @@ from tqdm import tqdm
 
 sys.path.append('../')
 import logging
+from protocol import canonical_depths, model_for_step
 from puzzle_utils import *
 from utils import *
 
@@ -72,17 +73,16 @@ def run_llm(question_id, question, record, config, tokens_path):
         record['steps'], record['steps_dict'], record['allo_model'],
         record['depths'], record['int_edges'],
     )
-    depths = {int(k): v for k, v in depths.items()}
-    MAXHeight = max(depths.keys())
+    depths = canonical_depths(record)
     answerDict = {}
     Q = None
     result = ''
 
-    for i in range(MAXHeight):
-        for subtaskid in depths[i]:
+    for i in sorted(depths):
+        for subtaskid in sorted(depths[i]):
             number = int(re.findall(r'\d+', subtaskid)[0])
             subtask = steps_dict[str(number)]
-            answer_MODEL = allo_model[number - 1]
+            answer_MODEL = model_for_step(record, number)
 
             sys_q = f"""You will be provided with a Programming Puzzle. Your task is to find an input that will make the program return True.
 Here is the puzzle:\n{question}
@@ -129,16 +129,28 @@ def run_mode(use_tool, middleRes, config, tokens_path, logger):
         logger.info('puzzle content:')
         logger.info(question)
 
+        # 阶段 A｜DoT 求解流程：只有这里抛异常才算 Error_Q（DoT 卡在回答过程中、没跑完整个流程）
         try:
             record = middleRes[str(question_id)]
             tool_result = solve_by_tool(record) if use_tool else None
-
             if tool_result is not None:
-                converted_result = ast.literal_eval(tool_result)
                 logger.info('Tool->%s', tool_result)
+                final_output = tool_result
             else:
-                finalResult = run_llm(question_id, question, record, config, tokens_path)
-                converted_result = convert_to_type(puzzles[question_id]['ans_type'], finalResult)
+                final_output = run_llm(question_id, question, record, config, tokens_path)
+        except Exception as e:
+            error_Q += 1
+            logger.info('Runtime error: %s', e)
+            print(f"error; taskid: {question_id}")
+            q_times.append(time.time() - t0)
+            continue
+
+        # 阶段 B/C｜答案转换 + 裁判判定：DoT 已产出最终答案，这里任何异常都算 DoT 没答对 -> False_Q，直接进入下一题
+        try:
+            if use_tool and tool_result is not None:
+                converted_result = ast.literal_eval(final_output)
+            else:
+                converted_result = convert_to_type(puzzles[question_id]['ans_type'], final_output)
 
             exec(question, globals())   # 注入到模块全局，使下方裸调用 sat(...) 可解析（函数内 exec 不进局部作用域）
             if sat(converted_result) is True:
@@ -148,9 +160,10 @@ def run_mode(use_tool, middleRes, config, tokens_path, logger):
                 false_Q += 1
                 logger.info('False->Fail')
         except Exception as e:
-            error_Q += 1
-            logger.info('Runtime error: %s', e)
-            print(f"error; taskid: {question_id}")
+            false_Q += 1
+            logger.info('False->Fail (answer/judge error: %s)', e)
+            q_times.append(time.time() - t0)
+            continue
 
         q_times.append(time.time() - t0)
 

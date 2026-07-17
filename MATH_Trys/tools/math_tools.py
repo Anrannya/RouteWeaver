@@ -175,7 +175,7 @@ def _apply_select(sols, select):
 
 
 _ROOT_TARGETS = (
-    "sum", "product", "sum_of_squares", "sum_of_reciprocals",
+    "sum", "product", "sum_of_squares", "product_of_squares", "sum_of_reciprocals",
     "absolute_difference", "positive_difference", "minimum", "maximum", "count",
 )
 
@@ -194,6 +194,11 @@ def _apply_root_target(sols, root_target):
         return _fmt_num(sp.simplify(p)), True, ""
     if root_target == "sum_of_squares":
         return _fmt_num(sp.simplify(sum((s ** 2 for s in sols), sp.Integer(0)))), True, ""
+    if root_target == "product_of_squares":
+        p = sp.Integer(1)
+        for s in sols:
+            p *= s ** 2
+        return _fmt_num(sp.simplify(p)), True, ""
     if root_target == "sum_of_reciprocals":
         if any(s == 0 for s in sols):
             return None, False, "根中含 0，倒数和无定义"
@@ -615,6 +620,7 @@ def tool_inequality_solver(args):
         target = args.get("target")
 
         sol = sp.S.Reals
+        rels = []
         for c in constraints:
             cs = _prep_inequality(str(c))
             rel = parse_expr(cs, transformations=_TRANSF, local_dict={var_name: x})
@@ -622,6 +628,7 @@ def tool_inequality_solver(args):
                                     sp.StrictGreaterThan, sp.GreaterThan,
                                     sp.Eq, sp.Rel)):
                 return _fail(f"非不等式约束: {c}")
+            rels.append(rel)
             sset = sp.solveset(rel, x, domain=sp.S.Reals)
             sol = sp.Intersection(sol, sset)
         sol = sp.simplify(sol) if not isinstance(sol, sp.Set) else sol
@@ -663,6 +670,12 @@ def tool_inequality_solver(args):
             int_vals = _integers_in(intervals)
             if int_vals is None:
                 return _fail("无界整数集合，无法聚合")
+            if len(int_vals) > 10000:
+                return _fail("整数解过多，拒绝聚合")
+            # 逐点回代验证：每个枚举出的整数都必须满足全部原始约束
+            for v in int_vals:
+                if not all(bool(r.subs(x, sp.Integer(v))) for r in rels):
+                    return _fail(f"整数解 {v} 回代验证失败")
             if target == "integer_values":
                 v = str(int_vals)
             elif target == "count":
@@ -743,8 +756,17 @@ def tool_sequence_tool(args):
                 return _fail("等比数列缺少 ratio")
             r = sp.nsimplify(_expr(str(r_in)))
             term = lambda n: a1 * r ** (n - 1)
-            psum = (lambda n: a1 * n if r == 1
-                    else lambda n: a1 * (r ** n - 1) / (r - 1))
+            psum = lambda n: a1 * n if r == 1 else a1 * (r ** n - 1) / (r - 1)
+
+        # 一致性验证：若给出题面项列表，公式必须复现全部给定项，否则拒绝
+        given = args.get("given_terms") or []
+        for i, g in enumerate(given, start=1):
+            try:
+                gv = sp.nsimplify(_expr(str(g)))
+            except Exception:
+                return _fail(f"given_terms[{i}] 无法解析: {g}")
+            if sp.simplify(term(i) - gv) != 0:
+                return _fail(f"第 {i} 项验证失败: 公式={term(i)}, 给定={gv}")
 
         def _need_n():
             n = args.get("n")

@@ -475,6 +475,8 @@ def check_replace_target_match(subtask, tool_name, tool_args, tool_res):
             return bool(tool_res.get("verified") and tool_res.get("target_value") is not None)
         if tool_args.get("target_expression") or tool_args.get("common_root") \
                 or tool_args.get("select"):
+            if tool_args.get("select") and is_referential_selection_subtask(subtask):
+                return False
             return bool(tool_res.get("verified") and tool_res.get("value") is not None)
         if is_root_derived_target(subtask) or asks_for_root_set(subtask):
             return False
@@ -681,6 +683,17 @@ def detect_select(subtask):
     if re.search(r"\b(largest|greatest|maximum|highest)\b", low):
         return "maximum"
     return None
+
+
+def is_referential_selection_subtask(subtask):
+    """依赖前文候选集的选择题，不能直接用独立 solve(select) 替代。"""
+    low = (subtask or "").lower()
+    if not detect_select(subtask):
+        return False
+    return bool(re.search(
+        r"\bwhich of these\b|\bthese\s+(solutions|roots|values)\b|\bof these\s+(solutions|roots|values)\b",
+        low,
+    ))
 
 
 def _math_segments(text):
@@ -895,6 +908,8 @@ def extract_vieta_target(problem_text):
 def detect_root_target(subtask):
     """识别根派生目标语义，返回 root_target 名或 None。"""
     low = (subtask or "").lower()
+    if "squares of" in low and "product" in low:
+        return "product_of_squares"
     if "squared value" in low or "squares of" in low or "square of the root" in low \
             or "sum of the squares" in low:
         return "sum_of_squares"
@@ -1249,6 +1264,8 @@ def validate_target_match(subtask, tool_name, tool_args, mode):
         return False, "求根派生目标，solve 无法直接回答"
     if tool_name == "solve":
         if _structured_solve:
+            if tool_args.get("select") and is_referential_selection_subtask(subtask):
+                return False, "指代型选择子任务缺少显式候选集"
             return True, "ok"
         if is_expression_target(subtask):
             return False, "子任务求表达式，禁止 solve"

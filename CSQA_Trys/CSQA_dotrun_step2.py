@@ -15,6 +15,7 @@ import openai
 from tqdm import tqdm
 sys.path.append('../')
 from CSQA_Trys.CSQA_utils import *
+from CSQA_Trys.protocol import canonical_depths, model_for_step
 from utils import *
 # client定义需要满足如下调用方式: client.chat.completions.create(model,messages = messages), 详见askLLM函数
 openaiClient = setOpenAi(keyid = 0)
@@ -78,20 +79,18 @@ if __name__ == '__main__':
         while attempts < ERROR_ATTEMPTS and not success:  # 如果遇到格式错误
             try:
                 steps, steps_dict, allo_model, depths, int_edges = middleRes[str(question_id)]['steps'], middleRes[str(question_id)]['steps_dict'], middleRes[str(question_id)]['allo_model'], middleRes[str(question_id)]['depths'], middleRes[str(question_id)]['int_edges']
-                depths = {int(k): v for k, v in depths.items()}
+                depths = canonical_depths(middleRes[str(question_id)])
                 
                 success = True  # 任务未受中断,完整地结束了,所以标记为成功
-                heights = list(depths.keys())
-                MAXHeight = max(heights)
                 answerDict = {}  # 只有已经做过回答的subtask才会被放到这里面来
                 progress_bar = tqdm(total=len(steps))
-                for i in range(MAXHeight):
+                for i in sorted(depths):
                     subtasks = depths[i]
-                    for subtaskid in subtasks:                
+                    for subtaskid in sorted(subtasks):
                         number = re.findall(r'\d+', subtaskid)
                         number = int(number[0]) if number else None
                         subtask = steps_dict[str(number)]
-                        answer_MODEL = allo_model[number]
+                        answer_MODEL = model_for_step(middleRes[str(question_id)], number)
                         
                         # 交待解决任务
                         sys_q = f"""There is a single-choice question involving common sense reasoning. I need you to solve it and give the right answer.

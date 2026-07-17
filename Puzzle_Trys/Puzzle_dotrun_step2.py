@@ -16,6 +16,7 @@ from tqdm import tqdm
 sys.path.append('../')
 import logging
 from puzzle_utils import *
+from protocol import canonical_depths, model_for_step
 from utils import *
 
 # client定义需要满足如下调用方式: client.chat.completions.create(model,messages = messages), 详见askLLM函数
@@ -73,20 +74,19 @@ if __name__ == '__main__':
 
         # --- 当前逻辑：每题只完整跑 1 次；sat==False 立即记 False_Q 并进入下一题 ---
         try:
-            steps, steps_dict, allo_model, depths, int_edges = middleRes[str(question_id)]['steps'], middleRes[str(question_id)]['steps_dict'], middleRes[str(question_id)]['allo_model'], middleRes[str(question_id)]['depths'], middleRes[str(question_id)]['int_edges']
-            depths = {int(k): v for k, v in depths.items()}
-            heights = list(depths.keys())
-            MAXHeight = max(heights)
+            record = middleRes[str(question_id)]
+            steps, steps_dict, allo_model, depths, int_edges = record['steps'], record['steps_dict'], record['allo_model'], record['depths'], record['int_edges']
+            depths = canonical_depths(record)
             answerDict = {}  # 只有已经做过回答的subtask才会被放到这里面来
 
-            for i in range(MAXHeight):
+            for i in sorted(depths):
                 subtasks = depths[i]
-                for subtaskid in subtasks:
+                for subtaskid in sorted(subtasks):
 
                     number = re.findall(r'\d+', subtaskid)
                     number = int(number[0]) if number else None
                     subtask = steps_dict[str(number)]
-                    answer_MODEL = allo_model[number-1]
+                    answer_MODEL = model_for_step(record, number)
 
                     # question 问题字符串
                     # 交待解决任务

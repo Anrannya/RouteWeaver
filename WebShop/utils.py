@@ -8,6 +8,18 @@ import sys
 import openai
 from openai import OpenAI
 
+# 各模型 API 单价, 单位: 美元 / 1M tokens。与主仓 utils.py 保持一致。
+# DeepSeek 为官方永久价(2026-05 起): 输入区分缓存命中(prompt_cache_hit)与未命中(prompt)。
+MODEL_PRICES_PER_1M = {
+    "gpt-4-turbo": {"prompt": 10, "completion": 30},
+    "gpt-4o-mini": {"prompt": 0.15, "completion": 0.6},
+    "gpt-3.5-turbo": {"prompt": 0.5, "completion": 1.5},
+    "gpt-4": {"prompt": 30, "completion": 60},
+    "gpt-4o": {"prompt": 2.5, "completion": 10},
+    "deepseek-v4-pro": {"prompt": 0.435, "prompt_cache_hit": 0.003625, "completion": 0.87},
+    "deepseek-v4-flash": {"prompt": 0.14, "prompt_cache_hit": 0.0028, "completion": 0.28},
+}
+
 
 
 def askChatGPT(messages, model="gpt-3.5-turbo", temperature = 1, max_tokens=200):
@@ -25,7 +37,7 @@ def askChatGPT(messages, model="gpt-3.5-turbo", temperature = 1, max_tokens=200)
 def askLLM(clients, messages, tokens_path, model="gpt-3.5-turbo", temperature = 1, max_tokens=2000,stop=['\n']):
     # 需要包括GPT系列以及LLaMA系列的模型调用,调用接口略有区别
     
-    if model in ['gpt-4', 'gpt-4o', 'gpt-3.5-turbo', 'gpt-4o-mini']: # GPT系列模型调用           
+    if model in ['gpt-4', 'gpt-4o', 'gpt-3.5-turbo', 'gpt-4o-mini', 'deepseek-v4-pro']: # GPT系列模型调用           
         client = clients['gpt']  # gpt系列共用一个client
         response = client.chat.completions.create(
                 model = model,
@@ -59,12 +71,12 @@ Note Don't output Action in front of the action. The action should be in the for
         # print(response.usage
 
         # addtoken(response.usage.total_tokens)
-        update_token_usage(model, response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
+        record_usage(model, response.usage, tokens_path)
         # print(response.usage.prompt_tokens)
         # print(response.usage.completion_tokens)
         answer = response.choices[0].message.content
         
-    elif model in ['llama3-8b-8192']:
+    elif model in ['llama3:8b']:
         client = clients['llama']  # 这里需要改成llama系列的prompts  
         # model = 'Llama3-8B'
         response = client.chat.completions.create(
@@ -86,7 +98,7 @@ Note Don't output Action in front of the action. The action should be in the for
                 stop = stop
             )
         # addtoken(response.usage.total_tokens)
-        update_token_usage(model, response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)  # 这里就不计算llama的消费了
+        record_usage(model, response.usage, tokens_path)  # llama 无单价, CountCost 中按 0 计费
         answer = response.choices[0].message.content
     else:
         print('MODEL error')
@@ -100,7 +112,7 @@ Note Don't output Action in front of the action. The action should be in the for
 def askLLM_withprob(clients, messages, tokens_path, model="gpt-3.5-turbo", temperature = 1, max_tokens=200, stop=['\n']):
     # 需要包括GPT系列以及LLaMA系列的模型调用,调用接口略有区别
     probs = {}
-    if model in ['gpt-4', 'gpt-4o', 'gpt-3.5-turbo', 'gpt-4o-mini']: # GPT系列模型调用           
+    if model in ['gpt-4', 'gpt-4o', 'gpt-3.5-turbo', 'gpt-4o-mini', 'deepseek-v4-pro']: # GPT系列模型调用           
         client = clients['gpt']  # gpt系列共用一个client
         response = client.chat.completions.create(
                 model = model,
@@ -131,16 +143,13 @@ Note Don't output Action in front of the action. The action should be in the for
                 stop=stop,
                 logprobs = True
             )
-        # print(response.usage
-        # add token 需要更加细致.
-        # addtoken(response.usage.total_tokens)
-        update_token_usage(model, response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
+        record_usage(model, response.usage, tokens_path)
         answer = response.choices[0].message.content
         for item in response.choices[0].logprobs.content:
             # 在这一步就把logprob用e指数返回成prob
             probs[item.token] = math.exp(item.logprob)
         
-    elif model in ['llama3-8b-8192']:
+    elif model in ['llama3:8b']:
         client = clients['llama']  # 这里需要改成llama系列的prompts  # TODO 还没拿到LLaMA的key, 所以先拿gpt-3.5充当.
         # model = 'Llama3-8B'
         response = client.chat.completions.create(
@@ -168,7 +177,7 @@ Note Don't output Action in front of the action. The action should be in the for
                 logprobs = True
             )
         # addtoken(response.usage.total_tokens)
-        update_token_usage(model, response.usage.prompt_tokens, response.usage.completion_tokens, file_path=tokens_path)
+        record_usage(model, response.usage, tokens_path)
         answer = response.choices[0].message.content
         for item in response.choices[0].logprobs.content:
             probs[item.token] = math.exp(item.logprob)
@@ -181,27 +190,33 @@ Note Don't output Action in front of the action. The action should be in the for
 
 
 
-def update_token_usage(model_name, prompt_tokens, completion_tokens, file_path='token_usage.json'):
-    # 读取现有数据
+def update_token_usage(model_name, prompt_tokens, completion_tokens,
+                       file_path='token_usage.json', prompt_cache_hit_tokens=0):
+    """按模型累计 token 用量。prompt_cache_hit_tokens 是 prompt_tokens 中命中缓存的部分(DeepSeek 计费更低)。"""
     with open(file_path, 'r') as f:
         data = json.load(f)
-    
-    # 如果模型不存在，则初始化模型的数据结构
-    if model_name not in data:
-        data[model_name] = {
-            'prompt_tokens': 0,
-            'completion_tokens': 0,
-            'total_tokens': 0
-        }
-    
-    # 更新模型的token数量
-    data[model_name]['prompt_tokens'] += prompt_tokens
-    data[model_name]['completion_tokens'] += completion_tokens
-    data[model_name]['total_tokens'] += (prompt_tokens + completion_tokens)
-    
-    # 将更新后的数据写回文件
+
+    entry = data.setdefault(model_name, {
+        'prompt_tokens': 0,
+        'prompt_cache_hit_tokens': 0,
+        'completion_tokens': 0,
+        'total_tokens': 0
+    })
+
+    entry['prompt_tokens'] += prompt_tokens
+    entry['prompt_cache_hit_tokens'] = entry.get('prompt_cache_hit_tokens', 0) + prompt_cache_hit_tokens
+    entry['completion_tokens'] += completion_tokens
+    entry['total_tokens'] += (prompt_tokens + completion_tokens)
+
     with open(file_path, 'w') as f:
         json.dump(data, f, indent=4)
+
+
+def record_usage(model_name, usage, tokens_path):
+    """从 API response.usage 中读取真实 token 数并按真实模型名记账(含 DeepSeek 缓存命中数)。"""
+    cache_hit = getattr(usage, 'prompt_cache_hit_tokens', 0) or 0
+    update_token_usage(model_name, usage.prompt_tokens, usage.completion_tokens,
+                       file_path=tokens_path, prompt_cache_hit_tokens=cache_hit)
 
 
 def addtoken(num):
@@ -308,24 +323,28 @@ def setup_logger_dot(tailName=""):
     return logger, f"test_{tailName}.log"
 
 def CountCost(token_usage):
-    cost_per_1000_tokens = {
-        "gpt-4o": {"prompt": 10, "completion": 30},
-        "gpt-4o-mini": {"prompt": 0.15, "completion": 0.6},
-        "gpt-3.5-turbo": {"prompt": 0.5, "completion": 1.5},
-        "gpt-4": {"prompt": 30, "completion": 60}
-    }
+    """根据累计 token 用量计算 (总token数, 总成本/美元)。
 
-    # 计算总token和总成本
+    价格表见 MODEL_PRICES_PER_1M。对带缓存分层的模型(DeepSeek), 输入按
+    缓存命中/未命中 两档分别计价; 无价格记录的模型(如本地 llama)按 0 计费。
+    """
     total_tokens = 0
-    total_cost = 0
+    total_cost = 0.0
 
     for model, tokens in token_usage.items():
         prompt_tokens = tokens['prompt_tokens']
         completion_tokens = tokens['completion_tokens']
+        cache_hit_tokens = min(tokens.get('prompt_cache_hit_tokens', 0), prompt_tokens)
         total_tokens += prompt_tokens + completion_tokens
-        total_cost += (prompt_tokens / 1000000) * cost_per_1000_tokens[model]["prompt"]
-        total_cost += (completion_tokens / 1000000) * cost_per_1000_tokens[model]["completion"]
-    
+
+        price = MODEL_PRICES_PER_1M.get(model)
+        if price is None:
+            continue  # 本地/未知模型不计费
+        hit_price = price.get('prompt_cache_hit', price['prompt'])
+        total_cost += (cache_hit_tokens / 1e6) * hit_price
+        total_cost += ((prompt_tokens - cache_hit_tokens) / 1e6) * price['prompt']
+        total_cost += (completion_tokens / 1e6) * price['completion']
+
     return total_tokens, total_cost
 
 

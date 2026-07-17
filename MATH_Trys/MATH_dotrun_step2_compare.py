@@ -270,6 +270,19 @@ Based on the information above, please provide a concise and clear answer"""
             logger.error('Q%d execution anomaly: %s', question_id, msg)
         raise RuntimeError(msg)
 
+    # ===== 题目级 final_tool：构建期已验证的最终答案，运行期本地复验后直接替换 summarize LLM =====
+    finalResult = None
+    trace['final_tool_used'] = False
+    ft = record.get('final_tool') if use_tool else None
+    if ft and ft.get('verified'):
+        fres = run_tool(ft['tool'], ft['args'])
+        fval = (fres.get(ft.get('answer_key') or 'result')
+                or fres.get('target_value') or fres.get('value') or fres.get('result'))
+        if fres.get('success') and fres.get('verified') and str(fval) == str(ft['answer']):
+            finalResult = str(ft['answer'])
+            tool_hit += 1
+            trace['final_tool_used'] = True
+
     final_user = f"""There is a math problem and the answers to all its sub-problems. Please give the final answer to the problem.
 Problem:\n{question}
 
@@ -279,14 +292,15 @@ The answers to the sub-problems are as follows:
 Now that all the sub-problems have been solved, so what is the final answer?
 Please give the final answer without any additional explanation or clarification."""
     Q = [{'role': 'user', 'content': final_user}]
-    final_model = config['finalSummarize_MODEL']
+    final_model = config['finalSummarize_MODEL'] if finalResult is None else 'final_tool(local)'
     final_payload = {'model': final_model, 'temperature': temperature, 'user': final_user}
     trace['final_model_name'] = final_model
     trace['final_temperature'] = temperature
     trace['final_prompt_hash'] = _stable_hash(final_payload)
     trace['final_messages_hash'] = _stable_hash(Q)
-    finalResult = askLLM(clients, Q, tokens_path=tokens_path, model=final_model,
-                         temperature=temperature, max_tokens=300)
+    if finalResult is None:
+        finalResult = askLLM(clients, Q, tokens_path=tokens_path, model=config['finalSummarize_MODEL'],
+                             temperature=temperature, max_tokens=300)
 
     judge = {'role': 'user', 'content': f"""Here is a math problem with a standard answer and a student's solution. Please help me determine if the student's solution is correct.
 Problem: {question}
@@ -378,7 +392,8 @@ def _diff_summary(no_rec, yes_rec):
 
 
 def _qid_has_tool(middle, qid):
-    return any(t != 'no_tool' for t in middle[str(qid)].get('allo_tool', []))
+    rec = middle[str(qid)]
+    return bool(rec.get('final_tool')) or any(t != 'no_tool' for t in rec.get('allo_tool', []))
 
 
 def _compare_branch_hashes(no_rec, yes_rec):
@@ -489,6 +504,7 @@ def run_pair_diagnostic(qids, problems, middle_no, middle_yes, config, out_dir, 
                     rec['final_prompt_hash'] = trace.get('final_prompt_hash')
                     rec['final_messages_hash'] = trace.get('final_messages_hash')
                     rec['tool_hit'] = hit
+                    rec['final_tool_used'] = trace.get('final_tool_used', False)
                     rec['judge_correct_bool'] = ok
                 except RuntimeError as e:
                     rec['error'] = str(e)
@@ -503,6 +519,8 @@ def run_pair_diagnostic(qids, problems, middle_no, middle_yes, config, out_dir, 
                 total_time[branch] += rec['elapsed_time']
                 branch_results[branch][(round_num, qid)] = rec
                 if use_tool:
+                    if rec.get('final_tool_used'):
+                        stats['final_tool'] += 1
                     for st in rec.get('subtasks', []):
                         if st.get('tool_name') != 'no_tool':
                             stats['tool_calls'] += 1
@@ -559,7 +577,8 @@ def run_pair_diagnostic(qids, problems, middle_no, middle_yes, config, out_dir, 
                 'no_tool_correct': no_ok,
                 'with_tool_correct': yes_ok,
                 'transition': trans,
-                'tools_used': [s['tool_name'] for s in yes_rec.get('subtasks', []) if s.get('tool_name') != 'no_tool'],
+                'tools_used': ([s['tool_name'] for s in yes_rec.get('subtasks', []) if s.get('tool_name') != 'no_tool']
+                               + (['final_tool'] if yes_rec.get('final_tool_used') else [])),
                 'tool_outputs': tool_outputs,
                 'no_tool_final': nf,
                 'with_tool_final': yf,
@@ -600,6 +619,7 @@ def run_pair_diagnostic(qids, problems, middle_no, middle_yes, config, out_dir, 
         'tool_calls': stats['tool_calls'],
         'replace': stats['replace'],
         'assist': stats['assist'],
+        'final_tool': stats['final_tool'],
         'tool_success': stats['tool_success'],
         'tool_fail': stats['tool_fail'],
         'fallback': stats['fallback'],
@@ -687,7 +707,7 @@ if __name__ == '__main__':
         for k in (
             'question_total', 'no_tool_correct', 'with_tool_correct',
             'wrong_to_right', 'right_to_wrong', 'right_to_right', 'wrong_to_wrong', 'net_gain',
-            'tool_calls', 'replace', 'assist', 'tool_success', 'tool_fail', 'fallback',
+            'tool_calls', 'replace', 'assist', 'final_tool', 'tool_success', 'tool_fail', 'fallback',
             'validation_reject', 'DAG_missing', 'same_final_count', 'same_final_different_judge_count',
             'judge_reuse_count', 'same_prompt_hash_count', 'different_prompt_hash_count',
             'same_messages_hash_count', 'different_messages_hash_count',
@@ -697,8 +717,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     N = args.n
-    covered = [qid for qid in range(N)
-               if any(t != 'no_tool' for t in middle_with_tool[str(qid)].get('allo_tool', []))]
+    covered = [qid for qid in range(N) if _qid_has_tool(middle_with_tool, qid)]
 
     # 跨轮累计每题答对次数
     cnt_no = {qid: 0 for qid in range(N)}

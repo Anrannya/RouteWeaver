@@ -1,7 +1,7 @@
 import os
-import sys 
+import sys
 import time
-from groq import Groq
+import argparse
 from openai import OpenAI
 from utils import *
 from tqdm import tqdm
@@ -9,15 +9,22 @@ import json
 from datetime import datetime
 import logging
 
-## openai client
-openaiClient = setOpenAi(keyid=0)
-
-## llama client
-llamaClient = OpenAI(
-    api_key="EMPTY", # Add your API key here
-    base_url="",    # Add your base URL here
+## clients: deepseek-v4-pro (cloud) + llama3:8b (local ollama)，与 webshop_cot/tot/dot 一致
+deepseekClient = OpenAI(
+    api_key=os.environ.get("DEEPSEEK_API_KEY"),
+    base_url="https://api.deepseek.com",
 )
-clients = {'gpt': openaiClient, 'llama': llamaClient}
+llamaClient = OpenAI(api_key="ollama", base_url="http://127.0.0.1:11434/v1")
+clients = {'gpt': deepseekClient, 'llama': llamaClient}
+
+CLOUD_MODEL = 'deepseek-v4-pro'
+LOCAL_MODEL = 'llama3:8b'
+
+_parser = argparse.ArgumentParser(description='WebShop DataShunt baseline (hard→deepseek, easy→llama3:8b)')
+_parser.add_argument('--n', type=int, default=100, help='number of WebShop episodes (default: 100)')
+_args = _parser.parse_known_args()[0]
+if _args.n < 1:
+    _parser.error('--n must be positive')
 
 now = datetime.now()
 formatted_now = now.strftime("%Y-%m-%d-%H-%M-%S")
@@ -44,7 +51,7 @@ import requests
 from bs4 import BeautifulSoup
 from bs4.element import Comment
 
-WEBSHOP_URL = "YOUR WEBSHOP ENV URL" ## Modify this to your webshop env url
+WEBSHOP_URL = "http://127.0.0.1:3000"  ## local webshop env，与 webshop_cot/tot/dot 一致
 
 ACTION_TO_TEMPLATE = {
     'Description': 'description_page.html',
@@ -321,30 +328,47 @@ Action: click[Buy Now]
 """
 
 
+def parse_allocated_model(raw: str) -> str:
+    """把分流模型的自由文本规范成 askLLM 可识别的模型名。"""
+    text = (raw or '').strip().lower()
+    # 优先匹配明确模型名
+    if 'llama3:8b' in text or 'llama3-8b' in text or 'llama3' in text:
+        return LOCAL_MODEL
+    if 'deepseek' in text:
+        return CLOUD_MODEL
+    # 兼容只回答 hard/easy 的情况
+    if any(k in text for k in ('easy', 'simple')):
+        return LOCAL_MODEL
+    if any(k in text for k in ('hard', 'complex', 'difficult')):
+        return CLOUD_MODEL
+    # 无法解析时默认走云端，避免误把难题分给弱模型
+    return CLOUD_MODEL
+
+
 def AllocateModel(question, clients, tokens_path):
-    allo_Q = f"""I am now working on an online webshop shopping process. based on the instruction, judge if the constraints are complex or simple, and then decide the model to solve the question. If the question is hard to solve, assign gpt-4o, otherwise, assign llama3-8b-8192.
-    
+    allo_Q = f"""I am now working on an online webshop shopping process. Based on the instruction, judge if the constraints are complex or simple, and then decide the model to solve the question. If the question is hard to solve, assign deepseek-v4-pro, otherwise, assign llama3:8b.
+
     For example:
     Instruction 1:
     im looking for machine wasable savannan burlap placemat with compatible table runner with dahlia flower print table set of 6 pcs. also choose color golden circlesan4455 with size 13x70inch+13x19inch*4
-    
-    Since there are many constraints in the question, the question is complex, so I will assign gpt-4o to solve the question.
-    Model assignment: gpt-4o
-    
+
+    Since there are many constraints in the question, the question is complex, so I will assign deepseek-v4-pro to solve the question.
+    Model assignment: deepseek-v4-pro
+
     Instruction 2:
     "i am looking for an oral hygiene toothbrush. it should be easy to carry"
-    
-    Since the question is simple, I will assign llama3-8b-8192 to solve the question.
-    Model assignment: llama3-8b-8192
-    
+
+    Since the question is simple, I will assign llama3:8b to solve the question.
+    Model assignment: llama3:8b
 
     Here is the instruction:
     {question}
 
-    return the model name along, no other information is needed.
+    Return only the model name (deepseek-v4-pro or llama3:8b), no other information.
     """
-    allo_model = askLLM(clients, allo_Q, tokens_path, model='gpt-4o', stop=['\n'])
-    return allo_model
+    # 分流判难易本身用云端模型，与 Baselines/run_step2in_baseline.py 的 sd_pick_model 一致
+    raw = askLLM(clients, allo_Q, tokens_path, model=CLOUD_MODEL, stop=['\n'])
+    return parse_allocated_model(raw)
 
 def decompose_sql_ws(clients, prompt, tokens_path, allo_model):
     prompt_for_decompose = f"""
@@ -407,20 +431,21 @@ def convert_steps_to_format(decom_commands):
 
 def webshop_run(idx, prompt, logger, to_print=True):
     tokens_path = f'{os.getcwd()}/tokens/datashunt_token_usage_{formatted_now}.json'
+    os.makedirs(os.path.dirname(tokens_path), exist_ok=True)
     if not os.path.exists(tokens_path):
         with open(tokens_path, 'w') as f:
             json.dump({}, f)
-    
+
     action = 'reset'
     observation = env.step(idx, action)[0]
     logger.info(f'question: {observation}')
     init_prompt = prompt
-    
+
     allocated_model = AllocateModel(observation, clients, tokens_path)
     logger.info(f'Allocated model: {allocated_model}')
-    
+
     prompt = ''
-    
+
     search_action = askLLM(
         clients,
         init_prompt + f' {action}\nObservation: {observation}\n\nAction: think[I should first generate a search action based on the instruction] \nObservation: OK. \n\nAction:',
@@ -430,22 +455,22 @@ def webshop_run(idx, prompt, logger, to_print=True):
         max_tokens=1000,
         stop=['\n']
     ).lstrip(' ').strip()
-    
+
     try:
         search_observation = env.step(idx, search_action)[0]
     except AssertionError:
         search_observation = 'Invalid action!'
-    
+
     prompt += f'Action: {action}\nObservation: {observation}\n\nAction: {search_action}\nObservation: {search_observation}\n\nAction:'
-    
+
     decompose_steps = decompose_sql_ws(clients, prompt, tokens_path, allocated_model)
     steps, steps_dict = convert_steps_to_format(decompose_steps)
     logger.info(f'Decomposed steps: {steps}')
-    
+
     for step in steps:
         if 'click and check' in step.lower():
             print(f'Action: {step}')
-            step_prompt = f" think[{step}]\nObservation: OK.\n\nAction: "#(You should generate a click action based on previous think step in format of click[])"
+            step_prompt = f" think[{step}]\nObservation: OK.\n\nAction: "
             prompt += step_prompt
             action = askLLM(
                 clients,
@@ -456,14 +481,20 @@ def webshop_run(idx, prompt, logger, to_print=True):
                 max_tokens=1000,
                 stop=['\n']
             )
-            
-            observation = env.step(idx, action)[0]
+
+            try:
+                observation = env.step(idx, action)[0]
+            except AssertionError:
+                observation = 'Invalid action!'
             prompt += f' {action}\nObservation: {observation}\n\nAction:'
-            
+
             action = 'click[< Prev]'
-            observation = env.step(idx, action)[0]
+            try:
+                observation = env.step(idx, action)[0]
+            except AssertionError:
+                observation = 'Invalid action!'
             prompt += f' {action}\nObservation: {observation}\n\nAction:'
-    
+
     thought = ''
     for step in steps:
         if 'click and check' not in step.lower():
@@ -471,50 +502,51 @@ def webshop_run(idx, prompt, logger, to_print=True):
     action = f'think[{thought}]'
     observation = 'OK.'
     prompt += f' {action}\nObservation: {observation}\n\nAction:'
-    
+
     for i in range(10):
         action = askLLM(
             clients,
-            init_prompt + prompt + '(You should only output the action that can be done on the current page.)',
+            init_prompt + prompt[-(6400 - len(init_prompt)):] + '(You should only output the action that can be done on the current page.)',
             tokens_path,
             model=allocated_model,
             temperature=0.1,
             max_tokens=1000,
             stop=['\n']
         )
-        
+
         res = None
         try:
             res = env.step(idx, action)
             observation = res[0]
         except AssertionError:
             observation = 'Invalid action!'
-        
+
         if action.startswith('think'):
             observation = 'OK.'
-        
+
         if to_print:
             print(f'Action: {action}\nObservation: {observation}\n')
             sys.stdout.flush()
-        
+
         if i:
             prompt += f' {action}\nObservation: {observation}\n\nAction:'
         else:
             prompt += f" {observation}\n\nAction:"
-        
+
         if res is not None and res[2]:
             return res[1], True
-    
+
     return 0, False
 
-def run_episodes(prompt, n=50):
+
+def run_episodes(prompt, n=100):
     start_time = time.time()
-    logger, log_file_name = setup_logger(f"easyhard_{formatted_now}")
-    
+    logger, log_file_name = setup_logger(f"datashunt_{formatted_now}")
+
     rs = []
     cnt = 0
     if_success = 0
-    
+
     for i in tqdm(range(n), position=0, leave=True):
         index = i
         print('\n-----------------')
@@ -533,18 +565,20 @@ def run_episodes(prompt, n=50):
             logger.error(f"An unexpected error occurred: {str(e)}")
             r = 0
             success = False
-        
+
         rs.append(r)
         logger.info(f'reward: {r}')
-        logger.info(f'success: {if_success/cnt}')
-        
+        logger.info(f'success: {success}')
+        if cnt:
+            logger.info(f'success_rate_so_far: {if_success / cnt}')
+
         print('\033[K', end='\r')
-    
+
     end_time = time.time()
     total_time = end_time - start_time
     avg_reward = sum(rs) / cnt if cnt > 0 else 0
     success_rate = if_success / cnt if cnt > 0 else 0
-    
+
     print(f'\nTime: {total_time}')
     print(f'Average reward: {avg_reward}')
     print(f'Success rate: {success_rate}')
@@ -552,6 +586,21 @@ def run_episodes(prompt, n=50):
     logger.info(f'Average reward: {avg_reward}')
     logger.info(f'Success rate: {success_rate}')
 
+    # token 汇总：deepseek 计费，llama 本地按 0；每题平均除以任务数 n
+    tokens_path = f'{os.getcwd()}/tokens/datashunt_token_usage_{formatted_now}.json'
+    try:
+        with open(tokens_path) as f:
+            total_tokens, total_cost = CountCost(json.load(f))
+        logger.info(f'Total tokens: {total_tokens}; Total cost: ${total_cost:.4f}')
+        logger.info(f'Avg_tokens_per_Q: {total_tokens / n:.1f}')
+        logger.info(f'Avg_cost_per_Q: ${total_cost / n:.6f}')
+        print(f'Total tokens: {total_tokens}; Avg_tokens_per_Q: {total_tokens / n:.1f}; '
+              f'Avg_cost_per_Q: ${total_cost / n:.6f}')
+    except Exception as e:
+        logger.info(f'token summary skipped: {e}')
+
     return rs, total_time, avg_reward, success_rate
 
-res1 = run_episodes(prompt1, 20)
+
+if __name__ == '__main__':
+    res1 = run_episodes(prompt1, _args.n)

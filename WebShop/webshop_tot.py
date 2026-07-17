@@ -1,25 +1,28 @@
 import os
 import sys 
 import time
+import re
 from groq import Groq
 from openai import OpenAI
 from utils import *
 from tqdm import tqdm
 import json
+import argparse
 from datetime import datetime
 import logging
 
-## openai client
-openaiClient = setOpenAi(keyid=0)
+## clients: deepseek-v4-pro (cloud) + llama3:8b (local ollama)，与 webshop_dot.py 一致
+deepseekClient = OpenAI(api_key=os.environ.get("DEEPSEEK_API_KEY"),
+                        base_url="https://api.deepseek.com")
+llamaClient = OpenAI(api_key="ollama", base_url="http://127.0.0.1:11434/v1")
+clients = {'gpt': deepseekClient, 'llama': llamaClient}
 
-## llama client
-llamaClient = OpenAI(
-    api_key="EMPTY", # Add your API key here
-    base_url="",    # Add your base URL here
-)
-clients = {'gpt': openaiClient, 'llama': llamaClient}
-
-answer_MODEL = 'llama3-8b-8192'
+## --model 指定回答模型：deepseek -> deepseek-v4-pro; llama -> llama3:8b
+_parser = argparse.ArgumentParser()
+_parser.add_argument('--model', choices=['deepseek', 'llama'], default='llama',
+                     help='answering model: deepseek(-v4-pro) 或 llama(3:8b)')
+_args = _parser.parse_known_args()[0]
+answer_MODEL = {'deepseek': 'deepseek-v4-pro', 'llama': 'llama3:8b'}[_args.model]
 now = datetime.now()
 formatted_now = now.strftime("%Y-%m-%d-%H-%M-%S")
 
@@ -45,7 +48,7 @@ import requests
 from bs4 import BeautifulSoup
 from bs4.element import Comment
 
-WEBSHOP_URL = "YOUR WEBSHOP ENV URL" ## Modify this to your webshop env url
+WEBSHOP_URL = "http://127.0.0.1:3000" ## local webshop env
 
 ACTION_TO_TEMPLATE = {
     'Description': 'description_page.html',
@@ -322,6 +325,13 @@ Rating: N.A.
 Action: click[Buy Now]
 """
 
+
+def parse_evaluation_score(raw_score, default=1):
+    """Parse a ToT evaluator score in [1, 10] without aborting the episode."""
+    match = re.search(r'(?<!\d)(10|[1-9])(?!\d)', str(raw_score or ''))
+    return int(match.group(1)) if match else default
+
+
 def decompose_sql_ws(clients, prompt, tokens_path, allo_model):
     prompt_for_decompose = f"""
 I have a online shopping request with some constraints and I need to find the best options, and I have search for the key words with some top results. You should help me to decompose the question into sub-steps that should be done for the following process
@@ -432,7 +442,9 @@ def webshop_run(idx, prompt, logger, to_print=True):
         
         """
         evaluation_score = askLLM(clients, evaluation_prompt, tokens_path, model=answer_MODEL, temperature=1, max_tokens=1000, stop=['\n'])
-        score = int(evaluation_score)
+        score = parse_evaluation_score(evaluation_score)
+        if not str(evaluation_score).strip():
+            logger.warning('Empty search-action evaluation; using fallback score=%d', score)
         thought_path.append((search_action, score))
     
     
@@ -446,7 +458,7 @@ def webshop_run(idx, prompt, logger, to_print=True):
     prompt += f'Action: {action}\nObservation: {observation}\n\nAction: {search_action}\nObservation: {search_observation}\n\nAction:'
     
     print('\n\n\n')
-    decompose_steps = decompose_sql_ws(clients, prompt, tokens_path, 'gpt-4o')
+    decompose_steps = decompose_sql_ws(clients, prompt, tokens_path, answer_MODEL)
     steps, steps_dict = convert_steps_to_format(decompose_steps)
     print(steps)
     
@@ -489,7 +501,10 @@ def webshop_run(idx, prompt, logger, to_print=True):
                 7
                 """
                 evaluation_score = askLLM(clients, evaluation_prompt, tokens_path, model=answer_MODEL, temperature=1, max_tokens=1000, stop=['\n'])
-                score = int(evaluation_score)
+                score = parse_evaluation_score(evaluation_score)
+                if not re.search(r'(?<!\d)(10|[1-9])(?!\d)', str(evaluation_score or '')):
+                    logger.warning('Invalid subtask evaluation %r; using fallback score=%d',
+                                   evaluation_score, score)
                 thought_path.append((action, score))
             print(thought_path)
             
@@ -499,14 +514,20 @@ def webshop_run(idx, prompt, logger, to_print=True):
             print(f'Action: {action}')
             print("================================")
             
-            observation = env.step(idx, action)[0]
+            try:                                    # L1 崩溃容错：非法动作不再抛异常整题归零
+                observation = env.step(idx, action)[0]
+            except AssertionError:
+                observation = 'Invalid action!'
             
             prompt += f' {action}\nObservation: {observation}\n\nAction:'
             
             print(f'Action: {action}\nObservation: {observation}\n')
             
             action = 'click[< Prev]'
-            observation = env.step(idx, action)[0]
+            try:
+                observation = env.step(idx, action)[0]
+            except AssertionError:
+                observation = 'Invalid action!'
             
             print(f'Action: {action}\nObservation: {observation}\n')
             
@@ -554,7 +575,10 @@ def webshop_run(idx, prompt, logger, to_print=True):
             7
             """
             evaluation_score = askLLM(clients, evaluation_prompt, tokens_path, model=answer_MODEL, temperature=0.1, max_tokens=1000, stop=['\n'])
-            score = int(evaluation_score)
+            score = parse_evaluation_score(evaluation_score)
+            if not re.search(r'(?<!\d)(10|[1-9])(?!\d)', str(evaluation_score or '')):
+                logger.warning('Invalid action evaluation %r; using fallback score=%d',
+                               evaluation_score, score)
             thought_path.append((action, score))
         
         print(thought_path)
@@ -642,6 +666,19 @@ def run_episodes(prompt, n=50):
     logger.info(f'Average reward: {avg_reward}')
     logger.info(f'Success rate: {success_rate}')
 
+    # token 汇总：deepseek 计费，llama 本地按 0；每题平均除以任务数 n
+    tokens_path = f'{os.getcwd()}/tokens/tot_tokens_{answer_MODEL}_{formatted_now}.json'
+    try:
+        with open(tokens_path) as f:
+            total_tokens, total_cost = CountCost(json.load(f))
+        logger.info(f'Total tokens: {total_tokens}; Total cost: ${total_cost:.4f}')
+        logger.info(f'Avg_tokens_per_Q: {total_tokens / n:.1f}')
+        logger.info(f'Avg_cost_per_Q: ${total_cost / n:.6f}')
+        print(f'Total tokens: {total_tokens}; Avg_tokens_per_Q: {total_tokens / n:.1f}; '
+              f'Avg_cost_per_Q: ${total_cost / n:.6f}')
+    except Exception as e:
+        logger.info(f'token summary skipped: {e}')
+
     return rs, total_time, avg_reward, success_rate
 
-res1 = run_episodes(prompt1, 10)
+res1 = run_episodes(prompt1, 100)

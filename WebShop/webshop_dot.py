@@ -4,21 +4,46 @@ import time
 from groq import Groq
 from openai import OpenAI
 from utils import *
+from webshop_tools import ground_action
 from tqdm import tqdm
 import json
+import argparse
 from datetime import datetime
 import logging
 
-## openai client
-openaiClient = setOpenAi(keyid=0)
-
-## llama client
-llamaClient = OpenAI(
-    api_key="EMPTY", # Add your API key here
-    base_url="",    # Add your base URL here
+## large model client: deepseek-v4-pro (OpenAI-compatible)
+deepseekClient = OpenAI(
+    api_key=os.environ.get("DEEPSEEK_API_KEY"),
+    base_url="https://api.deepseek.com",
 )
 
-clients = {'gpt': openaiClient, 'llama': llamaClient}    
+## small model client: llama3:8b served by local Ollama (OpenAI-compatible)
+llamaClient = OpenAI(
+    api_key="ollama",
+    base_url="http://127.0.0.1:11434/v1",
+)
+
+clients = {'gpt': deepseekClient, 'llama': llamaClient}    
+
+## whether to use the action-grounding tool:
+##   --tool    (default) -> L2, with tool
+##   --no-tool           -> L1, fair baseline (crash-tolerant, no grounding)
+_parser = argparse.ArgumentParser()
+_parser.add_argument('--tool', dest='use_tool', action='store_true', help='enable action-grounding tool (L2)')
+_parser.add_argument('--no-tool', dest='use_tool', action='store_false', help='disable tool = L1 fair baseline')
+_parser.add_argument('--no-hint', dest='use_hint', action='store_false', help='ablation: ground without the pre-baked step ASIN')
+_parser.add_argument('--n', type=int, default=100, help='number of WebShop episodes (default: 100)')
+_parser.add_argument('--summary-json', type=str, default='',
+                     help='optional path for machine-readable run metrics')
+_parser.set_defaults(use_tool=True, use_hint=True)
+_args = _parser.parse_known_args()[0]
+if _args.n < 1:
+    _parser.error('--n must be positive')
+USE_GROUNDING = _args.use_tool
+USE_HINT = _args.use_hint
+MODE = ('L1_base' if not USE_GROUNDING
+        else 'L2_tool' if USE_HINT
+        else 'L2_tool_nohint')
 
 with open('updated_first_file.json') as f:  ## File with Allocation of models for each step
     informations = json.load(f)
@@ -34,7 +59,7 @@ import requests
 from bs4 import BeautifulSoup
 from bs4.element import Comment
 
-WEBSHOP_URL = "YOUR WEBSHOP ENV URL" ## Modify this to your webshop env url
+WEBSHOP_URL = os.environ.get("WEBSHOP_URL", "http://127.0.0.1:3000")
 
 ACTION_TO_TEMPLATE = {
     'Description': 'description_page.html',
@@ -326,7 +351,7 @@ Action: click[Buy Now]
 """
 
       
-def decompose_sql_ws(clients, prompt , tokens_path, allo_model = 'gpt-4o'):
+def decompose_sql_ws(clients, prompt , tokens_path, allo_model = 'deepseek-v4-pro'):
     '''
     1 examples are as follows:
     Question: 
@@ -403,7 +428,7 @@ def webshop_run(idx, prompt, logger,to_print=True):
     global formatted_now, informations
     
     # 用于记录token的路径
-    tokens_path = f'{os.getcwd()}/tokens/DOT/DOT_tokens_{formatted_now}.json'
+    tokens_path = f'{os.getcwd()}/tokens/DOT/DOT_tokens_{MODE}_{formatted_now}.json'
     if not os.path.exists(tokens_path):
         with open(tokens_path, 'w') as f:
             json.dump({}, f)
@@ -451,7 +476,7 @@ def webshop_run(idx, prompt, logger,to_print=True):
 
     print('\n\n\n')
     
-    decompose_steps = decompose_sql_ws(clients, prompt, tokens_path, 'gpt-4o')
+    decompose_steps = decompose_sql_ws(clients, prompt, tokens_path, 'deepseek-v4-pro')
     # steps, steps_dict = convert_steps_to_format(decompose_steps)
     # print(steps)
     
@@ -484,11 +509,17 @@ def webshop_run(idx, prompt, logger,to_print=True):
                 stop=['\n']
             )
             
+            if USE_GROUNDING:
+                action = ground_action(env, idx, action, hint=(step if USE_HINT else ''), force_click=True)
+
             print(f"=============={step}================")
             print(f'Action: {action}')
             print("================================")
             
-            observation = env.step(idx, action)[0]
+            try:
+                observation = env.step(idx, action)[0]
+            except AssertionError:
+                observation = 'Invalid action!'
             
             # print(f'Action: {action}\nObservation: {observation}\n')
             prompt += f' {action}\nObservation: {observation}\n\nAction:'
@@ -496,7 +527,10 @@ def webshop_run(idx, prompt, logger,to_print=True):
             print(f'Action: {action}\nObservation: {observation}\n')
             
             action = 'click[< Prev]'
-            observation = env.step(idx, action)[0]
+            try:
+                observation = env.step(idx, action)[0]
+            except AssertionError:
+                observation = 'Invalid action!'
             
             # print(f'Action: {action}\nObservation: {observation}\n')
             
@@ -530,6 +564,9 @@ def webshop_run(idx, prompt, logger,to_print=True):
             max_tokens=1000,
             stop=['\n']
         )
+        if USE_GROUNDING:
+            action = ground_action(env, idx, action)
+
         print(f"=============={i}================")
         print(f'Action: {action}')
         print("================================")
@@ -569,7 +606,9 @@ def run_episodes(prompt, n=50):
     start_time = time.time()
     
     
-    logger, log_file_name = setup_logger_dot(f"DOT_{formatted_now}")
+    logger, log_file_name = setup_logger_dot(f"DOT_{MODE}_{formatted_now}")
+    print(f'RUN MODE: {MODE} (grounding tool {"ON" if USE_GROUNDING else "OFF"})')
+    logger.info(f'RUN MODE: {MODE} (grounding tool {"ON" if USE_GROUNDING else "OFF"})')
     
     rs = []
     cnt = 0
@@ -635,4 +674,20 @@ def run_episodes(prompt, n=50):
 
     return rs, total_time, avg_reward, success_rate
 
-res1 = run_episodes(prompt1, 100)
+if __name__ == '__main__':
+    res1 = run_episodes(prompt1, _args.n)
+    if _args.summary_json:
+        summary_path = os.path.abspath(_args.summary_json)
+        os.makedirs(os.path.dirname(summary_path), exist_ok=True)
+        rewards, total_time, avg_reward, success_rate = res1
+        with open(summary_path, 'w', encoding='utf-8') as f:
+            json.dump({
+                'mode': MODE,
+                'use_tool': USE_GROUNDING,
+                'use_hint': USE_HINT,
+                'n': _args.n,
+                'rewards': rewards,
+                'total_time': total_time,
+                'average_reward': avg_reward,
+                'success_rate': success_rate,
+            }, f, ensure_ascii=False, indent=2)

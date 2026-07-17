@@ -17,6 +17,7 @@ USE_TOOL 总开关：True=工具增强；False=纯 LLM（同一份代码做 A/B�
         删除本文件（及 tools/、build_with_tool.py、with_tool.json）即可完全还原。
 运行：cd MATH_Trys && python MATH_dotrun_step2_with_tool.py
 """
+import argparse
 import json
 import os
 import re
@@ -80,6 +81,23 @@ def tool_for(record, number, answerDict, subtask):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description='Run one MATH branch with the same VG-DoT execution code.'
+    )
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--tool', dest='use_tool', action='store_true',
+                      help='enable verifier-gated symbolic evidence (default)')
+    mode.add_argument('--no-tool', dest='use_tool', action='store_false',
+                      help='disable evidence and execute the DoT branch')
+    parser.add_argument('--n', type=int, default=200,
+                        help='number of questions to evaluate (default: 200)')
+    parser.set_defaults(use_tool=True)
+    args = parser.parse_args()
+    if args.n < 1:
+        parser.error('--n must be positive')
+
+    USE_TOOL = args.use_tool
+    aftername = 'with_tool-step2' if USE_TOOL else 'no_tool-step2'
     start_time = time.time()
     now = datetime.now()
     formatted_now = now.strftime("%Y-%m-%d-%H-%M-%S")
@@ -101,13 +119,15 @@ if __name__ == '__main__':
     success_Q = 0
     false_Q = 0      # 正常完成判题但 judge 为 False（每题最多 +1）
     error_Q = 0      # 基础设施/运行异常，无法完成判题（每题最多 +1）
-    replace_hit = 0  # 走“覆盖”的子任务次数（工具结果直接当答案）
-    assist_hit = 0   # 走“提示”的子任务次数（工具结果作参考、LLM 仍作答）
-    N = 200
-
-    # 工具增强版读入 with_tool.json；其余结构与原 last.json 完全一致
-    with open('TmpRes/step2In_MATH_with_tool.json', 'r') as f:
+    replace_hit = 0     # 走“覆盖”的子任务次数（工具结果直接当答案）
+    assist_hit = 0      # 走“提示”的子任务次数（工具结果作参考、LLM 仍作答）
+    final_tool_hit = 0  # 题目级 final_tool 直接给出最终答案的题数（跳过 summarize LLM）
+    # 两个分支分别读取 compare runner 使用的冻结输入，避免数据源混淆。
+    middle_path = ('TmpRes/step2In_MATH_with_tool.json' if USE_TOOL
+                   else 'TmpRes/step2In_MATH_last.json')
+    with open(middle_path, 'r') as f:
         middleRes = json.loads(f.read())
+    N = min(args.n, len(problems), len(middleRes))
 
     for question_id in tqdm(range(N)):
 
@@ -189,8 +209,19 @@ Based on the information above, please provide a concise and clear answer"""
                 logger.error('Q%d execution anomaly: %s', question_id, msg)
                 raise RuntimeError(msg)
 
-            # ===== 所有子任务完成后，汇总最终答案（始终由 LLM 完成）=====
-            Q = [{'role': 'user', 'content': f"""There is a math problem and the answers to all its sub-problems. Please give the final answer to the problem.
+            # ===== 汇总最终答案：优先题目级 final_tool（构建期已验证 + 运行期本地复验），否则 LLM =====
+            finalResult = None
+            ft = record.get('final_tool') if USE_TOOL else None
+            if ft and ft.get('verified'):
+                fres = run_tool(ft['tool'], ft['args'])
+                fval = (fres.get(ft.get('answer_key') or 'result')
+                        or fres.get('target_value') or fres.get('value') or fres.get('result'))
+                if fres.get('success') and fres.get('verified') and str(fval) == str(ft['answer']):
+                    finalResult = str(ft['answer'])
+                    final_tool_hit += 1
+                    logger.info('Final answer by final_tool(%s): %s', ft['tool'], finalResult)
+            if finalResult is None:
+                Q = [{'role': 'user', 'content': f"""There is a math problem and the answers to all its sub-problems. Please give the final answer to the problem.
 Problem:\n{question}
 
 The answers to the sub-problems are as follows:
@@ -198,7 +229,7 @@ The answers to the sub-problems are as follows:
 
 Now that all the sub-problems have been solved, so what is the final answer?
 Please give the final answer without any additional explanation or clarification."""}]
-            finalResult = askLLM(clients, Q, tokens_path=tokens_path, model=config['finalSummarize_MODEL'], temperature=1, max_tokens=300)
+                finalResult = askLLM(clients, Q, tokens_path=tokens_path, model=config['finalSummarize_MODEL'], temperature=1, max_tokens=300)
             logger.info('finalResult: ')
             logger.info(finalResult)
 
@@ -239,6 +270,7 @@ No explanation is required.
     logger.info(f'Acc: {success_Q / N:.2%}')
     logger.info(f'Replace_hit(subtask): {replace_hit}')   # 覆盖型工具介入的子任务次数
     logger.info(f'Assist_hit(subtask): {assist_hit}')     # 提示型工具介入的子任务次数
+    logger.info(f'FinalTool_hit(question): {final_tool_hit}')  # final_tool 直接产出最终答案的题数
 
     with open(tokens_path, 'r') as f:
         token_usage = json.load(f)

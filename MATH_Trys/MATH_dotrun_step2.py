@@ -69,16 +69,18 @@ if __name__ == '__main__':
                 steps, steps_dict, allo_model, depths, int_edges = middleRes[str(question_id)]['steps'], middleRes[str(question_id)]['steps_dict'], middleRes[str(question_id)]['allo_model'], middleRes[str(question_id)]['depths'], middleRes[str(question_id)]['int_edges']
                 depths = {int(k): v for k, v in depths.items()}
                 
-                heights = list(depths.keys())
-                MAXHeight = max(heights)
                 answerDict = {} 
                 progress_bar = tqdm(total=len(steps))
-                for i in range(MAXHeight):
+                for i in sorted(depths):
                     subtasks = depths[i]
-                    for subtaskid in subtasks:                
+                    for subtaskid in sorted(subtasks):
                         number = re.findall(r'\d+', subtaskid)
                         number = int(number[0]) if number else None
                         subtask = steps_dict[str(number)]
+                        if number is None or not 1 <= number <= len(allo_model):
+                            raise ValueError(
+                                f"Invalid Step id {number!r} for {len(allo_model)} assignments"
+                            )
                         answer_MODEL = allo_model[number-1]
                         
                         # 交待解决任务

@@ -1,1057 +1,574 @@
 # -*- coding: utf-8 -*-
 """
-MATH 规则分配器：纯规则 + sympy 实测 + validate_assignment。
-运行：cd MATH_Trys && python build_with_tool.py
+MATH 工具分配器（题目级验证求解 + 子任务级验证闸门版）。
+
+两级设计（依据 5 轮 x 200 题实验证据：verified replace +30.8pp，assist ≈0 且是全部 right→wrong 来源）：
+
+一、题目级 final_tool（本版新增核心）
+  子问题多为过程性提问（"How do we..."），真正可计算的结构在原题文本里，而判分只看 final answer。
+  故对原题做四类结构提取（全部数学通用结构、无题材关键词），求解并验证后产出题级 final_tool：
+    1) 不等式组（含绝对值）+ 整数聚合目标（sum/count/min/max）→ inequality_solver（逐点回代验证）
+    2) 等差/等比数列（题面逗号分隔项列表，全部给定项交叉验证）→ sequence_tool
+    3) 多点定多项式（多项式形式 + 足量数值点，全点回代验证）→ linear_system_solver
+    4) 题面单方程单未知数 + 明确目标（solve for / 目标表达式 / select）→ solve（回代验证）
+  运行时（step2）若 final_tool 复验通过，直接以其答案作为 final answer，跳过 summarize LLM
+  （类比 Puzzle 的 solve_by_tool：省 1 次 LLM 调用/题，且答案可证明正确）。
+
+二、子任务级（收紧版）
+  候选仅 subst / solve / linear_system 三类；replace 只授予两类"确定可信"来源：
+    - solve / linear_system 且 verified=True（解回代原方程验证过）；
+    - subst 且结果为闭合数值（表达式与全部绑定由子任务显式给出）。
+  assist 仅保留 verified 的 solve / linear_system（实验表明 expand/factor/simplify/complex/arith
+  的 assist 无净收益且是全部 right→wrong 回归的来源，已全部裁撤）。
+  两种模式都再经 validate_assignment + semantic_gate 校验；任何一关不过 → no_tool 回退。
+
+输出 schema：allo_tool / tool_args / tool_mode（与 steps 等长）不变；新增可选题级字段 final_tool
+  {"tool", "args", "answer", "answer_key", "verified", "basis"}，运行脚本向后兼容（无该字段则走原流程）。
+
+运行（离线、无 API）：cd MATH_Trys && python build_with_tool.py
 """
 import json
 import os
 import re
 import sys
+import warnings
 from collections import Counter
+
+import sympy as sp
+
+# sympy 解析个别题面字符串（如含 {..}(..) 形态）会触发 SyntaxWarning，已由 try/except 兜底，静默即可。
+warnings.filterwarnings("ignore", category=SyntaxWarning)
+from sympy.parsing.sympy_parser import (
+    parse_expr, standard_transformations,
+    implicit_multiplication_application, convert_xor,
+)
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE)
-from tools import run_tool
-from tools.validate_assignment import validate_assignment
+from tools import run_tool, validate_assignment
 from tools.target_utils import (
-    check_assist_scope_match,
-    check_replace_target_match,
-    classify_task_type,
-    complex_key,
-    complex_step_role,
-    detect_common_root,
-    detect_coefficient_matching,
-    detect_discrete_aggregation,
-    detect_inequality_target,
-    detect_root_target,
-    detect_select,
-    detect_sequence_target,
-    extract_context_equations,
-    extract_discrete_constraints,
-    extract_discrete_domains,
-    extract_inequality_constraints,
-    extract_parabola_point_system,
-    extract_polynomial_equations,
-    extract_polynomial_identity,
-    extract_requested_target,
-    extract_sequence_spec,
-    extract_sqrt_domain_constraint,
-    extract_vieta_target,
-    infer_solve_variable,
-    is_direct_expand_request,
-    is_process_expand_subtask,
-    is_procedural_explanation_target,
-    is_result_task,
-    is_root_derived_target,
-    is_strict_solve_subtask,
-    semantic_gate,
-    should_use_linear_system,
-    should_use_subst,
-    extract_age_word_system,
-    extract_binary_operator_expr,
-    extract_operator_bindings,
-    extract_trajectory_model,
-    wants_equation_solution,
-    wants_all_system_variables,
+    detect_root_target, detect_select, extract_requested_target,
+    is_result_task, is_root_derived_target, is_strict_solve_subtask,
+    semantic_gate, should_use_subst, wants_all_system_variables,
 )
 
-STABLE_35 = [
-    2, 9, 11, 15, 20, 33, 34, 38, 50, 52, 54, 73, 75, 77, 78, 85, 106, 115, 119,
-    131, 134, 137, 139, 147, 150, 151, 153, 168, 171, 172, 178, 180, 184, 185, 190,
-]
-SUBSTANTIVE_TOOLS = {
-    "solve", "linear_system_solver", "inequality_solver", "sequence_tool",
-    "polynomial_coefficient_match", "discrete_constraint_enumerator",
-    "subst", "arith", "complex_arithmetic",
-}
-_INTERMEDIATE_TOOLS = {"expand", "factor", "simplify"}
-_FINAL_KW = (
-    "final value", "final answer", "compute the final", "what is the value of",
-    "what is the final", "total time", "maximum possible value", "minimum possible",
-)
-
-
-def _single_var(constraints):
-    letters = set()
-    for c in constraints:
-        letters |= {ch.lower() for ch in re.findall(r"[a-zA-Z]", c)}
-    for pref in ("x", "t", "y", "z", "n"):
-        if pref in letters:
-            return pref
-    return next(iter(letters)) if len(letters) == 1 else None
-
-
-def _find_equation(problem_text, subtask, all_steps):
-    eq = _extract_problem_equation(problem_text, subtask)
-    if eq:
-        return eq
-    for src in (all_steps or []) + [problem_text]:
-        eqs = extract_polynomial_equations(src or "")
-        if eqs:
-            return eqs[0]
-    return None
-
-
-def _record_context_equation(ctx, equation, source):
-    if not equation or source not in {
-        "problem", "prior_subtask", "current_subtask", "verified_tool_output",
-    }:
-        return
-    seen = {(e, s) for e, s in ctx["equations"]}
-    key = (equation, source)
-    if key in seen:
-        return
-    ctx["equations"].append(key)
-    ctx["sources"].append(source)
-
-
-def _record_known_values(ctx, mapping, source="verified_tool_output"):
-    if source != "verified_tool_output":
-        return
-    for name, value in (mapping or {}).items():
-        if not isinstance(name, str):
-            continue
-        if not re.fullmatch(r"[A-Za-z]", name):
-            continue
-        if value in (None, ""):
-            continue
-        ctx["known_values"][name] = str(value)
-        _record_context_equation(ctx, f"{name}={value}", source)
-
-
-def _seed_verified_context(problem_text, ctx):
-    for p in _pieces(problem_text or ""):
-        if "=" in p and re.search(r"[A-Za-z]", p):
-            _record_context_equation(ctx, p, "problem")
-
-
-def _update_verified_context(subtask, tool_name, args, tool_res, ctx):
-    for p in _pieces(subtask or ""):
-        if "=" in p and re.search(r"[A-Za-z]", p):
-            _record_context_equation(ctx, p, "prior_subtask")
-    if not tool_res.get("verified"):
-        return
-    if tool_name == "solve":
-        eqs = args.get("equations") or ([args.get("equation")] if args.get("equation") else [])
-        for eq in eqs:
-            _record_context_equation(ctx, eq, "verified_tool_output")
-        if args.get("variable") and tool_res.get("value") is not None:
-            _record_known_values(ctx, {args["variable"]: tool_res.get("value")})
-    elif tool_name == "linear_system_solver":
-        _record_known_values(ctx, tool_res.get("solution") or {})
-    elif tool_name == "polynomial_coefficient_match":
-        _record_known_values(ctx, tool_res.get("solutions") or {})
-
-
-def _try_discrete_assign(subtask, problem_text):
-    if not is_result_task(subtask):
-        return None
-    low = f"{problem_text or ''} {subtask or ''}".lower()
-    if "prime" not in low and "integer" not in low:
-        return None
-    merged_text = f"{problem_text or ''} {subtask or ''}"
-    cons = list(dict.fromkeys(
-        extract_discrete_constraints(problem_text) + extract_discrete_constraints(subtask)
-    ))
-    if not cons:
-        return None
-    vars_ = sorted({c for c in re.findall(r"[A-Za-z]", " ".join(cons)) if c.lower() not in "ei"})
-    if not vars_:
-        return None
-    doms = extract_discrete_domains(merged_text, vars_)
-    if not doms:
-        return None
-    agg = detect_discrete_aggregation(subtask) or "unique_value"
-    tgt = extract_requested_target(subtask, vars_)
-    if not tgt and agg != "count":
-        return None
-    args = {
-        "variables": vars_, "domains": doms, "constraints": cons,
-        "aggregation": agg,
-    }
-    if tgt:
-        args["target_expression"] = tgt
-    return "replace", "discrete_constraint_enumerator", args
-
-
-def _try_prime_root_value_assign(subtask, problem_text):
-    if not is_result_task(subtask):
-        return None
-    low_problem = (problem_text or "").lower()
-    low_subtask = (subtask or "").lower()
-    if "prime integers" not in low_problem or "roots of the polynomial" not in low_problem:
-        return None
-    if "value of" not in low_subtask or "\\( n \\)" not in subtask and " n " not in low_subtask:
-        return None
-    bound = re.search(r"([A-Za-z])\s*<\s*(\d+)", problem_text or "")
-    if not bound:
-        return None
-    upper = int(bound.group(2))
-    if upper <= 2:
-        return None
-    agg = "all_values" if any(k in low_subtask for k in ("possible", "each possible", "resulting value")) else None
-    if not agg:
-        return None
-    return "replace", "discrete_constraint_enumerator", {
-        "variables": ["p", "q"],
-        "domains": {
-            "p": {"type": "prime", "minimum": 2, "maximum": upper - 1},
-            "q": {"type": "prime", "minimum": 2, "maximum": upper - 1},
-        },
-        "constraints": [f"p+q<{upper}"],
-        "target_expression": "p*q",
-        "aggregation": agg,
-    }
-
-
-def _try_radical_root_form_assign(subtask, problem_text, all_steps):
-    if not is_result_task(subtask):
-        return None
-    low_problem = (problem_text or "").lower()
-    if "can be written in the form" not in low_problem or "sqrt" not in low_problem:
-        return None
-    req = extract_requested_target(subtask, ["m", "n"])
-    if req not in ("m + n", "m+n"):
-        return None
-    eq = _find_equation(problem_text, subtask, all_steps)
-    if not eq:
-        return None
-    return "replace", "solve", {
-        "equation": eq,
-        "target_expression": "(a+b)/2 + ((a-b)/2)**2",
-    }
-
-
-def _extract_bulk_discount_constraints(problem_text):
-    text = (problem_text or "").replace("\\$", "$")
-    if "reduced by" not in text.lower() or "tickets" not in text.lower():
-        return None
-    threshold = re.search(r"up to\s+(\d+)\s+tickets", text, re.I)
-    price = re.search(r"price for each ticket is\s+[^0-9]*(\d+)", text, re.I)
-    reduction = re.search(r"reduced by\s+[^0-9]*(\d+)[^0-9]*for each additional ticket", text, re.I)
-    target = re.search(r"profit greater than\s+[^0-9]*(\d+)", text, re.I)
-    if not (threshold and price and reduction and target):
-        return None
-    tvar = "t" if re.search(r"\bif\s+\$?t\$?\s+is\b", text, re.I) or "$t$" in text else "t"
-    limit = int(threshold.group(1))
-    base_price = int(price.group(1))
-    delta = int(reduction.group(1))
-    target_value = int(target.group(1))
-    expr = f"{tvar}*({base_price}-{delta}*({tvar}-{limit}))"
-    return {
-        "constraints": [f"{tvar}>{limit}", f"({expr})>{target_value}"],
-        "variable": tvar,
-        "domain": "positive_integer",
-    }
-
-
-def _structured_assign(subtask, problem_text, all_steps=None, verified_context=None):
-    """阶段 3.2/3.3：高置信结构化路由（仅 RESULT 步 replace）。"""
-    if not is_result_task(subtask):
-        return None
-    low = subtask.lower()
-
-    para = extract_parabola_point_system(problem_text)
-    if para:
-        tgt = extract_requested_target(subtask, para["variables"])
-        if tgt:
-            args = dict(para)
-            args["target_expression"] = tgt
-            return "replace", "linear_system_solver", args
-
-    radical = _try_radical_root_form_assign(subtask, problem_text, all_steps)
-    if radical:
-        return radical
-
-    ident = extract_polynomial_identity(problem_text) if detect_coefficient_matching(subtask, problem_text) else None
-    if ident:
-        if wants_all_system_variables(subtask) and re.search(r"what are|find|values", low):
-            return "replace", "polynomial_coefficient_match", dict(ident)
-        tgt = extract_requested_target(subtask, ident["unknowns"])
-        if tgt and re.search(r"what is|find|compute|value|final", low):
-            args = dict(ident)
-            args["target_expression"] = tgt
-            return "replace", "polynomial_coefficient_match", args
-
-    disc = _try_discrete_assign(subtask, problem_text)
-    if disc:
-        return disc
-
-    prime_root_disc = _try_prime_root_value_assign(subtask, problem_text)
-    if prime_root_disc:
-        return prime_root_disc
-
-    bulk = _extract_bulk_discount_constraints(problem_text)
-    if bulk:
-        tgt, _ = detect_inequality_target(subtask)
-        if tgt == "solution_set":
-            args = dict(bulk)
-            args["target"] = "solution_set"
-            return "replace", "inequality_solver", args
-
-    rt = detect_root_target(subtask)
-    if rt:
-        eq = _find_equation(problem_text, subtask, all_steps)
-        if not eq:
-            eqs = extract_polynomial_equations(problem_text or "")
-            if len(eqs) == 1:
-                eq = eqs[0]
-        if eq:
-            return "replace", "solve", {
-                "equation": eq, "root_target": rt, "domain": "real",
-            }
-
-    traj = extract_trajectory_model(problem_text)
-    if traj and is_result_task(subtask):
-        tv, expr = traj["time_var"], traj["expr"]
-        low = subtask.lower()
-        if "hits the ground" in low or ("height" in low and "ground" in low):
-            if re.search(r"what is the height", low):
-                return "replace", "arith", {"expression": "0"}
-        hm = re.search(r"height of\s+\$?\s*(\d+(?:\.\d+)?)", subtask)
-        if hm and re.search(r"at what times", low):
-            hval = hm.group(1)
-            eq = f"({expr})={hval}"
-            args = {"equation": eq, "variable": tv, "domain": "real"}
-            res = run_tool("solve", args)
-            if res["success"]:
-                args["unique"] = res.get("unique", False)
-                return "replace", "solve", args
-        if "total time duration" in low or "time interval (duration)" in low:
-            hm = re.search(r"(\d+(?:\.\d+)?)\s+meters", problem_text or "")
-            hval = hm.group(1) if hm else "6"
-            cons = [f"({expr})>{hval}"]
-            return "replace", "inequality_solver", {
-                "constraints": cons, "variable": tv, "domain": "real",
-                "target": "interval_length",
-            }
-
-    age = extract_age_word_system(problem_text)
-    if age and is_result_task(subtask) and re.search(r"son|daughter|age today", low):
-        tgt = age["target_var"]
-        if re.search(r"find|what is|how old|solve", low):
-            args = {
-                "equations": age["equations"], "variables": age["variables"],
-                "target_expression": tgt,
-            }
-            return "replace", "linear_system_solver", args
-
-    op_expr = extract_binary_operator_expr(problem_text)
-    if op_expr and is_result_task(subtask):
-        binds = extract_operator_bindings(subtask, problem_text)
-        if binds and re.search(r"final value|express|what is", low):
-            subs = {k: v for k, v in binds.items()}
-            args = {"expression": op_expr, "subs": subs}
-            return "replace", "subst", args
-
-    spec = extract_sequence_spec(problem_text)
-    if spec:
-        tgt, n = detect_sequence_target(subtask, problem_text)
-        if tgt:
-            args = dict(spec)
-            args["target"] = tgt
-            if n is not None:
-                args["n"] = n
-            return "replace", "sequence_tool", args
-
-    cons = extract_inequality_constraints(problem_text) \
-        or extract_inequality_constraints(subtask)
-    if not cons:
-        sq = extract_sqrt_domain_constraint(problem_text)
-        if sq:
-            cons = [sq]
-    if cons:
-        tgt, dom = detect_inequality_target(subtask)
-        var = _single_var(cons)
-        if tgt and var:
-            return "replace", "inequality_solver", {
-                "constraints": cons, "variable": var,
-                "domain": dom, "target": tgt,
-            }
-
-    if detect_common_root(subtask, problem_text) and re.search(r"value|what is|find", low):
-        eqs = extract_polynomial_equations(problem_text)
-        if len(eqs) >= 2:
-            return "replace", "solve", {"equations": eqs, "common_root": True}
-
-    v = extract_vieta_target(problem_text)
-    if v and ("compute the final" in low or "add the expression" in low
-              or (("find" in low or "compute" in low) and "frac" in low)):
-        return "replace", "solve", {
-            "equation": v["equation"],
-            "target_expression": v["target_expression"],
-        }
-
-    sel = detect_select(subtask)
-    if sel:
-        eq = _find_equation(problem_text, subtask, all_steps)
-        if eq:
-            return "replace", "solve", {"equation": eq, "select": sel}
-    return None
-
-
-def _subtask_symbol_mentions(subtask):
-    vars_ = set()
-    for piece in _pieces(subtask or ""):
-        vars_.update(re.findall(r"[A-Za-z]", piece))
-    for pat in (
-        r"values?\s+of\s+([A-Za-z])\s*(?:,|and)\s*([A-Za-z])",
-        r"find\s+([A-Za-z])\s*(?:,|and)\s*([A-Za-z])",
-    ):
-        m = re.search(pat, subtask or "", re.I)
-        if m:
-            vars_.update(m.groups())
-    return sorted(v for v in vars_ if v.lower() not in {"e", "i"})
-
-
-def _context_linear_assign(subtask, problem_text, all_steps, verified_context):
-    if not is_result_task(subtask):
-        return None
-    if should_use_subst(subtask, problem_text):
-        return None
-    has_prior_context = any((st or "").strip() != (subtask or "").strip() for st in (all_steps or []))
-    has_verified_values = bool((verified_context or {}).get("known_values"))
-    if not has_prior_context and not has_verified_values:
-        return None
-    hinted_vars = _subtask_symbol_mentions(subtask)
-    req_t = extract_requested_target(subtask, hinted_vars or None)
-    target_vars = sorted({v for v in re.findall(r"[A-Za-z]", req_t or "") if v.lower() not in {"e", "i"}})
-    if req_t:
-        vars_ = target_vars
-    elif wants_all_system_variables(subtask):
-        vars_ = _subtask_symbol_mentions(subtask)
-    else:
-        return None
-    if len(vars_) < 2:
-        return None
-    ctx_eqs = extract_context_equations(vars_, problem_text, all_steps or [], current_subtask=subtask)
-    if verified_context:
-        seen = {e for e, _ in ctx_eqs}
-        for eq, src in verified_context.get("equations", []):
-            letters = {c for c in re.findall(r"[A-Za-z]", eq) if c.lower() not in {"e", "i"}}
-            if eq not in seen and letters & set(vars_):
-                ctx_eqs.append((eq, src))
-                seen.add(eq)
-    if len(ctx_eqs) < 2:
-        return None
-    args = {
-        "equations": [e for e, _ in ctx_eqs],
-        "variables": vars_,
-    }
-    if req_t:
-        args["target_expression"] = req_t
-    res = run_tool("linear_system_solver", args)
-    if not res.get("success"):
-        return None
-    return "replace", "linear_system_solver", args
-
-
-def _context_solve_assign(subtask, problem_text, all_steps, verified_context):
-    """跨步方程合成：当前 RESULT 步缺方程时，从题面/前序/已验证结果合成。"""
-    if not is_result_task(subtask):
-        return None
-    if detect_root_target(subtask) or not wants_equation_solution(subtask):
-        return None
-    if is_root_derived_target(subtask) or any(c in subtask.lower() for c in _CONCEPT):
-        return None
-    var = infer_solve_variable(subtask, "")
-    if not var:
-        for p in ("x", "t", "y", "n", "k", "w"):
-            if re.search(rf"\b{p}\b", subtask.lower()):
-                var = p
-                break
-    if not var:
-        return None
-    ctx_eqs = extract_context_equations(var, problem_text, all_steps or [], current_subtask=subtask)
-    if verified_context:
-        seen = {e for e, _ in ctx_eqs}
-        for eq, src in verified_context.get("equations", []):
-            if eq not in seen and var in eq:
-                ctx_eqs.append((eq, src))
-                seen.add(eq)
-    if not ctx_eqs:
-        return None
-    eq_list = [e for e, _ in ctx_eqs]
-    sources = [s for _, s in ctx_eqs]
-    if len(eq_list) == 1:
-        args = {
-            "equation": eq_list[0], "variable": var, "domain": "real",
-            "context_sources": sources,
-        }
-        res = run_tool("solve", args)
-        if res["success"] and res.get("unique"):
-            args["unique"] = True
-            return "replace", "solve", args
-    return None
+_TRANSF = standard_transformations + (implicit_multiplication_application, convert_xor)
 
 IN_PATH = os.path.join(BASE, "TmpRes/step2In_MATH_last.json")
 OUT_PATH = os.path.join(BASE, "TmpRes/step2In_MATH_with_tool.json")
 LOG_DIR = os.path.join(BASE, "Logs")
 REJECT_JSON = os.path.join(LOG_DIR, "tool_assignment_rejections.json")
-REJECT_MD = os.path.join(LOG_DIR, "tool_assignment_rejections.md")
-AUDIT_JSON = os.path.join(LOG_DIR, "phase25_assignment_audit.json")
-AUDIT_MD = os.path.join(LOG_DIR, "phase25_assignment_audit.md")
 
-_CONCEPT = ("formula", "relate", "which ", "how do", "how does", "how can", "why ",
-            "explain", "define", " property", "rule for", "characteristic",
-            "what form", "steps are needed", "steps do we", "steps to")
-_PLURAL_ROOT_KW = ("roots", "all possible values", "solutions of", "sum of the roots", "sum of roots")
+# 仅这两类工具能“回代验证”，故只有它们（且 verified=True）可获授 replace；其余一律 assist。
+_REPLACE_TOOLS = {"solve", "linear_system_solver"}
+_IGNORE_SYMS = {"e", "i", "I", "pi", "E"}
 
 
-def _clean(s):
-    s = s.replace("\\left", "").replace("\\right", "")
-    s = s.replace("\\cdot", "*").replace("\\times", "*")
-    s = re.split(r"\\(?:geq|leq|ge|le|neq|gtr|less|approx)\b|[<>≤≥≠]", s)[0]
-    s = re.sub(r"(\d+)\s*\\d?frac\{([^{}]*)\}\{([^{}]*)\}", r"(\1+(\2)/(\3))", s)
-    s = re.sub(r"\\d?frac\{([^{}]*)\}\{([^{}]*)\}", r"((\1)/(\2))", s)
-    s = s.replace("\\", "")
-    return s.strip()
-
-
+# ------------------------- 结构解析（无题材关键词） -------------------------
 def _pieces(text):
+    """从文本中抽取数学片段（$...$ / \\(...\\) / \\[...\\]），做最小 LaTeX 清洗。"""
     if not text:
         return []
-    cands = []
+    raw = []
     for pat in (r"\\\((.+?)\\\)", r"\\\[(.+?)\\\]", r"\$(.+?)\$"):
-        cands += re.findall(pat, text, re.S)
-    return [c for c in (_clean(x) for x in cands) if c]
+        raw += re.findall(pat, text, re.S)
+    out = []
+    for s in raw:
+        # \text{...} 清洗为 ';'，据此把 "A and B" 形态拆成独立片段
+        out += [p.strip() for p in _clean_latex(s).split(";")]
+    return [s for s in out if s]
 
 
-def _extract_complex_expr(text):
-    if not text or "i" not in text.lower():
-        return None
-    for p in _pieces(text):
-        if "i" in p.lower() and re.search(r"\)\s*[\(*]?\s*\(", p.replace(" ", "")):
-            return p
-        if "i" in p.lower() and "*" in p:
-            return p
-    m = re.search(r"\([^)]*[iI][^)]*\)\s*[\*×]?\s*\([^)]*[iI][^)]*\)", text)
-    return _clean(m.group(0)) if m else None
+def _clean_latex(s):
+    """最小 LaTeX 清洗：分数（含 \\frac16 / \\frac{42}3 简写与带分数）、乘号、不等号、括号修饰。"""
+    s = s.replace("\\left", "").replace("\\right", "")
+    s = s.replace("\\cdot", "*").replace("\\times", "*")
+    s = s.replace("\\!", "").replace("\\,", " ").replace("~", " ")
+    s = s.replace("\\leq", "<=").replace("\\le", "<=")
+    s = s.replace("\\geq", ">=").replace("\\ge", ">=")
+    s = re.sub(r"\\l?c?dots\b", " ", s)
+    s = re.sub(r"\\text\{[^{}]*\}", ";", s)  # \text{ and } 等 → 片段分隔符
+    # 分数处理做两遍以展开嵌套（如 \frac{1\frac16}{w}）
+    for _ in range(2):
+        # 统一 \frac 简写参数（数字/单字母）为花括号形式，便于后续单一规则处理
+        s = re.sub(r"\\(d?frac)\s*([0-9A-Za-z])\s*([0-9A-Za-z])(?![A-Za-z])", r"\\\1{\2}{\3}", s)
+        s = re.sub(r"\\(d?frac)\s*([0-9A-Za-z])\s*\{", r"\\\1{\2}{", s)
+        s = re.sub(r"\\(d?frac)\{([^{}]*)\}\s*([0-9A-Za-z])(?![A-Za-z])", r"\\\1{\2}{\3}", s)
+        # 带分数 N\frac{a}{b} = N + a/b，必须先于普通分数处理，否则会误解析为 N*(a/b)
+        s = re.sub(r"(\d+)\s*\\d?frac\{([^{}]*)\}\{([^{}]*)\}", r"(\1+(\2)/(\3))", s)
+        s = re.sub(r"\\d?frac\{([^{}]*)\}\{([^{}]*)\}", r"((\1)/(\2))", s)
+    s = s.replace("\\", "").strip()
+    return s
 
 
-def _skip_partial_foil_arith(subtask, problem_text):
-    if not problem_text or not _extract_complex_expr(problem_text):
+def _parse(s):
+    return parse_expr(s, transformations=_TRANSF)
+
+
+def _absify(s):
+    """|expr| → Abs(expr)，使含绝对值的片段可被 sympy 解析。"""
+    return re.sub(r"\|([^|]+)\|", r"Abs(\1)", s)
+
+
+def _syms(s):
+    """表达式/方程中的自由符号名集合（滤除常量符号）。"""
+    try:
+        s = _absify(s)
+        e = (_parse(s.split("=", 1)[0]) - _parse(s.split("=", 1)[1])) if "=" in s else _parse(s)
+        return {x.name for x in e.free_symbols if x.name not in _IGNORE_SYMS}
+    except Exception:
+        return set()
+
+
+def _is_equation(s):
+    return bool(s) and s.count("=") == 1 and re.search(r"[A-Za-z]", s) \
+        and all(_safe_parse(part) for part in s.split("="))
+
+
+def _safe_parse(s):
+    try:
+        _parse(s)
+        return True
+    except Exception:
         return False
-    if _extract_complex_expr(subtask):
-        return False
-    if re.search(r"\\?i\b", subtask, re.I):
-        return False
-    return bool(re.search(r"\d+\s*(?:[\*×]|\\times)\s*\d+", subtask, re.I))
 
 
-def _extract_problem_equation(problem_text, subtask):
-    for src in (subtask, problem_text or ""):
-        for p in _pieces(src):
-            if "=" in p and re.search(r"[xyzwtk]", p):
-                return p
+def _is_numeric(s):
+    try:
+        v = sp.simplify(_parse(s))
+        return v.is_number and not v.free_symbols
+    except Exception:
+        return False
+
+
+def _has_op(s):
+    return any(c in s for c in "+-*/^")
+
+
+def _has_i(s):
+    return bool(re.search(r"\bi\b", s) or "I" in s)
+
+
+def _equations(subtask, problem_text, all_steps):
+    """按结构收集候选方程（子任务优先，题面/前序为补充），去重保序。"""
+    spans = _pieces(subtask) + _pieces(problem_text)
+    for st in all_steps or []:
+        spans += _pieces(st)
+    seen, eqs = set(), []
+    for s in spans:
+        if _is_equation(s) and s not in seen:
+            seen.add(s)
+            eqs.append(s)
+    return eqs
+
+
+def _cand_solve(subtask, problem_text, eqs):
+    """单方程单未知数 → solve；按子任务意图附加 root_target/select/target_expression。"""
+    for eq in eqs:
+        syms = _syms(eq)
+        if len(syms) != 1:
+            continue
+        var = next(iter(syms))
+        args = {"equation": eq, "variable": var, "domain": "real"}
+        if re.search(r"\bi\b|imaginary|complex", (subtask + " " + (problem_text or "")).lower()):
+            args["domain"] = "complex"
+        rt = detect_root_target(subtask)
+        sel = detect_select(subtask)
+        tgt = extract_requested_target(subtask, [var])
+        if rt:
+            args["root_target"] = rt
+        elif sel:
+            args["select"] = sel
+        elif tgt and tgt.strip() != var and set(re.findall(r"[A-Za-z]", tgt)) <= {var}:
+            args["target_expression"] = tgt  # 仅当是变量的派生式（如 x^2+1），而非变量本身
+        return args
     return None
 
 
-def _solve_mode(subtask, tool_res):
-    if any(k in subtask.lower() for k in _PLURAL_ROOT_KW):
-        return "assist"
-    if not tool_res.get("unique"):
-        return "assist"
-    if is_strict_solve_subtask(subtask):
-        return "replace"
-    return "assist"
+def _cand_linear(subtask, eqs):
+    """多方程多未知数 → linear_system_solver。variables 取系统全部未知数，target_expression 为子任务所求。"""
+    if len(eqs) < 2:
+        return None
+    allsyms = sorted({s for e in eqs for s in _syms(e)})
+    if len(allsyms) < 2:
+        return None
+    use = [e for e in eqs if _syms(e) <= set(allsyms)]
+    if len(use) < len(allsyms):  # 方程数需 ≥ 未知数，才可能有唯一解
+        return None
+    tgt = extract_requested_target(subtask, allsyms)
+    if not tgt and not wants_all_system_variables(subtask):
+        return None
+    args = {"equations": use, "variables": allsyms}
+    if tgt:
+        args["target_expression"] = tgt
+    return args
 
 
-def _linear_mode(subtask, args):
-    if args.get("target"):
-        return "replace"
-    if wants_all_system_variables(subtask):
-        return "assist"
-    return "no_tool"
+def _candidates(subtask, problem_text, all_steps):
+    """子任务级候选（收紧版）：仅 subst / linear_system / solve 三类可验证工具。
+    expand/factor/simplify/complex/arith 的 assist 经 5 轮实验证实无净收益且致错，已裁撤。"""
+    eqs = _equations(subtask, problem_text, all_steps)
+    out = []
+    sa = should_use_subst(subtask, problem_text)
+    if sa:
+        out.append(("subst", sa))
+    lin = _cand_linear(subtask, eqs)
+    if lin:
+        out.append(("linear_system_solver", lin))
+    sv = _cand_solve(subtask, problem_text, eqs)
+    if sv:
+        out.append(("solve", sv))
+    return out
 
 
-def _apply(subtask, step_id, int_edges, all_steps, mode, name, args, qid=None, rejections=None):
-    if name == "no_tool" or mode == "no_tool":
-        return "no_tool", "no_tool", {}
-    ok, reason = validate_assignment(
-        subtask, name, args, mode,
-        all_steps=all_steps, step_id=step_id, int_edges=int_edges,
-    )
-    if not ok:
-        if rejections is not None:
-            rejections.append({
-                "qid": qid, "step_id": step_id, "subtask": subtask[:240],
-                "original_tool": name, "original_mode": mode,
-                "original_args": args, "reason": reason,
-            })
-        return "no_tool", "no_tool", {}
-    tool_res = run_tool(name, args)
-    if not tool_res.get("success"):
-        if rejections is not None:
-            rejections.append({
-                "qid": qid, "step_id": step_id, "subtask": subtask[:240],
-                "original_tool": name, "original_mode": mode,
-                "original_args": args, "reason": "工具执行失败",
-            })
-        return "no_tool", "no_tool", {}
-    ok_gate, reason_gate, _ = semantic_gate(subtask, name, args, mode, tool_res)
-    if not ok_gate:
-        if rejections is not None:
-            rejections.append({
-                "qid": qid, "step_id": step_id, "subtask": subtask[:240],
-                "original_tool": name, "original_mode": mode,
-                "original_args": args, "reason": reason_gate,
-            })
-        return "no_tool", "no_tool", {}
-    return mode, name, args
+# ------------------------- 分级信任闸门 + 模式决策 -------------------------
+def _closed_numeric(res):
+    """subst 结果是否为闭合数值（所有符号已被代入、无自由变量）→ 直接求值确定可信。"""
+    try:
+        v = sp.sympify(str(res.get("result")))
+        return bool(v.is_number) and not v.free_symbols
+    except Exception:
+        return False
 
 
-def assign(subtask, step_id=None, int_edges=None, all_steps=None, problem_text=None,
-           qid=None, rejections=None, complex_used=None, verified_context=None):
-    low = subtask.lower()
-    ps = _pieces(subtask)
-    expr = max(ps, key=len) if ps else ""
-    complex_used = complex_used if complex_used is not None else set()
+def _replace_ok(name, res):
+    """可授 replace 的两类确定性来源：solve/linear 回代验证 verified；subst 闭合数值。"""
+    return bool(res.get("verified")) or (name == "subst" and _closed_numeric(res))
 
-    # --- 阶段 3.2/3.3 结构化高置信路由 ---
-    structured = _structured_assign(subtask, problem_text, all_steps, verified_context)
-    if structured:
-        s_mode, s_name, s_args = structured
-        out = _apply(subtask, step_id, int_edges, all_steps, s_mode, s_name,
-                     s_args, qid, rejections)
-        if out[1] != "no_tool":
+
+def _desired_mode(name, args, subtask, res):
+    """收紧后的模式决策：subst 仅闭合数值 replace；solve/linear 必须 verified（assist 也是）。"""
+    if name == "subst":
+        return "replace" if _closed_numeric(res) else None
+    if not res.get("verified"):
+        return None  # 未验证的 solve/linear 连 assist 都不给（right→wrong 的根源）
+    if name == "solve":
+        if args.get("root_target") or args.get("target_expression") or args.get("select"):
+            return "replace" if is_result_task(subtask) else "assist"
+        return "replace" if (args.get("unique") and is_strict_solve_subtask(subtask)
+                             and not is_root_derived_target(subtask)) else "assist"
+    return "replace" if (args.get("target_expression")
+                         or wants_all_system_variables(subtask)) else "assist"
+
+
+def _finalize(subtask, sid, int_edges, all_steps, name, args):
+    """跑工具 -> 定模式 -> validate + semantic_gate 双闸门；通过返回 (mode,name,args)，否则 None。"""
+    res = run_tool(name, args)
+    if not res.get("success"):
+        return None
+    if name == "solve":
+        args["unique"] = res.get("unique", False)
+    desired = _desired_mode(name, args, subtask, res)
+    if desired is None:
+        return None
+    for m in (("replace", "assist") if desired == "replace" else ("assist",)):
+        if m == "replace" and not _replace_ok(name, res):
+            continue
+        ok, _ = validate_assignment(subtask, name, args, m, all_steps=all_steps,
+                                    step_id=sid, int_edges=int_edges)
+        if not ok:
+            continue
+        ok_gate, _, _ = semantic_gate(subtask, name, args, m, res)
+        if ok_gate:
+            return m, name, args
+    return None
+
+
+def assign(subtask, step_id, int_edges, all_steps, problem_text):
+    for name, args in _candidates(subtask, problem_text, all_steps):
+        out = _finalize(subtask, step_id, int_edges, all_steps, name, args)
+        if out:
             return out
-
-    # --- 跨步方程合成 solve ---
-    ctx_linear = _context_linear_assign(subtask, problem_text, all_steps, verified_context)
-    if ctx_linear:
-        l_mode, l_name, l_args = ctx_linear
-        out = _apply(subtask, step_id, int_edges, all_steps, l_mode, l_name,
-                     l_args, qid, rejections)
-        if out[1] != "no_tool":
-            return out
-
-    # --- 跨步方程合成 solve ---
-    ctx_out = _context_solve_assign(subtask, problem_text, all_steps, verified_context)
-    if ctx_out:
-        c_mode, c_name, c_args = ctx_out
-        out = _apply(subtask, step_id, int_edges, all_steps, c_mode, c_name,
-                     c_args, qid, rejections)
-        if out[1] != "no_tool":
-            return out
-
-    # --- subst：已知赋值 + 求表达式 ---
-    subst_args = should_use_subst(subtask, problem_text)
-    if subst_args and run_tool("subst", subst_args)["success"]:
-        return _apply(subtask, step_id, int_edges, all_steps, "replace", "subst",
-                      subst_args, qid, rejections)
-
-    # --- 线性方程组（严格）---
-    lin_args = should_use_linear_system(subtask, problem_text)
-    if lin_args:
-        res = run_tool("linear_system_solver", lin_args)
-        if res["success"]:
-            mode = _linear_mode(subtask, lin_args)
-            if mode != "no_tool":
-                lin_args["unique"] = res.get("unique", True)
-                return _apply(subtask, step_id, int_edges, all_steps, mode,
-                              "linear_system_solver", lin_args, qid, rejections)
-
-    # --- 复数：去重 + 角色限制 ---
-    cx = _extract_complex_expr(subtask) or _extract_complex_expr(problem_text or "")
-    role = complex_step_role(subtask)
-    if cx and role:
-        args = {"expression": cx}
-        mode = "replace" if role == "replace_final" else "assist"
-        key = (mode, complex_key(args))
-        if key in complex_used:
-            pass
-        elif run_tool("complex_arithmetic", args)["success"]:
-            out = _apply(subtask, step_id, int_edges, all_steps, mode,
-                         "complex_arithmetic", args, qid, rejections)
-            if out[1] != "no_tool":
-                complex_used.add(key)
-            return out
-
-    # --- 单变量 solve（严格触发 + 实数域默认）---
-    eq = _extract_problem_equation(problem_text, subtask)
-    if not eq and all_steps and is_strict_solve_subtask(subtask):
-        for st in all_steps:
-            cand = _extract_problem_equation(None, st)
-            if cand:
-                eq = cand
-                break
-    if eq and is_strict_solve_subtask(subtask) and not is_root_derived_target(subtask) \
-            and not any(c in low for c in _CONCEPT):
-        var = infer_solve_variable(subtask, eq)
-        if var:
-            args = {"equation": eq, "variable": var, "domain": "real"}
-            if re.search(r"\\?i\b|imaginary|complex", subtask + (problem_text or ""), re.I):
-                args["domain"] = "complex"
-            res = run_tool("solve", args)
-            if res["success"]:
-                args["unique"] = res.get("unique", False)
-                mode = _solve_mode(subtask, res)
-                return _apply(subtask, step_id, int_edges, all_steps, mode, "solve", args, qid, rejections)
-
-    if (("factored form" in low) or ("factor the" in low)) \
-            and expr and run_tool("factor", {"expression": expr})["success"]:
-        return _apply(subtask, step_id, int_edges, all_steps, "replace", "factor",
-                      {"expression": expr}, qid, rejections)
-
-    if ("expand" in low or "expanded" in low) and expr and run_tool("expand", {"expression": expr})["success"]:
-        if is_procedural_explanation_target(subtask):
-            pass
-        elif is_direct_expand_request(subtask):
-            mode = "replace"
-            return _apply(subtask, step_id, int_edges, all_steps, mode, "expand",
-                          {"expression": expr}, qid, rejections)
-        else:
-            mode = "assist"
-            return _apply(subtask, step_id, int_edges, all_steps, mode, "expand",
-                          {"expression": expr}, qid, rejections)
-
-    if ("simplify" in low or "simplified form" in low) and expr and run_tool("simplify", {"expression": expr})["success"]:
-        return _apply(subtask, step_id, int_edges, all_steps, "assist", "simplify",
-                      {"expression": expr}, qid, rejections)
-
-    mof = re.search(r"(\d+(?:\.\d+)?)\s*(%)?\s+of\s+(\d+(?:\.\d+)?)", low)
-    if mof:
-        a, pct, b = mof.group(1), mof.group(2), mof.group(3)
-        e = f"{a}/100*{b}" if pct else f"{a}*{b}"
-        if run_tool("arith", {"expression": e})["success"]:
-            return _apply(subtask, step_id, int_edges, all_steps, "replace", "arith",
-                          {"expression": e}, qid, rejections)
-    mfrac = re.search(r"\bof\s+(\d+(?:\.\d+)?)", low)
-    if mfrac and expr and "/" in expr:
-        e = f"({expr})*{mfrac.group(1)}"
-        if run_tool("arith", {"expression": e})["success"]:
-            return _apply(subtask, step_id, int_edges, all_steps, "replace", "arith",
-                          {"expression": e}, qid, rejections)
-
-    if expr and any(c in expr for c in "+-*/^") and not re.search(r"\bof\s+\d", low) \
-            and not _skip_partial_foil_arith(subtask, problem_text) \
-            and run_tool("arith", {"expression": expr})["success"]:
-        return _apply(subtask, step_id, int_edges, all_steps, "replace", "arith",
-                      {"expression": expr}, qid, rejections)
-
     return "no_tool", "no_tool", {}
 
 
-def _check_question(qid, steps, tools, targs, modes):
-    assert len(steps) == len(tools), f"Q{qid} steps/allo_tool 长度不一致"
-    assert len(steps) == len(targs), f"Q{qid} steps/tool_args 长度不一致"
-    assert len(steps) == len(modes), f"Q{qid} steps/tool_mode 长度不一致"
-    for tool, args, mode in zip(tools, targs, modes):
-        if tool == "no_tool":
-            assert mode == "no_tool", f"Q{qid} no_tool 但 mode={mode}"
-            assert args == {}, f"Q{qid} no_tool 但 args 非空"
-        else:
-            assert mode in {"replace", "assist"}, f"Q{qid} 非法 mode={mode} tool={tool}"
+# ------------------------- 题目级 final_tool 提取 -------------------------
+# 对原题文本做四类通用数学结构提取，求解 + 验证后产出题级最终答案。
+# 只用数学通用词汇（sum/how many/greatest/nth term 等聚合与序数词），不含任何题材关键词。
+
+_ORDINALS = {w: i for i, w in enumerate(
+    ("first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth",
+     "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth",
+     "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"), start=1)}
 
 
-def _write_rejection_logs(rejections):
-    os.makedirs(LOG_DIR, exist_ok=True)
-    with open(REJECT_JSON, "w", encoding="utf-8") as f:
-        json.dump(rejections, f, ensure_ascii=False, indent=2)
-    by_reason = Counter(r["reason"] for r in rejections)
-    by_tool = Counter(r["original_tool"] for r in rejections)
-    lines = ["# 工具分配拒绝记录", "", f"总计: {len(rejections)} 条", "", "## 按原因"]
-    for reason, cnt in by_reason.most_common():
-        lines.append(f"- {reason}: {cnt}")
-    lines += ["", "## 按原工具", ""]
-    for tool, cnt in by_tool.most_common():
-        lines.append(f"- {tool}: {cnt}")
-    lines += ["", "## 明细", ""]
-    for r in rejections:
-        lines.append(
-            f"- Q{r['qid']} Step{r['step_id']} | {r['original_tool']}({r['original_mode']}) | {r['reason']}"
-        )
-        lines.append(f"  subtask: {r['subtask'][:120]}")
-    with open(REJECT_MD, "w", encoding="utf-8") as f:
-        f.write("\n".join(lines) + "\n")
+def _agg_kind(low):
+    """从提问语句提取通用聚合目标：sum / count / maximum / minimum。
+    命中多种聚合词（如 'smallest ... largest ... b-a' 的复合目标）时返回 None，避免意图误判。"""
+    kinds = []
+    if re.search(r"\bsum of\b", low):
+        kinds.append("sum")
+    if re.search(r"\bhow many\b", low):
+        kinds.append("count")
+    if re.search(r"\b(greatest|largest|maximum)\b", low):
+        kinds.append("maximum")
+    if re.search(r"\b(least|smallest|minimum)\b", low):
+        kinds.append("minimum")
+    return kinds[0] if len(kinds) == 1 else None
 
 
-def _output_target(tool_name, tool_res, args):
-    if not tool_res.get("success"):
+def _is_inequality(s):
+    return bool(re.search(r"[<>]=?", s)) and "=" not in s.replace("<=", "").replace(">=", "")
+
+
+def _numeric_terms(span):
+    """把 'a, b, c, d' 形态的片段解析为精确数值列表；解析失败返回 None。"""
+    parts = [p.strip() for p in span.split(",") if p.strip()]
+    if len(parts) < 3:
         return None
-    if tool_name == "subst":
-        return tool_res.get("result")
-    if tool_name == "solve":
-        return tool_res.get("value") or tool_res.get("target_value") or tool_res.get("text")
-    if tool_name in ("inequality_solver", "sequence_tool", "polynomial_coefficient_match",
-                     "discrete_constraint_enumerator"):
-        return tool_res.get("target_value") or tool_res.get("value") \
-            or tool_res.get("solutions") or tool_res.get("text")
-    if tool_name == "linear_system_solver":
-        if args.get("target") or args.get("target_expression"):
-            return tool_res.get("value") or tool_res.get("text")
-        return tool_res.get("solution")
-    if tool_name == "complex_arithmetic":
-        return tool_res.get("text") or tool_res.get("result")
-    return tool_res.get("result")
+    vals = []
+    for p in parts:
+        try:
+            v = sp.nsimplify(_parse(p))
+        except Exception:
+            return None
+        if not v.is_number:
+            return None
+        vals.append(v)
+    return vals
 
 
-def _run_phase25_audit(data):
-    records = []
-    stats = {
-        "replace_target_match_true": 0,
-        "replace_target_match_false": 0,
-        "assist_scope_match_true": 0,
-        "assist_scope_match_false": 0,
-        "unknown_target_count": 0,
-        "validation_fail": 0,
-        "tool_success_fail": 0,
-    }
-    for qid, q in data.items():
-        steps = q["steps"]
-        for i, (subtask, tool, mode, args) in enumerate(
-            zip(steps, q["allo_tool"], q["tool_mode"], q["tool_args"]), start=1
-        ):
-            if tool == "no_tool":
-                continue
-            ok_val, reason = validate_assignment(
-                subtask, tool, args, mode,
-                all_steps=steps, step_id=i, int_edges=q.get("int_edges", []),
-            )
-            tool_res = run_tool(tool, args)
-            allowed = list((args.get("subs") or {}).keys()) or args.get("variables") or None
-            req_target = extract_requested_target(subtask, allowed)
-            out_target = _output_target(tool, tool_res, args)
-            rep_match = check_replace_target_match(subtask, tool, args, tool_res) if mode == "replace" else None
-            ast_match = check_assist_scope_match(subtask, tool, args, tool_res) if mode == "assist" else None
-            ok_gate, gate_reason, gate_tag = semantic_gate(subtask, tool, args, mode, tool_res)
-
-            if mode == "replace":
-                if rep_match is True and ok_gate:
-                    stats["replace_target_match_true"] += 1
-                elif rep_match is False or (rep_match is not True and not ok_gate and gate_tag == "replace_mismatch"):
-                    stats["replace_target_match_false"] += 1
-                else:
-                    stats["unknown_target_count"] += 1
-            elif mode == "assist":
-                if ast_match is True and ok_gate:
-                    stats["assist_scope_match_true"] += 1
-                elif ast_match is False or (ast_match is not True and not ok_gate and gate_tag == "assist_mismatch"):
-                    stats["assist_scope_match_false"] += 1
-                else:
-                    stats["unknown_target_count"] += 1
-
-            if not ok_val:
-                stats["validation_fail"] += 1
-            if not tool_res.get("success"):
-                stats["tool_success_fail"] += 1
-
-            records.append({
-                "qid": int(qid),
-                "step_id": i,
-                "subtask": subtask[:300],
-                "tool_name": tool,
-                "mode": mode,
-                "tool_args": args,
-                "tool_output": tool_res.get("result") or tool_res.get("text"),
-                "requested_target": req_target,
-                "output_target": out_target,
-                "replace_target_match": rep_match,
-                "assist_scope_match": ast_match,
-                "semantic_gate_pass": ok_gate,
-                "semantic_gate_reason": gate_reason,
-                "validation_pass": ok_val,
-                "validation_reason": reason if not ok_val else "ok",
-                "tool_success": tool_res.get("success", False),
-            })
-    os.makedirs(LOG_DIR, exist_ok=True)
-    with open(AUDIT_JSON, "w", encoding="utf-8") as f:
-        json.dump({"stats": stats, "records": records}, f, ensure_ascii=False, indent=2)
-    lines = [
-        "# Phase 2.5/2.6 工具分配语义审计",
-        "",
-        f"非 no_tool 槽位: {len(records)}",
-        f"validation 失败: {stats['validation_fail']}",
-        f"tool_success 失败: {stats['tool_success_fail']}",
-        f"replace_target_match_true: {stats['replace_target_match_true']}",
-        f"replace_target_match_false: {stats['replace_target_match_false']}",
-        f"assist_scope_match_true: {stats['assist_scope_match_true']}",
-        f"assist_scope_match_false: {stats['assist_scope_match_false']}",
-        f"unknown_target_count: {stats['unknown_target_count']}",
-        "",
-        "## 明细",
-        "",
-    ]
-    for r in records:
-        flag = "OK" if r["semantic_gate_pass"] and r["validation_pass"] and r["tool_success"] else "FAIL"
-        lines.append(
-            f"- [{flag}] Q{r['qid']} Step{r['step_id']} | {r['tool_name']}({r['mode']}) "
-            f"| req={r['requested_target']} | out={r['output_target']} | gate={r['semantic_gate_pass']}"
-        )
-    with open(AUDIT_MD, "w", encoding="utf-8") as f:
-        f.write("\n".join(lines) + "\n")
-    return stats, records
+def _final_from_inequalities(problem):
+    """不等式组 + 整数聚合目标 → inequality_solver（工具内部逐点回代验证）。"""
+    low = problem.lower()
+    agg = _agg_kind(low)
+    if not agg or "integer" not in low:
+        return None
+    ineqs = [s for s in _pieces(problem) if _is_inequality(s)]
+    if not ineqs:
+        return None
+    allsyms = set().union(*[_syms(s) for s in ineqs])
+    if len(allsyms) != 1:
+        return None
+    var = next(iter(allsyms))
+    return ("inequality_solver",
+            {"constraints": ineqs, "variable": var, "domain": "integer", "target": agg},
+            "target_value", f"{len(ineqs)} 条不等式, 整数域 {agg}")
 
 
-def _is_final_target_step(subtask, step_idx, n_steps):
-    if step_idx == n_steps:
-        return True
-    low = (subtask or "").lower()
-    return any(k in low for k in _FINAL_KW)
+def _final_from_multiples(problem):
+    """'multiples of N between/from A and/to B' + sum/count → 离散枚举（逐点验证）。"""
+    low = problem.lower()
+    agg = _agg_kind(low)
+    if agg not in ("sum", "count"):
+        return None
+    m = re.search(r"multiples? of (\d+)\s+(?:between|from)\s+(\d+)\s+(?:and|to)\s+(\d+)", low)
+    if not m:
+        return None
+    k, a, b = int(m.group(1)), int(m.group(2)), int(m.group(3))
+    if k <= 0 or b <= a or (b - a) > 100000:
+        return None
+    return ("discrete_constraint_enumerator",
+            {"variables": ["n"],
+             "domains": {"n": {"type": "integer", "minimum": 0, "maximum": b}},
+             "constraints": [f"{k}*n >= {a}", f"{k}*n <= {b}"],
+             "target_expression": f"{k}*n", "aggregation": agg},
+            "target_value", f"multiples of {k} in [{a},{b}] {agg}")
 
 
-def _compute_question_metrics(steps, tools, modes, slot_meta):
-    has_slot = any(t != "no_tool" for t in tools)
-    safe_replace = False
-    key_covered = False
-    final_covered = False
-    n = len(steps)
-    for i, (sub, tool, mode, meta) in enumerate(zip(steps, tools, modes, slot_meta), 1):
-        if tool == "no_tool":
+def _final_from_sequence(problem):
+    """题面逗号分隔项列表（>=3 项）→ 等差/等比判定（全部给定项交叉验证）→ sequence_tool。"""
+    low = problem.lower()
+    terms = next((t for s in _pieces(problem) if (t := _numeric_terms(s))), None)
+    if not terms:
+        return None
+    diffs = [terms[i + 1] - terms[i] for i in range(len(terms) - 1)]
+    ratios = ([terms[i + 1] / terms[i] for i in range(len(terms) - 1)]
+              if all(t != 0 for t in terms) else [])
+    if all(d == diffs[0] for d in diffs) and diffs[0] != 0:
+        args = {"sequence_type": "arithmetic", "first_term": str(terms[0]),
+                "difference": str(diffs[0])}
+    elif ratios and all(r == ratios[0] for r in ratios) and ratios[0] not in (0, 1):
+        args = {"sequence_type": "geometric", "first_term": str(terms[0]),
+                "ratio": str(ratios[0])}
+    else:
+        return None
+    args["given_terms"] = [str(t) for t in terms]
+
+    # 目标 1：第 n 项（序数词或 "12th term"）
+    n = None
+    m = re.search(r"\b(\d+)(?:st|nd|rd|th)\s+term\b", low)
+    if m:
+        n = int(m.group(1))
+    else:
+        for w, i in _ORDINALS.items():
+            if re.search(rf"\b{w}\s+term\b", low):
+                n = i
+                break
+    if n and n > len(terms):
+        args.update({"target": "nth_term", "n": n})
+        return ("sequence_tool", args, "target_value", f"{args['sequence_type']} 第{n}项")
+    # 目标 2：递减等差数列的最小正项
+    if (args["sequence_type"] == "arithmetic" and sp.nsimplify(args["difference"]) < 0
+            and re.search(r"\b(least|smallest)\s+positive\b", low)):
+        args["target"] = "last_positive_integer_index"
+        return ("sequence_tool", args, "term_value", "递减等差数列最小正项")
+    return None
+
+
+def _final_from_points_poly(problem):
+    """多项式形式 + 足量数值点 → 系数线性方程组（全点回代验证）→ 目标表达式求值。"""
+    spans = _pieces(problem)
+    # 多项式形式：唯一主变量（最高次 >= 2）+ 若干一次系数符号
+    poly_expr = main = None
+    coeffs = []
+    for s in spans:
+        if "=" in s or "," in s or not _safe_parse(s):
             continue
-        tr = meta.get("tool_res") or {}
-        verified = bool(tr.get("verified")) or (
-            tr.get("success") and tool in SUBSTANTIVE_TOOLS and mode == "replace"
-        )
-        gate_ok = meta.get("gate_ok", False)
-        args = meta.get("args") or {}
-        if mode == "replace" and verified and gate_ok:
-            safe_replace = True
-        if tool in _INTERMEDIATE_TOOLS and mode == "assist":
+        try:
+            e = _parse(s)
+        except Exception:
             continue
-        if mode == "replace" and verified and gate_ok and tool in SUBSTANTIVE_TOOLS:
-            if classify_task_type(sub) == "RESULT":
-                key_covered = True
-        if mode == "replace" and verified and gate_ok and _is_final_target_step(sub, i, n):
-            if tool in SUBSTANTIVE_TOOLS or args.get("root_target"):
-                final_covered = True
-    return has_slot, key_covered, final_covered, safe_replace
+        syms = sorted(e.free_symbols, key=lambda x: x.name)
+        if len(syms) < 2:
+            continue
+        deg = {v: sp.degree(sp.expand(e), v) for v in syms}
+        mains = [v for v in syms if deg[v] >= 2]
+        rest = [v for v in syms if deg[v] <= 1 and v not in mains]
+        if len(mains) == 1 and len(rest) >= 2 and all(deg[v] == 1 for v in rest):
+            poly_expr, main, coeffs = e, mains[0], rest
+            break
+    if poly_expr is None:
+        return None
+    # 数值点 (x, y)：从全文提取
+    pts = []
+    for mx, my in re.findall(r"\(\s*(-?\d+(?:[./]\d+)?)\s*,\s*(-?\d+(?:[./]\d+)?)\s*\)",
+                             _clean_latex(problem)):
+        try:
+            pts.append((sp.nsimplify(mx), sp.nsimplify(my)))
+        except Exception:
+            continue
+    pts = list(dict.fromkeys(pts))
+    if len(pts) < len(coeffs):
+        return None
+    # 目标：仅含系数符号的表达式片段（带运算符，区别于多项式本体）
+    coeff_names = {v.name for v in coeffs}
+    tgt = next((s for s in spans
+                if _safe_parse(s) and "=" not in s and _has_op(s)
+                and _syms(s) and _syms(s) <= coeff_names), None)
+    if not tgt:
+        return None
+    eqs = [f"{sp.expand(poly_expr.subs(main, px))} = {py}" for px, py in pts[: len(coeffs)]]
+    args = {"equations": eqs, "variables": sorted(coeff_names), "target_expression": tgt}
+    return ("linear_system_solver", args, "target_value",
+            f"{len(pts)} 点定 {len(coeffs)} 系数多项式")
 
 
-def _run_stable35_metrics(data, slot_meta_by_qid):
-    metrics = {
-        "has_tool_slot": [],
-        "key_error_step_covered": [],
-        "final_target_covered": [],
-        "safe_replace": [],
-    }
-    for qid in STABLE_35:
-        q = data.get(str(qid))
-        if not q:
+def _final_from_single_equation(problem):
+    """题面唯一单未知数方程 + 明确目标（solve for / 目标式 / 根聚合）→ solve（回代验证）。"""
+    low = problem.lower()
+    eqs = list(dict.fromkeys(s for s in _pieces(problem) if _is_equation(s)))
+    uni = [(e, next(iter(_syms(e)))) for e in eqs if len(_syms(e)) == 1]
+    if len(eqs) != 1 or len(uni) != 1:
+        return None  # 题面必须恰有一个方程且单未知数，否则该方程未必决定最终答案
+    eq, var = uni[0]
+    args = {"equation": eq, "variable": var, "domain": "real"}
+    rt, sel = detect_root_target(problem), detect_select(problem)
+    tgt = extract_requested_target(problem, [var])
+    if rt:
+        args["root_target"] = rt
+    elif sel:
+        args["select"] = sel
+    elif tgt and tgt.strip() != var and set(re.findall(r"[A-Za-z]", tgt)) <= {var}:
+        args["target_expression"] = tgt
+    elif not re.search(rf"solve for\s+\W*{re.escape(var)}\b", low):
+        return None
+    return ("solve", args, None, f"题面单方程 solve {var}")
+
+
+def build_final_tool(problem_text):
+    """依次尝试题目级提取器；工具运行成功且 verified 才产出 final_tool，否则 None。"""
+    for extractor in (_final_from_inequalities, _final_from_multiples,
+                      _final_from_sequence, _final_from_points_poly,
+                      _final_from_single_equation):
+        try:
+            cand = extractor(problem_text)
+        except Exception:
+            cand = None
+        if not cand:
             continue
-        meta = slot_meta_by_qid.get(qid, [])
-        hs, kc, fc, sr = _compute_question_metrics(
-            q["steps"], q["allo_tool"], q["tool_mode"], meta)
-        if hs:
-            metrics["has_tool_slot"].append(qid)
-        if kc:
-            metrics["key_error_step_covered"].append(qid)
-        if fc:
-            metrics["final_target_covered"].append(qid)
-        if sr:
-            metrics["safe_replace"].append(qid)
-    return metrics
+        name, args, answer_key, basis = cand
+        res = run_tool(name, args)
+        if not (res.get("success") and res.get("verified")):
+            continue
+        if name == "solve" and not (res.get("unique") or args.get("root_target")
+                                    or args.get("select") or args.get("target_expression")):
+            continue  # 多解且无聚合目标 → 最终答案不确定
+        keys = ((answer_key,) if answer_key else ()) + ("target_value", "value", "result")
+        answer = key = None
+        for k in keys:
+            v = res.get(k)
+            if v not in (None, "", "None"):
+                answer, key = str(v), k
+                break
+        if answer is None:
+            continue
+        return {"tool": name, "args": args, "answer": answer,
+                "answer_key": key, "verified": True, "basis": basis}
+    return None
+
+
+# ------------------------- 主流程 -------------------------
+def _check(qid, steps, tools, targs, modes):
+    assert len(steps) == len(tools) == len(targs) == len(modes), f"Q{qid} 数组长度不一致"
+    for t, a, m in zip(tools, targs, modes):
+        if t == "no_tool":
+            assert m == "no_tool" and a == {}, f"Q{qid} no_tool 但 mode/args 非空"
+        else:
+            assert m in ("replace", "assist"), f"Q{qid} 非法 mode={m} tool={t}"
 
 
 def main():
     data = json.load(open(IN_PATH, encoding="utf-8"))
-    rejections = []
-    tool_stat = Counter()
-    mode_stat = Counter()
-    total_subtasks = 0
-    covered_q = set()
-
-    slot_meta_by_qid = {}
+    tool_stat, mode_stat, final_stat = Counter(), Counter(), Counter()
+    covered, final_covered, rejections, total = set(), set(), [], 0
 
     for qid, q in data.items():
-        tools, targs, modes = [], [], []
         steps = q["steps"]
         problem_text = q.get("problemText", "")
-        qid_int = int(qid)
-        complex_used = set()
-        verified_context = {"equations": [], "constraints": [], "known_values": {}, "sources": []}
-        _seed_verified_context(problem_text, verified_context)
-        slot_meta = []
+        int_edges = q.get("int_edges", [])
+        tools, targs, modes = [], [], []
         for i, s in enumerate(steps, start=1):
-            prior = steps[: i - 1]
-            mode, name, args = assign(
-                s, i, q.get("int_edges", []), all_steps=prior,
-                problem_text=problem_text, qid=qid_int, rejections=rejections,
-                complex_used=complex_used, verified_context=verified_context,
-            )
-            meta = {"args": args, "tool_res": {}, "gate_ok": False}
-            if name != "no_tool":
-                ok_val, _ = validate_assignment(
-                    s, name, args, mode, all_steps=steps, step_id=i,
-                    int_edges=q.get("int_edges", []))
-                tool_res = run_tool(name, args)
-                ok_gate, _, _ = semantic_gate(s, name, args, mode, tool_res)
-                meta["tool_res"] = tool_res
-                meta["gate_ok"] = ok_gate and ok_val and tool_res.get("success")
-                _update_verified_context(s, name, args, tool_res, verified_context)
+            mode, name, args = assign(s, i, int_edges, steps[: i - 1], problem_text)
             tools.append(name)
             targs.append(args)
             modes.append(mode)
-            slot_meta.append(meta)
             tool_stat[name] += 1
             mode_stat[mode] += 1
             if name != "no_tool":
-                covered_q.add(qid_int)
-        slot_meta_by_qid[qid_int] = slot_meta
-        _check_question(qid_int, steps, tools, targs, modes)
-        q["allo_tool"] = tools
-        q["tool_args"] = targs
-        q["tool_mode"] = modes
-        total_subtasks += len(steps)
+                covered.add(int(qid))
+            else:
+                rejections.append({"qid": int(qid), "step_id": i, "subtask": s[:200]})
+        _check(qid, steps, tools, targs, modes)
+        q["allo_tool"], q["tool_args"], q["tool_mode"] = tools, targs, modes
+
+        ft = build_final_tool(problem_text)
+        if ft:
+            q["final_tool"] = ft
+            final_stat[ft["tool"]] += 1
+            final_covered.add(int(qid))
+        else:
+            q.pop("final_tool", None)
+        total += len(steps)
 
     json.dump(data, open(OUT_PATH, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    _write_rejection_logs(rejections)
-    audit_stats, audit_records = _run_phase25_audit(data)
-    stable_metrics = _run_stable35_metrics(data, slot_meta_by_qid)
+    os.makedirs(LOG_DIR, exist_ok=True)
+    json.dump(rejections, open(REJECT_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
-    no_tool_n = tool_stat["no_tool"]
-    non_no_tool = total_subtasks - no_tool_n
-    replace_n = mode_stat["replace"]
-    assist_n = mode_stat["assist"]
-    aggregate_n = tool_stat["aggregate"]
-    illegal_mode = sum(
-        1 for q in data.values()
-        for m, t in zip(q["tool_mode"], q["allo_tool"])
-        if t != "no_tool" and m not in {"replace", "assist"}
-    )
-
+    non_no_tool = total - tool_stat["no_tool"]
     print("分配完成 ->", OUT_PATH)
-    print("拒绝记录 ->", REJECT_JSON)
-    print("语义审计 ->", AUDIT_JSON)
-    print("--- 统计 ---")
-    print(f"总子任务数: {total_subtasks}")
-    print(f"非 no_tool 数: {non_no_tool}")
-    print(f"replace 数: {replace_n}")
-    print(f"assist 数: {assist_n}")
-    print(f"solve 数: {tool_stat['solve']}")
-    print(f"subst 数: {tool_stat['subst']}")
-    print(f"complex_arithmetic 数: {tool_stat['complex_arithmetic']}")
-    print(f"linear_system_solver 数: {tool_stat['linear_system_solver']}")
-    print(f"aggregate 数: {aggregate_n}")
-    print(f"非法 mode 数: {illegal_mode}")
-    print(f"数组长度不一致数: 0")
-    print(f"覆盖题数: {len(covered_q)}")
-    print(f"拒绝分配数: {len(rejections)}")
-    print(f"审计槽位数: {len(audit_records)}")
-    print(f"validation 失败: {audit_stats['validation_fail']}")
-    print(f"tool_success 失败: {audit_stats['tool_success_fail']}")
-    print(f"replace_target_match_true: {audit_stats['replace_target_match_true']}")
-    print(f"replace_target_match_false: {audit_stats['replace_target_match_false']}")
-    print(f"assist_scope_match_true: {audit_stats['assist_scope_match_true']}")
-    print(f"assist_scope_match_false: {audit_stats['assist_scope_match_false']}")
-    print(f"unknown_target_count: {audit_stats['unknown_target_count']}")
-    print("--- 35题稳定错误集四指标 ---")
-    for key in ("has_tool_slot", "key_error_step_covered", "final_target_covered", "safe_replace"):
-        qs = stable_metrics[key]
-        print(f"{key}: {len(qs)} -> {sorted(qs)}")
-    print(f"polynomial_coefficient_match 数: {tool_stat['polynomial_coefficient_match']}")
-    print(f"discrete_constraint_enumerator 数: {tool_stat['discrete_constraint_enumerator']}")
-    print(f"inequality_solver 数: {tool_stat['inequality_solver']}")
-    print(f"sequence_tool 数: {tool_stat['sequence_tool']}")
-
-    assert illegal_mode == 0
-    assert aggregate_n == 0
-    assert non_no_tool == replace_n + assist_n
-    assert audit_stats["validation_fail"] == 0
-    assert audit_stats["tool_success_fail"] == 0
-    assert audit_stats["replace_target_match_false"] == 0
-    assert audit_stats["assist_scope_match_false"] == 0
+    print(f"总子任务数: {total}")
+    print(f"子任务级: 非 no_tool={non_no_tool} (replace={mode_stat['replace']}, assist={mode_stat['assist']})")
+    for name in ("solve", "linear_system_solver", "subst"):
+        if tool_stat[name]:
+            print(f"  {name}: {tool_stat[name]}")
+    print(f"题目级 final_tool: {len(final_covered)} 题")
+    for name, c in final_stat.most_common():
+        print(f"  {name}: {c}")
+    all_covered = covered | final_covered
+    print(f"覆盖题数(子任务级∪题目级): {len(all_covered)}/{len(data)}")
+    print("覆盖题号:", ",".join(str(x) for x in sorted(all_covered)))
+    assert non_no_tool == mode_stat["replace"] + mode_stat["assist"]
 
 
 if __name__ == "__main__":

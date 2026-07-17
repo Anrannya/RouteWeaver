@@ -14,6 +14,7 @@ Puzzle step2（工具增强版）。
         删除本文件（及 tools/、build_with_tool.py、with_tool.json）即可完全还原。
 运行：cd Puzzle_Trys && python Puzzle_dotrun_step2_with_tool.py
 """
+import argparse
 import ast
 import json
 import os
@@ -26,6 +27,7 @@ from tqdm import tqdm
 sys.path.append('../')
 import logging
 from puzzle_utils import *
+from protocol import canonical_depths, model_for_step
 from utils import *
 
 BASE = os.path.dirname(os.path.abspath(__file__))
@@ -51,7 +53,23 @@ def solve_by_tool(record):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description='Run one P3 branch with the same VG-DoT execution code.'
+    )
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--tool', dest='use_tool', action='store_true',
+                      help='enable verifier-gated bounded search (default)')
+    mode.add_argument('--no-tool', dest='use_tool', action='store_false',
+                      help='disable evidence and execute the DoT branch')
+    parser.add_argument('--n', type=int, default=200,
+                        help='number of puzzles to evaluate (default: 200)')
+    parser.set_defaults(use_tool=True)
+    args = parser.parse_args()
+    if args.n < 1:
+        parser.error('--n must be positive')
 
+    USE_TOOL = args.use_tool
+    aftername = 'with_tool-step2' if USE_TOOL else 'no_tool-step2'
     start_time = time.time()
     now = datetime.now()
     formatted_now = now.strftime("%Y-%m-%d-%H-%M-%S")
@@ -72,11 +90,12 @@ if __name__ == '__main__':
     false_Q = 0      # 正常完成判题但 sat 为 False（每题最多 +1）
     error_Q = 0      # 基础设施/运行异常，无法完成判题（每题最多 +1）
     tool_hit = 0     # 由本地工具直接解出的题数（用于评估工具收益）
-    N = 200
-
-    # 工具增强版读入 with_tool.json；其余结构与原 last.json 完全一致
-    with open('TmpRes/step2In_Puzzle_with_tool.json', 'r') as f:
+    # 两个分支分别读取 compare runner 使用的冻结输入，避免数据源混淆。
+    middle_path = ('TmpRes/step2In_Puzzle_with_tool.json' if USE_TOOL
+                   else 'TmpRes/step2In_Puzzle_last.json')
+    with open(middle_path, 'r') as f:
         middleRes = json.loads(f.read())
+    N = min(args.n, len(puzzles), len(middleRes))
 
     for question_id in tqdm(range(N)):
         question = puzzles[question_id]['sat']
@@ -100,19 +119,17 @@ if __name__ == '__main__':
             else:
                 # ===== 回退：原有 LLM 子任务推理流程 =====
                 steps, steps_dict, allo_model, depths, int_edges = record['steps'], record['steps_dict'], record['allo_model'], record['depths'], record['int_edges']
-                depths = {int(k): v for k, v in depths.items()}
-                heights = list(depths.keys())
-                MAXHeight = max(heights)
+                depths = canonical_depths(record)
                 answerDict = {}
 
-                for i in range(MAXHeight):
+                for i in sorted(depths):
                     subtasks = depths[i]
-                    for subtaskid in subtasks:
+                    for subtaskid in sorted(subtasks):
 
                         number = re.findall(r'\d+', subtaskid)
                         number = int(number[0]) if number else None
                         subtask = steps_dict[str(number)]
-                        answer_MODEL = allo_model[number-1]
+                        answer_MODEL = model_for_step(record, number)
 
                         sys_q = f"""You will be provided with a Programming Puzzle. Your task is to find an input that will make the program return True.
 Here is the puzzle:\n{question}
